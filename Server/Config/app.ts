@@ -56,7 +56,7 @@ app.locals.getFormatDate = (inputDate:Date, fullDate: Boolean=false) =>{
 
 // Complete the DB Configuration
 import * as DBConfig from './db';
-mongoose.connect((DBConfig.RemoteURI) ? DBConfig.RemoteURI : DBConfig.LocalURI);
+mongoose.connect((process.env.RemoteURI) ? process.env.RemoteURI : DBConfig.LocalURI);
 const db = mongoose.connection; // alias for the mongoose connection
 
 // Listen for Connections or Errors

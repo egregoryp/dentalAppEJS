@@ -12,7 +12,6 @@
 export const LocalURI = "mongodb://127.0.0.1/survey";
 
 // added Remote URI for new MongDb Atlas database
-export const RemoteURI = "mongodb+srv://mantisdev:BJYxDFpxhRefp7Au@cluster0.ml1tg.mongodb.net/surveysite?retryWrites=true&w=majority";
 
 export const HostName = "MongoDB Atlas";
 export const Secret = "someSecret";

@@ -53,7 +53,7 @@ app.locals.getFormatDate = (inputDate, fullDate = false) => {
     return (0, Util_1.getFormattedDate)(inputDate, fullDate);
 };
 const DBConfig = __importStar(require("./db"));
-mongoose_1.default.connect((DBConfig.RemoteURI) ? DBConfig.RemoteURI : DBConfig.LocalURI);
+mongoose_1.default.connect((process.env.RemoteURI) ? process.env.RemoteURI : DBConfig.LocalURI);
 const db = mongoose_1.default.connection;
 db.on("open", function () {
     console.log(`Connected to MongoDB at: ${DBConfig.HostName}`);
