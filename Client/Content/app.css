@@ -1,0 +1,259 @@
+/* Custom CSS goes here */
+body {
+  padding-bottom: 70px;
+  /* background: rgb(11,121,9);
+      background: linear-gradient(153deg, rgba(11,121,9,1) 0%, rgba(0,3,4,1) 100%);
+      width: 100%; */
+  /* background-image: linear-gradient(180deg, #11162D, #4A9D96); */
+  height: 100%;
+  background-image: url('../Assets/images/bg2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-weight: bold;
+  background-attachment: fixed;
+  /*font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;*/
+  font: "clarendon";
+}
+
+/*Bhups fade in animation*/
+@keyframes fadeIn {
+  0% { 
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.table{
+  font-weight: bold;
+  color:#CCE1F4;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+  color:#CCE1F4;
+
+}
+
+.fadeIn {
+  animation: fadeIn 4s;
+}
+
+.input-group-addon:first-child {
+  border-right: 0;
+}
+
+.input-group-addon {
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  border: 1px solid darkgrey;
+  border-radius: 4px;
+}
+
+.input-group-addon .fa {
+  font-size: 18px;
+}
+
+.input-group .form-control {
+  position: relative;
+  z-index: 2;
+  float: left;
+  margin-bottom: 0;
+}
+
+.input-group .form-control:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.login {
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background-color: lightgrey;
+  border-radius: 0.3rem;
+}
+
+.login input {
+  background-color: #ffffff;
+  border-color: darkgrey;
+  border-radius: 0.4em;
+  width: 100%;
+}
+
+.edit-task {
+  position: relative;
+  top: -31px;
+  display: none;
+}
+
+/*home page bg image*/
+#full-size {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+/*.mask{
+      background-color: rgba(0, 0, 0, 0.4); 
+      height: 100%;
+  }*/
+
+.container {
+  margin-top: 70px;
+}
+
+/*active surveys list page*/
+
+#tables {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+/* Modified and center title for pages */
+h4 {
+  color: #CCE1F4;
+  padding-bottom: -20px;
+  padding-top: 5px;
+}
+
+.navbar-brand {
+  color:#CCE1F4;
+}
+
+h6 {
+  color:#CCE1F4
+}
+
+h7 {
+  color:#CCE1F4
+}
+h1 {
+  text-align: center;
+  font-size: 3em;
+  width: 550px;
+}
+form {
+  padding-bottom: 15px;
+}
+#homeimg {
+  width: 800px;
+  height: 400px;
+}
+h3 {
+  font-size: 3em;
+  text-align: center;
+  font-weight: bold;
+}
+
+p.text-center.text-muted.small{
+  color:#CCE1F4;
+}
+/* Css to change the color header and footer */
+#headerNav {
+  background-image: linear-gradient(75deg, #264E49, black 100%);
+  color: #CCE1F4;
+}
+
+#footerCopy {
+  /* background: rgb(11,121,9);
+      background: linear-gradient(153deg, rgba(11,121,9,1) 0%, rgba(0,3,4,1) 100%);
+      width: 100%; */
+  background-image: linear-gradient(75deg, #264E49, black 100%);
+  color: #CCE1F4;
+}
+
+#hrContactPage {
+  color: #CCE1F4;
+  font-weight: bold;
+  height: 5px;
+}
+
+#centerContent,
+#h4projectManager {
+  text-align: center;
+}
+
+/* #buttonToSend { 
+  width: 15%; 
+  margin-top: 15px;
+  position: relative;
+  left: 40%;  
+}  */
+
+.lead{
+  color:#CCE1F4;
+  font-weight: bold;
+}
+
+.leadSmall{
+  color:#CCE1F4; 
+}
+
+.fw-bold {
+  color:#CCE1F4;
+}
+
+
+.aboutPageImgs{padding-left:17px; width: 34%; height: 50%; margin: auto;}
+.aboutPageImg{padding-left:17px;width: 44%; height: 60%; margin: auto;}
+.aboutPageImgbhup{padding-left:17px;width: 35%; height: 40%; margin: auto;}
+.aboutPageImgSilvana{padding-left:17px;width: 32%; height: 45%; margin: auto;}
+.aboutPageImgElias{padding-left:17px;width: 55%; height: 70%; margin: auto;}
+
+.contactLabel{
+  color: #1F5D5E;
+}
+.aboutForm{
+  margin-top: 10px;
+} 
+.card-text{
+  color: #1F5D5E;
+  font-weight: bold;
+  text-align: center;
+}
+
+/*#removeSpace{padding-right: 0px;}*/
+
+
+/*samll screen responsiveness */
+@media only screen and (max-width: 396px){
+  .container{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 70px;
+    width: 95%;
+  }
+
+}
+
+@media only screen and (max-width: 575px){
+  .container{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 70px;
+    width: 95%
+  }
+  .btn-text{
+    display: none;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+

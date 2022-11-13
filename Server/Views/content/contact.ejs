@@ -1,0 +1,178 @@
+<!-- --COMP229 Web Application Development - Mantis Developers Team
+  --Developers's : 
+  ---Name: Ricardo Lopez Tuiran           ---Student ID: 301167302 
+  ---Name: Elias Pena Evertz              ---Student ID: 301166037
+  ---Name: Silvana Gjini                  ---Student ID: 301201477
+  ---Name: Paul Kamau                     ---Student ID: 301198424
+  ---Name: Johan Lema Farinango           ---Student ID: 301216096
+  ---Name: Bhupinder Dabb                 ---Student ID: 301187371
+  --Web App name: Mega-Survey
+  --Description: Users will be able to create surveys, answer the surveys, and owners will be able to edit and/or delete their surveys -->
+<%- include('../partials/header.ejs'); %>
+
+<!--Section: Contact v.2-->
+<section class="mb-4">
+  <div class="container">
+    <div class="row" id="tables">
+      <!--Section heading-->
+      <h1><strong>Contact Us</strong></h1>
+      <div class="row pt-3">
+        <!--Section description-->
+        <p class="text-center w-responsive mx-auto mb-5">
+          Do you have any questions? Please do not hesitate to contact us
+          directly. Our team will come back to you within a 24 hours window to
+          help you.
+        </p>
+
+        <div class="row">
+          <!--Grid column-->
+          <div class="col-md-9 mb-md-0 mb-5">
+            <form
+              id="contact-form"
+              name="contact-form"
+              action="mail.php"
+              method="POST"
+            >
+              <!--Grid row-->
+              <div class="row">
+                <!--Grid column-->
+                <div id="removeSpace" class="col-md-6">
+                  <div class="md-form mb-0">
+                    <div class="form-floating">
+                      <input
+                        type="text"
+                        class="form-control aboutForm"
+                        id="contactName"
+                        name="contactName"
+                        placeholder="John Doe"
+                        required
+                      />
+                      <label class="contactLabel" for="floatingInput"
+                        >Name</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6">
+                  <div class="md-form mb-0">
+                    <div class="form-floating">
+                      <input
+                        type="email"
+                        class="form-control aboutForm"
+                        id="contactEmail"
+                        placeholder="name@example.com"
+                        name="contactEmail"
+                        required
+                      />
+                      <label class="contactLabel" for="floatingInput"
+                        >Email address</label
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <!--Grid column-->
+              </div>
+              <!--Grid row-->
+
+              <!--Grid row-->
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control aboutForm"
+                      id="contactSubject"
+                      placeholder="Subject"
+                      name="contactSubject"
+                      required
+                    />
+                    <label for="subject" class="contactLabel">Subject</label>
+                  </div>
+                </div>
+              </div>
+              <!--Grid row-->
+
+              <!--Grid row-->
+              <div class="row">
+                <!--Grid column-->
+                <div class="col-md-12">
+                  <div class="md-form">
+                    <div class="form-floating">
+                      <textarea
+                        class="form-control aboutForm"
+                        placeholder="Leave a comment here"
+                        id="contactComments"
+                        name="contactComments"
+                        rows="8"
+                        required
+                      ></textarea>
+                      <label class="contactLabel" for="floatingTextarea2"
+                        >Comments</label
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>              
+              <div class="text-center mt-2 mb-4">
+                <button
+                  id="buttonToSend"
+                  type="submit"
+                  class="btn btn-outline-dark btn-sm sendEmailBtn"
+                >
+                  <!-- <a class="nav-link" href="/"> -->
+                    <i class="fa-solid fa-paper-plane"></i> Send
+                    <!-- </a> -->
+                </button>            
+                <button
+                  id="cancelSendBtn"
+                  type="reset"
+                  class="btn btn-outline-dark btn-sm"
+                >
+                  <i class="fas fa-undo"></i> Clear
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!--Grid column-->
+          <!-- <div class="col-md-3 text-center">
+            <br/>
+            <ul class="list-unstyled mb-0">              
+              <li>
+                <a
+                  href="https://goo.gl/maps/2QE45EwsYTbihRyZ7"
+                  target="_blank"
+                  class="nav-link"
+                >
+                  <i class="fas fa-map-marker-alt fa-lg"></i><br />
+                  <span style="text-align: center"
+                    >Toronto, ON, M1G 3T8, Canada</span
+                  ></a
+                >
+              </li>
+
+              <li>                     
+                <a href="tel:+14162895000"  class="nav-link">
+                <i class="fas fa-phone mt-4 fa-lg"></i><br />
+                <span style="text-align: center">+1 (416) 289-5000</span></a>
+              </li>
+
+              <li>
+                <a href="mailto:rlopeztu@my.centennialcollege.ca"  class="nav-link">
+                  <i class="fas fa-envelope mt-4 fa-lg"></i><br />
+                <span style="text-align: center">rlopeztu@my.centennialcollege.ca</span></a>
+              </li>
+            </ul>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Section: Contact v.2-->
+
+<%- include('../partials/footer.ejs'); %>

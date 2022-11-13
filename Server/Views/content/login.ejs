@@ -1,0 +1,86 @@
+<!-- --COMP229 Web Application Development - Mantis Developers Team
+  --Developers's : 
+  ---Name: Ricardo Lopez Tuiran           ---Student ID:301167302 
+  ---Name: Elias Pena Evertz              ---Student ID: 301166037
+  ---Name: Silvana Gjini                  ---Student ID: 301201477
+  ---Name: Paul Kamau                     ---Student ID: 301198424
+  ---Name: Johan Lema Farinango           ---Student ID: 301216096
+  ---Name: Bhupinder Dabb                 ---Student ID: 301187371
+  --Web App name: Mega-Survey
+  --Description: Users will be able to create surveys, answer the surveys, and owners will be able to edit and/or delete their surveys -->
+<%- include('../partials/header.ejs'); %>
+<!-- Login -->
+<section>  
+    <div class="container">      
+        <div class="offset-md-3 col-md-6 col-sm-12">
+          <div class="row login align-middle" id="tables">
+            <h1><strong>Login</strong></h1>
+            <br />
+
+            <!-- Message Area -->
+            <% if(messages.length > 0) { %>
+            <div id="messageArea" class="alert alert-danger">
+              <%= messages %>
+            </div>
+            <% } %>
+
+            <form method="POST" id="loginForm" novalidate>
+              <div class="form-group mb-2">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-user"> </i>
+                  </span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    name="username"
+                    required
+                    value=""
+                    placeholder="Enter your username"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group mb-2">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-lock"> </i>
+                  </span>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    required
+                    value=""
+                    placeholder="Enter your password"
+                  />
+                </div>
+              </div>
+              <div class="text-center">
+                <button
+                  id="loginButton"
+                  type="submit"
+                  class="btn btn-outline-dark btn-sm"
+                >
+                  <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                <button
+                  id="cancelButton"
+                  type="reset"
+                  class="btn btn-outline-dark btn-sm"
+                >
+                  <i class="fas fa-undo"></i> Clear
+                </button>
+              </div>
+            </form>
+          </div>
+          <p class="text-center text-muted small">
+            <h7>Don't have an account?</h7>
+            <a class="link" href="/register">Register Here!</a>
+          </p>
+        </div>      
+    </div>
+</section>
+<%- include('../partials/footer.ejs'); %>

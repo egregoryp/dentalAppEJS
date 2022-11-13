@@ -1,0 +1,150 @@
+<!-- --COMP229 Web Application Development - Mantis Developers Team
+  --Developers's : 
+  ---Name: Ricardo Lopez Tuiran           ---Student ID:301167302 
+  ---Name: Elias Pena Evertz              ---Student ID: 301166037
+  ---Name: Silvana Gjini                  ---Student ID: 301201477
+  ---Name: Paul Kamau                     ---Student ID: 301198424
+  ---Name: Johan Lema Farinango           ---Student ID: 301216096
+  ---Name: Bhupinder Dabb                 ---Student ID: 301187371
+  --Web App name: Mega-Survey
+  --Description: Users will be able to create surveys, answer the surveys, and owners will be able to edit and/or delete their surveys -->
+<%- include('../partials/header.ejs'); %>
+<!-- Register -->
+<section class="mb-4">
+  <div class="container">
+    <div class="offset-md-1 col-md-10 col-sm-12">
+      <div class="row" id="tables">
+        <h1><strong>Register</strong></h1>
+        <br />
+        <!-- Message Area -->
+        <% if(messages.length > 0) { %>
+        <div id="messageArea" class="alert alert-danger"><%= messages %></div>
+        <% } %>
+
+        <form method="POST" id="registerForm" novalidate>
+          <p class="hint-text">
+            Create your own account. It's free and only takes a minute.
+          </p>
+
+          <div class="form-group">
+            <div class="row">
+              <p class="lead">
+                <i class="fas fa-user-shield"></i> Personal Information
+              </p>
+              <div class="col-md-6">
+                <input
+                  class="form-control"
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  placeholder="First Name"
+                  required
+                />
+              </div>
+              <div class="col-md-6">
+                <input
+                  class="form-control"
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  placeholder="Last Name"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-12">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="emailAddress"
+                  name="emailAddress"
+                  required
+                  value=""
+                  placeholder="Email"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <div class="row">
+              <p class="lead">
+                <i class="fas fa-database"></i> System Identification
+              </p>
+              <div class="col-md-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  name="username"
+                  required
+                  value=""
+                  placeholder="Username"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-12">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  required
+                  value=""
+                  placeholder="Password"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-12">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  required
+                  value=""
+                  placeholder="Confirm Password"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-2 mb-4">
+            <button
+              id="registerButton"
+              type="submit"
+              class="btn btn-outline-dark btn-sm registerButton"
+            >
+              <i class="fas fa-user-plus"></i> Register
+            </button>
+            <button
+              id="cancelButton"
+              type="reset"
+              class="btn btn-outline-dark btn-sm"
+            >
+              <i class="fas fa-undo"></i> Clear
+            </button>
+          </div>
+        </form>
+      </div>
+      <p class="text-center text-muted small">
+        <br/>
+        <span class="leadSmall">Already have an account?</span>
+        <a class="link" href="/login">Sign in</a>
+      </p>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer.ejs'); %>

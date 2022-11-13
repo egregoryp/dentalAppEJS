@@ -1,0 +1,150 @@
+  <!--COMP229 Web Application Development - Mantis Developers Team
+    --Developers's : 
+    ---Name: Ricardo Lopez Tuiran           ---Student ID:301167302 
+    ---Name: Elias Pena Evertz              ---Student ID: 301166037
+    ---Name: Silvana Gjini                  ---Student ID: 301201477
+    ---Name: Paul Kamau                     ---Student ID: 301198424
+    ---Name: Johan Lema Farinango           ---Student ID: 301216096
+    ---Name: Bhupinder Dabb                 ---Student ID: 301187371
+    --Web App name: Mega-Survey
+    --Description: Users will be able to create surveys, answer the surveys, and owners will be able to edit and/or delete their surveys
+  -->
+<%- include('../partials/header.ejs'); %>
+
+    <!-- MAIN CONTENT -->
+    <div class="container" id="tables">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+          <h1><%= title %></h1>
+            <form class="form" method="post">
+              <div class="form-group">
+                <label for="NameTextField">Survey Name</label>
+                <input type="text" class="form-control" id="NameTextField"
+                placeholder="Survey Name" name="name" value="<%= surveys.Name %>"" required>
+              </div>
+              <div class="form-group">
+                <label for="OwnerTextField">Owner</label>
+                <input type="text" class="form-control" id="OwnerTextField"
+                name="owner" value="<%= displayName %>"  required readonly>                               
+              </div>    
+              <% let startDateOutput;              
+                if(title=="Edit Surveys")
+                {
+                  startDateOutput = new Date(surveys.Start_Date).toISOString().slice(0, -5);
+                } else 
+                { startDateOutput="";}
+              %>                   
+              <div class="form-group">
+                <label for="StartDateTextField">Start Date</label>
+                <input type="datetime-local" class="form-control" id="StartDateTextField"
+                placeholder="Survey Start Date" name="startDate" value="<%= startDateOutput %>"  required>
+              </div>
+              <% let endDateOutput;              
+                if(title=="Edit Surveys")
+                {
+                  endDateOutput = new Date(surveys.End_Date).toISOString().slice(0, -5);
+                } else 
+                { endDateOutput="";}
+              %>
+              <div class="form-group">
+                <label for="EndDateTextField">End Date</label>
+                <input type="datetime-local" class="form-control" id="EndDateTextField"
+                placeholder="Survey End Date" name="endDate" value="<%= endDateOutput %>"  required>
+              </div>
+
+              <!-- Default switch -->
+              <%                   
+                let activeSurveyChecked;
+
+                if (surveys.isActive)
+                {
+                  activeSurveyChecked = "checked";
+                } else {
+                  activeSurveyChecked = "";
+                }
+                // console.log(activeSurveyChecked);
+              %>
+              <div class="form-check form-switch">
+                <label class="form-check-label" for="activeSurvey">Active Survey</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="activeSurvey" name="activeSurvey" <%= activeSurveyChecked %>>                
+              </div>
+
+              <div class="form-group">
+                <br/>
+                  
+                <%                   
+                  typeChecked = new Array("", "", "");
+                  if (surveys.type == "R") 
+                  {
+                    typeChecked[0] ="checked";
+                    typeChecked[1] ="";
+                    typeChecked[2] ="";
+                  } else if (surveys.type == "TF")
+                  {
+                    typeChecked[0] ="";
+                    typeChecked[1] ="checked";
+                    typeChecked[2] ="";
+                  } else if (surveys.type == "T")
+                  {
+                    typeChecked[0] ="";
+                    typeChecked[1] ="";
+                    typeChecked[2] ="checked";
+                  } 
+
+                  if (title == "Add Surveys"){
+                    addQuestions = new Array("", "", "", "", "");
+                  } else if (title == "Edit Surveys"){
+                    addQuestions = new Array("", "", "", "", "");
+
+                    addQuestions[0] = questions[0].question[0];
+                    addQuestions[1] = questions[0].question[1];
+                    addQuestions[2] = questions[0].question[2];
+                    addQuestions[3] = questions[0].question[3];
+                    addQuestions[4] = questions[0].question[4];                    
+                  }
+                %>
+
+                <p>Please select the type of Survey Questions Format:</p>
+                  <input type="radio" id="aRange" name="type" value="R" <%= typeChecked[0] %>>
+                  <label for="aRange">Range</label>
+                  <input type="radio" id="aTF" name="type" value="TF" <%= typeChecked[1] %>>
+                  <label for="aTG">True or False</label>
+                  <input type="radio" id="aT" name="type" value="T" <%= typeChecked[2] %>>
+                  <label for="aT">Input Text</label>        
+                <p></p>        
+              </div>
+              <div class="form-group">
+                <label for="q1TextField">Question 1</label>
+                <input type="text" class="form-control" id="q1TextField"
+                placeholder="What is your question 1?" name="q1" value="<%= addQuestions[0] %>"  required>
+              </div>
+              <div class="form-group">
+                <label for="q2TextField">Question 2</label>
+                <input type="text" class="form-control" id="q2TextField"
+                placeholder="What is your question 2?" name="q2" value="<%= addQuestions[1] %>"  required>
+              </div>
+              <div class="form-group">
+                <label for="q3TextField">Question 3</label>
+                <input type="text" class="form-control" id="q3TextField"
+                placeholder="What is your question 3?" name="q3" value="<%= addQuestions[2] %>"  required>
+              </div>
+              <div class="form-group">
+                <label for="q4TextField">Question 4</label>
+                <input type="text" class="form-control" id="q4TextField"
+                placeholder="What is your question 4?" name="q4" value="<%= addQuestions[3] %>"  required>
+              </div>
+              <div class="form-group">
+                <label for="q5TextField">Question 5</label>
+                <input type="text" class="form-control" id="q5TextField"
+                placeholder="What is your question 5?" name="q5" value="<%= addQuestions[4] %>"  required>
+              </div>
+              <br/>
+
+              <button type="submit" class="btn btn-primary submit"><i class="fa fa-check-square-o"></i> Submit</button>
+              <a href="/surveys" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
+            </form>
+        </div>
+      </div>
+    </div>    
+
+<%- include('../partials/footer.ejs'); %>

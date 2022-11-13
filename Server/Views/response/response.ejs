@@ -1,0 +1,162 @@
+  <!--COMP229 Web Application Development - Mantis Developers Team
+    --Developers's : 
+    ---Name: Ricardo Lopez Tuiran           ---Student ID:301167302 
+    ---Name: Elias Pena Evertz              ---Student ID: 301166037
+    ---Name: Silvana Gjini                  ---Student ID: 301201477
+    ---Name: Paul Kamau                     ---Student ID: 301198424
+    ---Name: Johan Lema Farinango           ---Student ID: 301216096
+    ---Name: Bhupinder Dabb                 ---Student ID: 301187371
+    --Web App name: Mega-Survey
+    --Description: Users will be able to create surveys, answer the surveys, and owners will be able to edit and/or delete their surveys
+  -->
+
+<%- include('../partials/header.ejs'); %>
+
+    <!-- MAIN CONTENT -->
+    <div class="container horizontal-scrollable" id="tables">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+          <h3><%= title %></h3>
+            <form class="form" method="post">
+              <div class="form-group">
+                <label for="NameTextField">Survey Name: </label><br/>
+                <label for="SurveyNameLable"><%= surveys.Name %></label>                
+              </div>              
+              <br/>
+             
+              <div class="table-responsive-lg">
+                <% if (surveys.type == 'T') {%>
+                  <!-- Input Text Type -->
+                <div class="form-group">
+                  <label for="a1TextField">1. <%= questions[0].question[0]%></label>
+                  <input type="text" class="form-control" id="a1TextField"
+                  placeholder="Enter your Response" name="a1" value=""  required>
+                </div>
+                <div class="form-group">
+                  <label for="a2TextField">2. <%= questions[0].question[1]%></label>
+                  <input type="text" class="form-control" id="a2TextField"
+                  placeholder="Enter your Response" name="a2" value=""  required>
+                </div>
+                <div class="form-group">
+                  <label for="a3TextField">3. <%= questions[0].question[2]%></label>
+                  <input type="text" class="form-control" id="a3TextField"
+                  placeholder="Enter your Response" name="a3" value=""  required>
+                </div>
+                <div class="form-group">
+                  <label for="a4TextField">4. <%= questions[0].question[3]%></label>
+                  <input type="text" class="form-control" id="a4TextField"
+                  placeholder="Enter your Response" name="a4" value=""  required>
+                </div>
+                <div class="form-group">
+                  <label for="a5TextField">5. <%= questions[0].question[4]%></label>
+                  <input type="text" class="form-control" id="a5TextField"
+                  placeholder="Enter your Response" name="a5" value=""  required>
+                </div>    
+              <% } else if (surveys.type == 'TF') {%>   
+                <!-- Input True False -->                                  
+                <div class="form-group">
+                  <label>1. <%= questions[0].question[0]%></label>                 
+                  <br/>                   
+                  <input type="radio" class="btn-check" name="a1TF" id="a1TBtn" value="T" autocomplete="off" required>
+                  <label class="btn btn-primary" for="a1TBtn">True</label>
+                  <input type="radio" class="btn-check" name="a1TF" id="a1FBtn" value="F" autocomplete="off" required>
+                  <label class="btn btn-secondary" for="a1FBtn">False</label>
+                </div>              
+                <div class="form-group">
+                  <label>2. <%= questions[0].question[1]%></label>                 
+                  <br/>                             
+                  <input type="radio" class="btn-check" name="a2TF" id="a2TBtn" value="T" autocomplete="off" required>
+                  <label class="btn btn-primary" for="a2TBtn">True</label>
+                  <input type="radio" class="btn-check" name="a2TF" id="a2FBtn" value="F" autocomplete="off" required>
+                  <label class="btn btn-secondary" for="a2FBtn">False</label>
+                </div>
+                <div class="form-group">
+                  <label>3. <%= questions[0].question[2]%></label>                 
+                  <br/>                             
+                  <input type="radio" class="btn-check" name="a3TF" id="a3TBtn" value="T" autocomplete="off" required>
+                  <label class="btn btn-primary" for="a3TBtn">True</label>
+                  <input type="radio" class="btn-check" name="a3TF" id="a3FBtn" value="F" autocomplete="off" required>
+                  <label class="btn btn-secondary" for="a3FBtn">False</label>
+                </div>
+                <div class="form-group">
+                  <label>4. <%= questions[0].question[3]%></label>                 
+                  <br/>                             
+                  <input type="radio" class="btn-check" name="a4TF" id="a4TBtn" value="T" autocomplete="off" required>
+                  <label class="btn btn-primary" for="a4TBtn">True</label>
+                  <input type="radio" class="btn-check" name="a4TF" id="a4FBtn" value="F" autocomplete="off" required>
+                  <label class="btn btn-secondary" for="a4FBtn">False</label>
+                </div>
+                <div class="form-group">
+                  <label>5. <%= questions[0].question[4]%></label>                 
+                  <br/>                             
+                  <input type="radio" class="btn-check" name="a5TF" id="a5TBtn" value="T" autocomplete="off" required>
+                  <label class="btn btn-primary" for="a5TBtn">True</label>
+                  <input type="radio" class="btn-check" name="a5TF" id="a5FBtn" value="F" autocomplete="off" required>
+                  <label class="btn btn-secondary" for="a5FBtn">False</label>
+                </div>
+              <% } else if (surveys.type == 'R') {%>   
+                <!-- Input Likert Scale -->                                               
+                <table class="table table-striped">
+                  <tr>
+                    <th></th>
+                    <th>Very Unsatisfied</th>                  
+                    <th>Unsatisfied</th>
+                    <th>Not Applicable</th>
+                    <th>Satisfied</th>
+                    <th>Very Satisfied</th>
+                  </tr>
+                  <tr>
+                    <td>1. <%= questions[0].question[0]%></td>
+                    <td> <input type="radio" name="a1R" id="a1R" value="VU" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a1R" id="a1R" value="U" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a1R" id="a1R" value="NA" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a1R" id="a1R" value="S" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a1R" id="a1R" value="VS" autocomplete="off" required> </td>
+                  </tr>
+                  <tr>
+                    <td>2. <%= questions[0].question[1]%></td>
+                    <td> <input type="radio" name="a2R" id="a2R" value="VU" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a2R" id="a2R" value="U" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a2R" id="a2R" value="NA" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a2R" id="a2R" value="S" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a2R" id="a2R" value="VS" autocomplete="off" required> </td>
+                  </tr>
+                  <tr>
+                    <td>3. <%= questions[0].question[2]%></td>
+                    <td> <input type="radio" name="a3R" id="a3R" value="VU" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a3R" id="a3R" value="U" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a3R" id="a3R" value="NA" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a3R" id="a3R" value="S" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a3R" id="a3R" value="VS" autocomplete="off" required> </td>
+                  </tr>
+                  <tr>
+                    <td>4. <%= questions[0].question[3]%></td>
+                    <td> <input type="radio" name="a4R" id="a4R" value="VU" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a4R" id="a4R" value="U" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a4R" id="a4R" value="NA" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a4R" id="a4R" value="S" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a4R" id="a4R" value="VS" autocomplete="off" required> </td>
+                  </tr>
+                  <tr>
+                    <td>5. <%= questions[0].question[4]%></td>
+                    <td> <input type="radio" name="a5R" id="a5R" value="VU" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a5R" id="a5R" value="U" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a5R" id="a5R" value="NA" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a5R" id="a5R" value="S" autocomplete="off" required> </td>
+                    <td> <input type="radio" name="a5R" id="a5R" value="VS" autocomplete="off" required> </td>
+                  </tr>
+                </table>              
+                
+              <% } %>    
+              </div>
+                               
+              <br/>
+
+              <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Submit</button>
+              <a href="/surveys" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
+            </form>
+        </div>
+      </div>
+    </div>    
+
+<%- include('../partials/footer.ejs'); %>

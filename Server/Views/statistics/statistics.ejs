@@ -1,0 +1,71 @@
+  <!--COMP229 Web Application Development - Mantis Developers Team
+    --Developers's : 
+    ---Name: Ricardo Lopez Tuiran           ---Student ID:301167302 
+    ---Name: Elias Pena Evertz              ---Student ID: 301166037
+    ---Name: Silvana Gjini                  ---Student ID: 301201477
+    ---Name: Paul Kamau                     ---Student ID: 301198424
+    ---Name: Johan Lema Farinango           ---Student ID: 301216096
+    ---Name: Bhupinder Dabb                 ---Student ID: 301187371
+    --Web App name: Mega-Survey
+    --Description: Users will be able to create surveys, answer the surveys, and owners will be able to edit and/or delete their surveys
+  -->
+
+  <%- include('../partials/header.ejs'); %>
+
+  <!-- MAIN CONTENT -->
+  <div class="container" id="tables">
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6">
+        <h3><%= title %></h3>
+          <form class="form" method="post">
+            <div class="form-group">    
+                <label for="NameTextField">Survey Name: </label>
+                <label for="SurveyNameLable"><%= surveys.Name %></label> <br/>
+              <label for="NameTextField">Number of Responses: </label>
+              <label for="SurveyNameLable"><%= responses.length %></label>                
+            </div>              
+            <br/>
+            <div class="row justify-content-center">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                  <!-- <table class="table table-bordered table-striped table-hover"> -->
+                    <thead>
+                      <tr>                     
+                        <th class="text-center">No.</th>
+                        <th class="text-center"><%= questions[0].question[0]%></th>
+                        <th class="text-center"><%= questions[0].question[1]%></th>
+                        <th class="text-center"><%= questions[0].question[2]%></th>                  
+                        <th class="text-center"><%= questions[0].question[3]%></th>
+                        <th class="text-center"><%= questions[0].question[4]%></th>
+                         
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <!-- Template Row -->
+                      <% for (let count = 0; count < responses.length; count++) { %>
+                      <tr>
+                        <td scope="row" class="text-center"> <%= count + 1 %></td>
+                                     
+      
+                        <td class="text-center"><%= responses[count].response[0] %></td>
+                        <td class="text-center"><%= responses[count].response[1]  %></td>
+                        <td class="text-center"><%= responses[count].response[2]  %></td> 
+                        <td class="text-center"><%= responses[count].response[3]  %></td> 
+                        <td class="text-center"><%= responses[count].response[4]  %></td> 
+                      </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div> 
+ 
+            <br/>
+
+            <button type="submit" class="btn btn-primary btnExport"><i class="fa-solid fa-file-export"></i> Export</button>            
+            <a href="/surveys" class="btn btn-warning"><i class="fa fa-undo"></i> Back</a>            
+          </form>
+      </div>
+    </div>
+  </div>    
+
+<%- include('../partials/footer.ejs'); %>
