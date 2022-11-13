@@ -22,14 +22,31 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema; // Schema alias
 
 // create a model class
-const ResponseSchema = new Schema
-({    
-    Survey_ID: Object,    
-    response: Array    
+const DentistSchema = new Schema
+({
+    Name: String,
+    Owner: String,
+    OwnerUserName: String,
+    // Dentist_ID: Number, //using default object id created by mongodb
+    isActive: Boolean,
+    type: String,         //--TF (True / False) --R (Range) --T (Text)
+    Start_Date: 
+    {
+      type: Date,
+      default: Date.now()
+  },
+  End_Date: Date
+  //,question: Array      //moved to question model
 },
 {
-  collection: "response"
+  collection: "dentist"
 });
 
-const Model = mongoose.model('Response', ResponseSchema);
+//function to generate id Object
+// export function setId(){    
+//   let id = new mongoose.Types.ObjectId();
+//   return id;
+// }
+
+const Model = mongoose.model('Dentist', DentistSchema);
 export default Model;

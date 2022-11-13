@@ -26,7 +26,7 @@ import mongoose from 'mongoose'; //to convert string to obectId
 
 import { CallbackError, Collection } from "mongoose";
 
-import survey from "../Models/surveys";
+import survey from "../Models/dentist";
 
 import question from "../Models/question";
 
@@ -268,7 +268,7 @@ export function ProcessResponseSurveyPage(
       }
 
       // if no error will continue and go back to the surveys
-      res.redirect("/surveys");
+      res.redirect("/dentist");
     });
   });
 }

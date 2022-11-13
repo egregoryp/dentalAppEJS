@@ -28,7 +28,7 @@ import mongoose from 'mongoose'; //to convert string to objectId
 
 import { CallbackError, Collection } from "mongoose";
 
-import survey from "../Models/surveys";
+import survey from "../Models/dentist";
 
 import question from "../Models/question";
 

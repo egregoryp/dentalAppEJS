@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.convertUTCEDTDate = exports.getEDTDate = exports.getFormattedDate = exports.AuthGuardEditDelete = exports.AuthGuard = exports.UserEmail = exports.UserName = exports.UserDisplayName = void 0;
-const surveys_1 = __importDefault(require("../Models/surveys"));
+const dentist_1 = __importDefault(require("../Models/dentist"));
 const set_tz_1 = __importDefault(require("set-tz"));
 (0, set_tz_1.default)('America/Toronto');
 function UserDisplayName(req) {
@@ -42,7 +42,7 @@ exports.AuthGuard = AuthGuard;
 function AuthGuardEditDelete(req, res, next) {
     let user = req.user;
     let id = req.params.id;
-    surveys_1.default.findOne({ _id: id }).lean().exec((err, doc) => {
+    dentist_1.default.findOne({ _id: id }).lean().exec((err, doc) => {
         if (err) {
             console.log(err);
             res.end(err);
@@ -51,7 +51,7 @@ function AuthGuardEditDelete(req, res, next) {
             return res.redirect('/login');
         }
         else if (user.username.toString() != doc.OwnerUserName) {
-            return res.redirect('/surveys');
+            return res.redirect('/dentist');
         }
         next();
     });

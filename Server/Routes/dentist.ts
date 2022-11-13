@@ -26,25 +26,25 @@ import { AuthGuard, AuthGuardEditDelete } from '../Util';
 const router = express.Router();
 export default router;
 
-import { DisplaySurveyList, DisplayAddSurveyList, ProcessAddSurveyPage, DisplayEditSurveyPage, ProcessEditSurveyPage, ProcessDeleteSurveyPage } from "../Controllers/survey-list";
+import { DisplayDentistList, DisplayAddDentistList, ProcessAddDentistPage, DisplayEditDentistPage, ProcessEditDentistPage, ProcessDeleteDentistPage } from "../Controllers/dentist-list";
 
 /* GET books List page. READ */
-router.get('/', DisplaySurveyList);
-router.get('/home', DisplaySurveyList);
+router.get('/', DisplayDentistList);
+router.get('/home', DisplayDentistList);
 
-//  GET the Survey Details page in order to add a new survey
-router.get('/add', AuthGuard, DisplayAddSurveyList);
+//  GET the dentist Details page in order to add a new dentist
+router.get('/add', AuthGuard, DisplayAddDentistList);
 
-// POST process the Book Details page and create a new survey - CREATE
-router.post('/add', AuthGuard, ProcessAddSurveyPage);
+// POST process the Book Details page and create a new dentist - CREATE
+router.post('/add', AuthGuard, ProcessAddDentistPage);
 
 // GET the Book Details page in order to edit an existing Book
-router.get('/:id', AuthGuardEditDelete, DisplayEditSurveyPage);
+router.get('/:id', AuthGuardEditDelete, DisplayEditDentistPage);
 
 // POST - process the information passed from the details form and update the document
-router.post('/:id', AuthGuardEditDelete, ProcessEditSurveyPage);
+router.post('/:id', AuthGuardEditDelete, ProcessEditDentistPage);
 
 // GET - process the delete by user id
-router.get('/delete/:id', AuthGuardEditDelete, ProcessDeleteSurveyPage);
+router.get('/delete/:id', AuthGuardEditDelete, ProcessDeleteDentistPage);
 
 //module.exports = router;

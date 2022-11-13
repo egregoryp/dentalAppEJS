@@ -11,14 +11,14 @@ function DisplayLoginPage(req, res, next) {
     if (!req.user) {
         return res.render('content/login', { title: 'Login', page: 'login', messages: req.flash('loginMessage'), displayName: (0, Util_1.UserDisplayName)(req) });
     }
-    return res.redirect("/surveys");
+    return res.redirect("/dentist");
 }
 exports.DisplayLoginPage = DisplayLoginPage;
 function DisplayRegisterPage(req, res, next) {
     if (!req.user) {
         return res.render('content/register', { title: 'Register', page: 'register', messages: req.flash('registerMessage'), displayName: (0, Util_1.UserDisplayName)(req) });
     }
-    return res.redirect("/surveys");
+    return res.redirect("/dentist");
 }
 exports.DisplayRegisterPage = DisplayRegisterPage;
 function DisplayEditUserPage(req, res, next) {
@@ -26,7 +26,7 @@ function DisplayEditUserPage(req, res, next) {
         return res.render('content/edituser', { title: 'Edit User', page: 'edituser', messages: req.flash('registerMessage'), displayName: (0, Util_1.UserDisplayName)(req), userName: (0, Util_1.UserName)(req), userEmail: (0, Util_1.UserEmail)(req) });
     }
     else {
-        return res.redirect("/surveys");
+        return res.redirect("/dentist");
     }
 }
 exports.DisplayEditUserPage = DisplayEditUserPage;
@@ -45,7 +45,7 @@ function ProcessLoginPage(req, res, next) {
                 console.error(err);
                 res.end(err);
             }
-            return res.redirect('/surveys');
+            return res.redirect('/dentist');
         });
     })(req, res, next);
 }
@@ -69,7 +69,7 @@ function ProcessRegisterPage(req, res, next) {
             return res.redirect('/register');
         }
         return passport_1.default.authenticate('local')(req, res, function () {
-            return res.redirect('/surveys');
+            return res.redirect('/dentist');
         });
     });
 }
@@ -94,7 +94,7 @@ function ProcessEditUserPage(req, res, next) {
                     req.flash('registerMessage', 'Server Error');
                 }
                 console.log("User Recreation Successfully.");
-                return res.redirect('/surveys');
+                return res.redirect('/dentist');
             });
         }
     });

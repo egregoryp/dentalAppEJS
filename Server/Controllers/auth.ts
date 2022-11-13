@@ -17,7 +17,7 @@ export function DisplayLoginPage(req: express.Request, res: express.Response, ne
     {
         return res.render('content/login', { title: 'Login', page: 'login', messages: req.flash('loginMessage'), displayName: UserDisplayName(req)});
     }
-    return res.redirect("/surveys");
+    return res.redirect("/dentist");
     
 }
 
@@ -27,7 +27,7 @@ export function DisplayRegisterPage(req: express.Request, res: express.Response,
     {
         return res.render('content/register', { title: 'Register', page: 'register', messages: req.flash('registerMessage'), displayName: UserDisplayName(req)});
     }
-    return res.redirect("/surveys");
+    return res.redirect("/dentist");
 }
 
 export function DisplayEditUserPage(req: express.Request, res: express.Response, next: express.NextFunction)
@@ -36,7 +36,7 @@ export function DisplayEditUserPage(req: express.Request, res: express.Response,
     {
         return res.render('content/edituser', { title: 'Edit User', page: 'edituser', messages: req.flash('registerMessage'), displayName: UserDisplayName(req), userName: UserName(req), userEmail: UserEmail(req)});
     } else {
-        return res.redirect("/surveys");
+        return res.redirect("/dentist");
     }
 
 }
@@ -70,7 +70,7 @@ export function ProcessLoginPage(req: express.Request, res: express.Response, ne
             res.end(err);
         }
 
-        return res.redirect('/surveys');
+        return res.redirect('/dentist');
     });
    })(req, res, next);
 }
@@ -107,7 +107,7 @@ export function ProcessRegisterPage(req: express.Request, res: express.Response,
         // automatically login the user
         return passport.authenticate('local')(req, res, function()
         {
-            return res.redirect('/surveys');
+            return res.redirect('/dentist');
         });
     });
 }
@@ -142,7 +142,7 @@ export function ProcessEditUserPage(req: express.Request, res: express.Response,
                 }
 
                 console.log("User Recreation Successfully.");
-                return res.redirect('/surveys');
+                return res.redirect('/dentist');
             });
         }
     });

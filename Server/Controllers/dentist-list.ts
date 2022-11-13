@@ -1,6 +1,6 @@
 // <!--COMP231 Web Application Development - Mantis Developers Team
 // --Principal Developers's : 
-// ---Name: Ricardo Lopez Tuiran           ---Student ID: 301167302 
+// ---Name: Ricardo Lopez Tuiran           ---Student ID:301167302 
 // ---Name: Elias Pena Evertz              ---Student ID: 301166037
 // ---Name: Silvana Gjini                  ---Student ID: 301201477
 // ---Name: Bhupinder Dabb                 ---Student ID: 301187371
@@ -25,7 +25,7 @@ import mongoose from "mongoose";
 
 import { CallbackError, Collection } from "mongoose";
 
-import survey from "../Models/surveys";
+import dentist from "../Models/dentist";
 
 import question from "../Models/question";
 
@@ -36,29 +36,29 @@ import { UserDisplayName, UserName, getFormattedDate, getEDTDate, convertUTCEDTD
 import setTZ from 'set-tz';
 setTZ('America/Toronto')
 
-export function DisplaySurveyList(
+export function DisplayDentistList(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) {
-  // find all surveys in the surveys collection
+  // find all dentist in the dentist collection
 
   let OwnerUsrName = UserName(req);
   
   if (OwnerUsrName) {
-    // survey.find({ OwnerUserName: OwnerUsrName },function (err: CallbackError, surveys: Collection) {
-    survey.find({OwnerUserName: OwnerUsrName}).lean().exec((err, surveys) => {
+    // dentist.find({ OwnerUserName: OwnerUsrName },function (err: CallbackError, dentist: Collection) {
+      dentist.find({OwnerUserName: OwnerUsrName}).lean().exec((err, dentists) => {
         if (err) {
           return console.error(err);
         } else {
           
           // converting dates to EDT timezone
-          // for (let i=0; i < surveys.length; i++){                       
-          //   console.log(surveys[i].Start_Date);
-          //   console.log(surveys[i].Start_Date.toISOString());            
+          // for (let i=0; i < dentist.length; i++){                       
+          //   console.log(dentist[i].Start_Date);
+          //   console.log(dentist[i].Start_Date.toISOString());            
 
-          //   console.log(surveys[i].End_Date);            
-          //   console.log(surveys[i].End_Date.toISOString());            
+          //   console.log(dentist[i].End_Date);            
+          //   console.log(dentist[i].End_Date.toISOString());            
           // }     
 
           res.render("dentist/index", {
@@ -66,25 +66,25 @@ export function DisplaySurveyList(
             page: "dentist",
             displayName: UserDisplayName(req),
             user: UserName(req),
-            surveys: surveys,
+            surveys: dentists,
           });               
           
         }
       });
   } else {    
-    // survey.find({ isActive: true },function (err: CallbackError, surveys: Collection) {
-    survey.find({ isActive: true }).lean().exec((err, surveys) => {
+    // dentist.find({ isActive: true },function (err: CallbackError, dentists: Collection) {
+      dentist.find({ isActive: true }).lean().exec((err, dentists) => {
         if (err) {
           return console.error(err);
         } else {
 
           // converting dates to EDT timezone
-          // for (let i=0; i < surveys.length; i++){            
-          //   console.log(surveys[i].Start_Date);
-          //   console.log(surveys[i].Start_Date.toISOString());            
+          // for (let i=0; i < dentists.length; i++){            
+          //   console.log(dentists[i].Start_Date);
+          //   console.log(dentists[i].Start_Date.toISOString());            
 
-          //   console.log(surveys[i].End_Date);            
-          //   console.log(surveys[i].End_Date.toISOString());            
+          //   console.log(dentists[i].End_Date);            
+          //   console.log(dentists[i].End_Date.toISOString());            
           // }     
 
           res.render("dentist/index", {
@@ -92,14 +92,14 @@ export function DisplaySurveyList(
             page: "dentist",
             displayName: UserDisplayName(req),
             user: UserName(req),   
-            surveys: surveys,
+            surveys: dentists,
           });
         }
       });
   }
 }
 
-export function DisplayAddSurveyList(
+export function DisplayAddDentistList(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
@@ -117,7 +117,7 @@ export function DisplayAddSurveyList(
   console.log(questionArr);
 }
 
-export function ProcessAddSurveyPage(
+export function ProcessAddDentistPage(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
@@ -138,7 +138,7 @@ export function ProcessAddSurveyPage(
     itsActive = true;
   }
 
-  let newSurvey = new survey({
+  let newDentist = new dentist({
     Name: req.body.name,
     Owner: UserDisplayName(req),
     OwnerUserName: UserName(req),
@@ -148,14 +148,14 @@ export function ProcessAddSurveyPage(
     End_Date: edtEndDate      //End_Date: req.body.endDate,
   });
 
-  survey.create(newSurvey, function (err: CallbackError) {
+  dentist.create(newDentist, function (err: CallbackError) {
     if (err) {
       console.error(err);
       res.end(err);
     }
 
     let newQuestion = new question({
-      Survey_ID: newSurvey._id,
+      Survey_ID: newDentist._id,
       question: [
         req.body.q1,
         req.body.q2,
@@ -177,14 +177,14 @@ export function ProcessAddSurveyPage(
   });
 }
 
-export function DisplayEditSurveyPage(
+export function DisplayEditDentistPage(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) {
   let id = req.params.id;
 
-  survey.findById(id, function (err: CallbackError, surveys: Collection) {
+  dentist.findById(id, function (err: CallbackError, dentists: Collection) {
     if (err) {
       console.log(err);
       res.end(err);
@@ -200,13 +200,13 @@ export function DisplayEditSurveyPage(
           res.end(err);
         }
 
-        //console.log(surveys);
+        //console.log(dentists);
         //console.log(questions);
 
         res.render("dentist/details", {
           title: "Edit dentist",
           page: "details",
-          surveys: surveys,
+          surveys: dentists,
           displayName: UserDisplayName(req),
           user: UserName(req),
           questions: questions,
@@ -216,7 +216,7 @@ export function DisplayEditSurveyPage(
   });
 }
 
-export function ProcessEditSurveyPage(
+export function ProcessEditDentistPage(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
@@ -243,7 +243,7 @@ export function ProcessEditSurveyPage(
     itsActive = Boolean(req.body.activeSurvey);
   }
 
-  let surveyFound = new survey({
+  let dentistFound = new dentist({
     _id: id,
     Name: req.body.name,
     Owner: UserDisplayName(req),
@@ -254,7 +254,7 @@ export function ProcessEditSurveyPage(
     End_Date: edtEndDate      //End_Date: req.body.endDate,
   });
 
-  survey.updateOne({ _id: id }, surveyFound, (err: CallbackError) => {
+  dentist.updateOne({ _id: id }, dentistFound, (err: CallbackError) => {
     if (err) {
       console.error(err);
       res.end(err);
@@ -268,7 +268,7 @@ export function ProcessEditSurveyPage(
   questionFound.push(req.body.q4);
   questionFound.push(req.body.q5);
 
-  //converting SurveyID to object
+  //converting dentistID to object
   let qid = new mongoose.Types.ObjectId(id);
 
   question.findOneAndUpdate(
@@ -280,26 +280,26 @@ export function ProcessEditSurveyPage(
         res.end(err);
       }
 
-      // if no error will continue and go back to the surveys
-      res.redirect("/surveys");
+      // if no error will continue and go back to the dentists
+      res.redirect("/dentist");
     }
   );
 }
 
-export function ProcessDeleteSurveyPage(
+export function ProcessDeleteDentistPage(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) {
   let id = req.params.id;
-  survey.remove({ _id: id }, function (err: CallbackError) {
+  dentist.remove({ _id: id }, function (err: CallbackError) {
     if (err) {
       console.error(err);
       res.end(err);
     }
   });
 
-  //converting SurveyID to object
+  //converting dentistID to object
   let qid = new mongoose.Types.ObjectId(id);
 
   question.findOneAndDelete(
@@ -320,8 +320,8 @@ export function ProcessDeleteSurveyPage(
       res.end(err);
     }
 
-    // if no error will continue and go back to the surveys
-    res.redirect("/surveys");
+    // if no error will continue and go back to the dentist
+    res.redirect("/dentist");
   });
 }
 

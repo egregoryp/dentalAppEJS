@@ -3,20 +3,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessDeleteSurveyPage = exports.ProcessEditSurveyPage = exports.DisplayEditSurveyPage = exports.ProcessAddSurveyPage = exports.DisplayAddSurveyList = exports.DisplaySurveyList = void 0;
+exports.ProcessDeleteDentistPage = exports.ProcessEditDentistPage = exports.DisplayEditDentistPage = exports.ProcessAddDentistPage = exports.DisplayAddDentistList = exports.DisplayDentistList = void 0;
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const mongoose_1 = __importDefault(require("mongoose"));
-const surveys_1 = __importDefault(require("../Models/surveys"));
+const dentist_1 = __importDefault(require("../Models/dentist"));
 const question_1 = __importDefault(require("../Models/question"));
 const response_1 = __importDefault(require("../Models/response"));
 const Util_1 = require("../Util");
 const set_tz_1 = __importDefault(require("set-tz"));
 (0, set_tz_1.default)('America/Toronto');
-function DisplaySurveyList(req, res, next) {
+function DisplayDentistList(req, res, next) {
     let OwnerUsrName = (0, Util_1.UserName)(req);
     if (OwnerUsrName) {
-        surveys_1.default.find({ OwnerUserName: OwnerUsrName }).lean().exec((err, surveys) => {
+        dentist_1.default.find({ OwnerUserName: OwnerUsrName }).lean().exec((err, dentists) => {
             if (err) {
                 return console.error(err);
             }
@@ -26,13 +26,13 @@ function DisplaySurveyList(req, res, next) {
                     page: "dentist",
                     displayName: (0, Util_1.UserDisplayName)(req),
                     user: (0, Util_1.UserName)(req),
-                    surveys: surveys,
+                    surveys: dentists,
                 });
             }
         });
     }
     else {
-        surveys_1.default.find({ isActive: true }).lean().exec((err, surveys) => {
+        dentist_1.default.find({ isActive: true }).lean().exec((err, dentists) => {
             if (err) {
                 return console.error(err);
             }
@@ -42,14 +42,14 @@ function DisplaySurveyList(req, res, next) {
                     page: "dentist",
                     displayName: (0, Util_1.UserDisplayName)(req),
                     user: (0, Util_1.UserName)(req),
-                    surveys: surveys,
+                    surveys: dentists,
                 });
             }
         });
     }
 }
-exports.DisplaySurveyList = DisplaySurveyList;
-function DisplayAddSurveyList(req, res, next) {
+exports.DisplayDentistList = DisplayDentistList;
+function DisplayAddDentistList(req, res, next) {
     let questionArr = new Array();
     res.render("dentist/details", {
         title: "Add dentist",
@@ -60,8 +60,8 @@ function DisplayAddSurveyList(req, res, next) {
     });
     console.log(questionArr);
 }
-exports.DisplayAddSurveyList = DisplayAddSurveyList;
-function ProcessAddSurveyPage(req, res, next) {
+exports.DisplayAddDentistList = DisplayAddDentistList;
+function ProcessAddDentistPage(req, res, next) {
     let start_date = new Date(req.body.startDate);
     let edtStartDate = (0, Util_1.convertUTCEDTDate)(start_date);
     let end_date = new Date(req.body.endDate);
@@ -74,7 +74,7 @@ function ProcessAddSurveyPage(req, res, next) {
     else {
         itsActive = true;
     }
-    let newSurvey = new surveys_1.default({
+    let newDentist = new dentist_1.default({
         Name: req.body.name,
         Owner: (0, Util_1.UserDisplayName)(req),
         OwnerUserName: (0, Util_1.UserName)(req),
@@ -83,13 +83,13 @@ function ProcessAddSurveyPage(req, res, next) {
         Start_Date: edtStartDate,
         End_Date: edtEndDate
     });
-    surveys_1.default.create(newSurvey, function (err) {
+    dentist_1.default.create(newDentist, function (err) {
         if (err) {
             console.error(err);
             res.end(err);
         }
         let newQuestion = new question_1.default({
-            Survey_ID: newSurvey._id,
+            Survey_ID: newDentist._id,
             question: [
                 req.body.q1,
                 req.body.q2,
@@ -107,10 +107,10 @@ function ProcessAddSurveyPage(req, res, next) {
         res.redirect("/dentist");
     });
 }
-exports.ProcessAddSurveyPage = ProcessAddSurveyPage;
-function DisplayEditSurveyPage(req, res, next) {
+exports.ProcessAddDentistPage = ProcessAddDentistPage;
+function DisplayEditDentistPage(req, res, next) {
     let id = req.params.id;
-    surveys_1.default.findById(id, function (err, surveys) {
+    dentist_1.default.findById(id, function (err, dentists) {
         if (err) {
             console.log(err);
             res.end(err);
@@ -124,7 +124,7 @@ function DisplayEditSurveyPage(req, res, next) {
             res.render("dentist/details", {
                 title: "Edit dentist",
                 page: "details",
-                surveys: surveys,
+                surveys: dentists,
                 displayName: (0, Util_1.UserDisplayName)(req),
                 user: (0, Util_1.UserName)(req),
                 questions: questions,
@@ -132,8 +132,8 @@ function DisplayEditSurveyPage(req, res, next) {
         });
     });
 }
-exports.DisplayEditSurveyPage = DisplayEditSurveyPage;
-function ProcessEditSurveyPage(req, res, next) {
+exports.DisplayEditDentistPage = DisplayEditDentistPage;
+function ProcessEditDentistPage(req, res, next) {
     let id = req.params.id;
     let start_date = new Date(req.body.startDate);
     let edtStartDate = (0, Util_1.convertUTCEDTDate)(start_date);
@@ -147,7 +147,7 @@ function ProcessEditSurveyPage(req, res, next) {
     else {
         itsActive = Boolean(req.body.activeSurvey);
     }
-    let surveyFound = new surveys_1.default({
+    let dentistFound = new dentist_1.default({
         _id: id,
         Name: req.body.name,
         Owner: (0, Util_1.UserDisplayName)(req),
@@ -157,7 +157,7 @@ function ProcessEditSurveyPage(req, res, next) {
         Start_Date: edtStartDate,
         End_Date: edtEndDate
     });
-    surveys_1.default.updateOne({ _id: id }, surveyFound, (err) => {
+    dentist_1.default.updateOne({ _id: id }, dentistFound, (err) => {
         if (err) {
             console.error(err);
             res.end(err);
@@ -175,13 +175,13 @@ function ProcessEditSurveyPage(req, res, next) {
             console.error(err);
             res.end(err);
         }
-        res.redirect("/surveys");
+        res.redirect("/dentist");
     });
 }
-exports.ProcessEditSurveyPage = ProcessEditSurveyPage;
-function ProcessDeleteSurveyPage(req, res, next) {
+exports.ProcessEditDentistPage = ProcessEditDentistPage;
+function ProcessDeleteDentistPage(req, res, next) {
     let id = req.params.id;
-    surveys_1.default.remove({ _id: id }, function (err) {
+    dentist_1.default.remove({ _id: id }, function (err) {
         if (err) {
             console.error(err);
             res.end(err);
@@ -199,9 +199,9 @@ function ProcessDeleteSurveyPage(req, res, next) {
             console.error(err);
             res.end(err);
         }
-        res.redirect("/surveys");
+        res.redirect("/dentist");
     });
 }
-exports.ProcessDeleteSurveyPage = ProcessDeleteSurveyPage;
+exports.ProcessDeleteDentistPage = ProcessDeleteDentistPage;
 exports.default = router;
-//# sourceMappingURL=survey-list.js.map
+//# sourceMappingURL=dentist-list.js.map
