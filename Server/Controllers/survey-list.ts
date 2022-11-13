@@ -1,11 +1,22 @@
-// <!--COMP229 Web Application Development - Mantis Developers Team
-//   --Developers's :
-//   ---Name: Ricardo Lopez Tuiran           ---Student ID: 301167302 
-//   ---Name: Elias Pena Evertz              ---Student ID: 301166037
-//   ---Name: Silvana Gjini                  ---Student ID: 301201477
-//   ---Name: Bhupinder Dabb                 ---Student ID: 301187371
-//   --Web App name: Mega-Survey
-//   --Description: Users will be able to create surveys, answer the surveys, and owners will be able to edit and/or delete their surveys
+// <!--COMP231 Web Application Development - Mantis Developers Team
+// --Principal Developers's : 
+// ---Name: Ricardo Lopez Tuiran           ---Student ID:301167302 
+// ---Name: Elias Pena Evertz              ---Student ID: 301166037
+// ---Name: Silvana Gjini                  ---Student ID: 301201477
+// ---Name: Bhupinder Dabb                 ---Student ID: 301187371
+
+// --Support Team Members (Secondary Developers, UI/UX Designers)    
+// ---Name: Ankit Kodan                    ---Student ID: 
+// ---Name: Rishabh Dev Dogra              ---Student ID:
+// ---Name: Balkaran Singh                 ---Student ID:
+// ---Name: Mehwish Mehmood                ---Student ID:
+// ---Name: Ala’a Al-khdour                ---Student ID:    
+
+// --Web App name: Book a'Smile
+// --Description: The Dental Appointments Management System is a software application that will allow users to register, 
+// --edit and manage their personal accounts, book appointments according to the dentist availability, keep track on appointments 
+// --and have a history of procedures with dates and specific notes.   
+// -->
 
 import express from "express";
 const router = express.Router();
@@ -50,9 +61,9 @@ export function DisplaySurveyList(
           //   console.log(surveys[i].End_Date.toISOString());            
           // }     
 
-          res.render("surveys/index", {
-            title: "surveys",
-            page: "surveys",
+          res.render("dentist/index", {
+            title: "dentist",
+            page: "dentist",
             displayName: UserDisplayName(req),
             user: UserName(req),
             surveys: surveys,
@@ -76,9 +87,9 @@ export function DisplaySurveyList(
           //   console.log(surveys[i].End_Date.toISOString());            
           // }     
 
-          res.render("surveys/index", {
-            title: "surveys",
-            page: "surveys",
+          res.render("dentist/index", {
+            title: "dentist",
+            page: "dentist",
             displayName: UserDisplayName(req),
             user: UserName(req),   
             surveys: surveys,
@@ -95,8 +106,8 @@ export function DisplayAddSurveyList(
 ) {
   let questionArr: String[] = new Array();
 
-  res.render("surveys/details", {
-    title: "Add Surveys",
+  res.render("dentist/details", {
+    title: "Add dentist",
     page: "details",
     surveys: "",
     displayName: UserDisplayName(req),
@@ -161,8 +172,8 @@ export function ProcessAddSurveyPage(
       }
     });
 
-    // if no error will continue and go back to survey
-    res.redirect("/surveys");
+    // if no error will continue and go back to dentist
+    res.redirect("/dentist");
   });
 }
 
@@ -192,8 +203,8 @@ export function DisplayEditSurveyPage(
         //console.log(surveys);
         //console.log(questions);
 
-        res.render("surveys/details", {
-          title: "Edit Surveys",
+        res.render("dentist/details", {
+          title: "Edit dentist",
           page: "details",
           surveys: surveys,
           displayName: UserDisplayName(req),

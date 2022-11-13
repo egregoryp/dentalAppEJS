@@ -21,9 +21,9 @@ function DisplaySurveyList(req, res, next) {
                 return console.error(err);
             }
             else {
-                res.render("surveys/index", {
-                    title: "surveys",
-                    page: "surveys",
+                res.render("dentist/index", {
+                    title: "dentist",
+                    page: "dentist",
                     displayName: (0, Util_1.UserDisplayName)(req),
                     user: (0, Util_1.UserName)(req),
                     surveys: surveys,
@@ -37,9 +37,9 @@ function DisplaySurveyList(req, res, next) {
                 return console.error(err);
             }
             else {
-                res.render("surveys/index", {
-                    title: "surveys",
-                    page: "surveys",
+                res.render("dentist/index", {
+                    title: "dentist",
+                    page: "dentist",
                     displayName: (0, Util_1.UserDisplayName)(req),
                     user: (0, Util_1.UserName)(req),
                     surveys: surveys,
@@ -51,8 +51,8 @@ function DisplaySurveyList(req, res, next) {
 exports.DisplaySurveyList = DisplaySurveyList;
 function DisplayAddSurveyList(req, res, next) {
     let questionArr = new Array();
-    res.render("surveys/details", {
-        title: "Add Surveys",
+    res.render("dentist/details", {
+        title: "Add dentist",
         page: "details",
         surveys: "",
         displayName: (0, Util_1.UserDisplayName)(req),
@@ -104,7 +104,7 @@ function ProcessAddSurveyPage(req, res, next) {
                 res.end(err);
             }
         });
-        res.redirect("/surveys");
+        res.redirect("/dentist");
     });
 }
 exports.ProcessAddSurveyPage = ProcessAddSurveyPage;
@@ -121,8 +121,8 @@ function DisplayEditSurveyPage(req, res, next) {
                 console.log(err);
                 res.end(err);
             }
-            res.render("surveys/details", {
-                title: "Edit Surveys",
+            res.render("dentist/details", {
+                title: "Edit dentist",
                 page: "details",
                 surveys: surveys,
                 displayName: (0, Util_1.UserDisplayName)(req),

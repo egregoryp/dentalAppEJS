@@ -1,13 +1,21 @@
-  <!--COMP229 Web Application Development - Mantis Developers Team
-    --Developers's : 
+  <!--COMP231 Web Application Development - Mantis Developers Team
+    --Principal Developers's : 
     ---Name: Ricardo Lopez Tuiran           ---Student ID:301167302 
     ---Name: Elias Pena Evertz              ---Student ID: 301166037
     ---Name: Silvana Gjini                  ---Student ID: 301201477
-    ---Name: Paul Kamau                     ---Student ID: 301198424
-    ---Name: Johan Lema Farinango           ---Student ID: 301216096
     ---Name: Bhupinder Dabb                 ---Student ID: 301187371
-    --Web App name: Mega-Survey
-    --Description: Users will be able to create surveys, answer the surveys, and owners will be able to edit and/or delete their surveys
+    
+    --Support Team Members (Secondary Developers, UI/UX Designers)    
+    ---Name: Ankit Kodan                    ---Student ID: 
+    ---Name: Rishabh Dev Dogra              ---Student ID:
+    ---Name: Balkaran Singh                 ---Student ID:
+    ---Name: Mehwish Mehmood                ---Student ID:
+    ---Name: Ala’a Al-khdour                ---Student ID:    
+
+    --Web App name: Book a'Smile
+    --Description: The Dental Appointments Management System is a software application that will allow users to register, 
+    --edit and manage their personal accounts, book appointments according to the dentist availability, keep track on appointments 
+    --and have a history of procedures with dates and specific notes.   
   -->
 
 <%- include('../partials/header.ejs'); %>
@@ -17,9 +25,9 @@
       <div class="row">
         <div class="col-md-offset-1 col-md-10">
           <br>
-          <h3>Surveys List</h3>   
+          <h3>Dentists List</h3>   
           <br>       
-          <a href="/surveys/add" class="btn btn-primary"><i class="fa fa-plus"></i> Add a Survey</a>
+          <a href="/dentist/add" class="btn btn-primary"><i class="fa fa-plus"></i> Register as a Dentist</a>
           <br>
           <br>
           <div class="row justify-content-center">
@@ -29,7 +37,7 @@
                 <thead>
                   <tr>                     
                     
-                    <th class="text-center">Survey Name</th>
+                    <th class="text-center">Dentist Name</th>
                     <th class="text-center">Start Date</th>
                     <th class="text-center">End Date</th>                  
                     <% if(!displayName) { %>                 
@@ -68,7 +76,7 @@
                     <% if(displayName) { %>                                  
                       <td class="text-center">
                         <a
-                        href="/surveys/<%=surveys[count]._id %>"
+                        href="/dentist/<%=surveys[count]._id %>"
                         id="editButton"
                         role="button"
                         class="btn btn-primary btn-sm edit"                      
@@ -79,7 +87,7 @@
     
                       <td class="text-center">
                         <a
-                        href="/surveys/delete/<%=surveys[count]._id %>"
+                        href="/dentist/delete/<%=surveys[count]._id %>"
                         id="delButton"
                         role="button"
                         class="btn btn-danger btn-sm delete"

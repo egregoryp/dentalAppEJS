@@ -15,4 +15,4 @@ router.post('/add', Util_1.AuthGuard, survey_list_1.ProcessAddSurveyPage);
 router.get('/:id', Util_1.AuthGuardEditDelete, survey_list_1.DisplayEditSurveyPage);
 router.post('/:id', Util_1.AuthGuardEditDelete, survey_list_1.ProcessEditSurveyPage);
 router.get('/delete/:id', Util_1.AuthGuardEditDelete, survey_list_1.ProcessDeleteSurveyPage);
-//# sourceMappingURL=survey.js.map
+//# sourceMappingURL=dentist.js.map

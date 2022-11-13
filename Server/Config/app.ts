@@ -1,11 +1,22 @@
-// <!--COMP229 Web Application Development - Mantis Developers Team
-//   --Developers's : 
-//   ---Name: Ricardo Lopez Tuiran           ---Student ID: 301167302 
-//   ---Name: Elias Pena Evertz              ---Student ID: 301166037
-//   ---Name: Silvana Gjini                  ---Student ID: 301201477
-//   ---Name: Bhupinder Dabb                 ---Student ID: 301187371
-//   --Web App name: Mega-Survey
-//   --Description: Users will be able to create surveys, answer the surveys, and owners will be able to edit and/or delete their surveys
+// <!--COMP231 Web Application Development - Mantis Developers Team
+// --Principal Developers's : 
+// ---Name: Ricardo Lopez Tuiran           ---Student ID:301167302 
+// ---Name: Elias Pena Evertz              ---Student ID: 301166037
+// ---Name: Silvana Gjini                  ---Student ID: 301201477
+// ---Name: Bhupinder Dabb                 ---Student ID: 301187371
+
+// --Support Team Members (Secondary Developers, UI/UX Designers)    
+// ---Name: Ankit Kodan                    ---Student ID: 
+// ---Name: Rishabh Dev Dogra              ---Student ID:
+// ---Name: Balkaran Singh                 ---Student ID:
+// ---Name: Mehwish Mehmood                ---Student ID:
+// ---Name: Ala’a Al-khdour                ---Student ID:    
+
+// --Web App name: Book a'Smile
+// --Description: The Dental Appointments Management System is a software application that will allow users to register, 
+// --edit and manage their personal accounts, book appointments according to the dentist availability, keep track on appointments 
+// --and have a history of procedures with dates and specific notes.   
+// -->
 
 // modules for node and express
 import createError from 'http-errors';
@@ -36,8 +47,8 @@ import User from '../Models/user';
 // import the router data
 import indexRouter from '../Routes/index'; // top-level routes
 import authRouter from '../Routes/auth'; // authentication routes
-import response from '../Routes/response'; // routes for surveys
-import survey from '../Routes/survey'; // routes for surveys
+import response from '../Routes/response'; // routes for response
+import dentist from '../Routes/dentist'; // routes for dentist
 import statistics from '../Routes/statistics'; // routes for statistics
 
 import url from 'url';
@@ -105,7 +116,7 @@ passport.deserializeUser(User.deserializeUser());
 // use routes
 app.use('/', indexRouter);
 app.use('/', authRouter);
-app.use('/surveys', survey);
+app.use('/dentist', dentist);
 app.use('/response', response);
 app.use('/statistics', statistics);
 
