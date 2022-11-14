@@ -19,7 +19,7 @@
 // -->
 
 import express from 'express';
-import dentist from "../Models/dentist";
+import dentist from "../Models/appointment";
 
 import { CallbackError, Collection } from 'mongoose';
 
@@ -55,6 +55,17 @@ export function UserEmail(req: express.Request): string
     {
         let user = req.user as UserDocument
         return user.EmailAddress.toString();
+    }
+    return '';
+}
+
+// convenience function to return type of user
+export function TypeOfUser(req: express.Request): string
+{
+    if(req.user)
+    {
+        let user = req.user as UserDocument
+        return user.typeOfUser.toString();
     }
     return '';
 }

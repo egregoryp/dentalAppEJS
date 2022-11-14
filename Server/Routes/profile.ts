@@ -18,39 +18,21 @@
 // --and have a history of procedures with dates and specific notes.   
 // -->
 
-import mongoose from 'mongoose';
-const Schema = mongoose.Schema; // Schema alias
+// modules required for routing
+import express from 'express';
 
-// create a model class
-const DentistSchema = new Schema
-({
-    user_id: Object,    
-    fullName: String,
-    EmailAddress: String,
-    dateOfBirth: Date,
-    sex: String,
-    address: String,
-    city: String,
-    province_state: String,
-    postalcode: String,
-    country: String,
-    phoneNumber: String,
-    comments: String,
-    specialty: String,
-    Created: 
-    {
-        type: Date,
-        default: Date.now()
-    },
-    Updated: 
-    {
-        type: Date,
-        default: Date.now()
-    }
-},
-{
-  collection: "dentist"
-});
+import { AuthGuard, AuthGuardEditDelete } from '../Util';
 
-const Model = mongoose.model('Dentist', DentistSchema);
-export default Model;
+const router = express.Router();
+export default router;
+
+import { DisplayAddProfilePage } from "../Controllers/profile";
+
+// GET the Book Details page in order to edit an existing Book
+router.get('/', AuthGuard, DisplayAddProfilePage);
+
+// POST - process the information passed from the details form and update the document
+// router.post('/:id', AuthGuard, DisplayEditProfilePage);
+
+// GET to download the file
+// router.get('/', AuthGuard, DownloadXlsxFile);

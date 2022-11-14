@@ -18,7 +18,7 @@ function DisplayRegisterPage(req, res, next) {
     if (!req.user) {
         return res.render('content/register', { title: 'Register', page: 'register', messages: req.flash('registerMessage'), displayName: (0, Util_1.UserDisplayName)(req) });
     }
-    return res.redirect("/dentist");
+    return res.redirect("content/profile");
 }
 exports.DisplayRegisterPage = DisplayRegisterPage;
 function DisplayEditUserPage(req, res, next) {
@@ -45,7 +45,12 @@ function ProcessLoginPage(req, res, next) {
                 console.error(err);
                 res.end(err);
             }
-            return res.redirect('/dentist');
+            if ((0, Util_1.TypeOfUser)(req) === null || (0, Util_1.TypeOfUser)(req) === "") {
+                return res.redirect("/profile");
+            }
+            else {
+                return res.redirect("/dentist");
+            }
         });
     })(req, res, next);
 }
@@ -54,7 +59,8 @@ function ProcessRegisterPage(req, res, next) {
     let newUser = new user_1.default({
         username: req.body.username,
         EmailAddress: req.body.emailAddress,
-        DisplayName: req.body.firstName + " " + req.body.lastName
+        DisplayName: req.body.firstName + " " + req.body.lastName,
+        typeOfUser: ""
     });
     user_1.default.register(newUser, req.body.password, function (err) {
         if (err) {

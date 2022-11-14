@@ -22,9 +22,9 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema; // Schema alias
 
 // create a model class
-const DentistSchema = new Schema
+const PatientSchema = new Schema
 ({
-    user_id: Object,    
+    user_id: Object,
     fullName: String,
     EmailAddress: String,
     dateOfBirth: Date,
@@ -36,7 +36,7 @@ const DentistSchema = new Schema
     country: String,
     phoneNumber: String,
     comments: String,
-    specialty: String,
+    specialConsiderations: String,
     Created: 
     {
         type: Date,
@@ -49,8 +49,8 @@ const DentistSchema = new Schema
     }
 },
 {
-  collection: "dentist"
+  collection: "patient"
 });
 
-const Model = mongoose.model('Dentist', DentistSchema);
+const Model = mongoose.model('Patient', PatientSchema);
 export default Model;

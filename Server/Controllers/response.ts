@@ -26,7 +26,7 @@ import mongoose from 'mongoose'; //to convert string to obectId
 
 import { CallbackError, Collection } from "mongoose";
 
-import survey from "../Models/dentist";
+import survey from "../Models/appointment";
 
 import question from "../Models/question";
 

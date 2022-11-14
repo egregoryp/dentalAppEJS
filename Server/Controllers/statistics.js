@@ -9,13 +9,13 @@ const path_1 = __importDefault(require("path"));
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const mongoose_1 = __importDefault(require("mongoose"));
-const dentist_1 = __importDefault(require("../Models/dentist"));
+const appointment_1 = __importDefault(require("../Models/appointment"));
 const question_1 = __importDefault(require("../Models/question"));
 const response_1 = __importDefault(require("../Models/response"));
 const Util_1 = require("../Util");
 function DisplayStatisticsSurveyPage(req, res, next) {
     let id = req.params.id;
-    dentist_1.default.findById(id, function (err, surveys) {
+    appointment_1.default.findById(id, function (err, surveys) {
         if (err) {
             console.log(err);
             res.end(err);
@@ -46,7 +46,7 @@ function DisplayStatisticsSurveyPage(req, res, next) {
 exports.DisplayStatisticsSurveyPage = DisplayStatisticsSurveyPage;
 function ProcessStatisticsSurveyPage(req, res, next) {
     let id = req.params.id;
-    dentist_1.default.findById({ _id: id }).lean().exec((err, surveys) => {
+    appointment_1.default.findById({ _id: id }).lean().exec((err, surveys) => {
         if (err) {
             console.log(err);
             res.end(err);

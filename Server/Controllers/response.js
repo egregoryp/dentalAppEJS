@@ -7,13 +7,13 @@ exports.ProcessResponseSurveyPage = exports.DisplayResponseSurveyPage = void 0;
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const mongoose_1 = __importDefault(require("mongoose"));
-const dentist_1 = __importDefault(require("../Models/dentist"));
+const appointment_1 = __importDefault(require("../Models/appointment"));
 const question_1 = __importDefault(require("../Models/question"));
 const response_1 = __importDefault(require("../Models/response"));
 const Util_1 = require("../Util");
 function DisplayResponseSurveyPage(req, res, next) {
     let id = req.params.id;
-    dentist_1.default.findById(id, function (err, surveys) {
+    appointment_1.default.findById(id, function (err, surveys) {
         if (err) {
             console.log(err);
             res.end(err);
@@ -37,7 +37,7 @@ function DisplayResponseSurveyPage(req, res, next) {
 exports.DisplayResponseSurveyPage = DisplayResponseSurveyPage;
 function ProcessResponseSurveyPage(req, res, next) {
     let id = req.params.id;
-    dentist_1.default.findOne({ _id: id }).lean().exec((err, doc) => {
+    appointment_1.default.findOne({ _id: id }).lean().exec((err, doc) => {
         if (err) {
             console.log(err);
             res.end(err);

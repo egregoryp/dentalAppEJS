@@ -25,7 +25,7 @@ import mongoose from "mongoose";
 
 import { CallbackError, Collection } from "mongoose";
 
-import dentist from "../Models/dentist";
+import dentist from "../Models/appointment";
 
 import question from "../Models/question";
 

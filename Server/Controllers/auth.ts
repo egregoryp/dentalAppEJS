@@ -8,7 +8,7 @@ import passport from 'passport';
 import User from '../Models/user';
 
 // import the DisplayName Utility method
-import { UserDisplayName, UserName, UserEmail } from '../Util';
+import { UserDisplayName, UserName, UserEmail, TypeOfUser } from '../Util';
 
 // Display Functions
 export function DisplayLoginPage(req: express.Request, res: express.Response, next: express.NextFunction)
@@ -27,7 +27,7 @@ export function DisplayRegisterPage(req: express.Request, res: express.Response,
     {
         return res.render('content/register', { title: 'Register', page: 'register', messages: req.flash('registerMessage'), displayName: UserDisplayName(req)});
     }
-    return res.redirect("/dentist");
+    return res.redirect("content/profile");
 }
 
 export function DisplayEditUserPage(req: express.Request, res: express.Response, next: express.NextFunction)
@@ -70,7 +70,13 @@ export function ProcessLoginPage(req: express.Request, res: express.Response, ne
             res.end(err);
         }
 
-        return res.redirect('/dentist');
+        // console.log(TypeOfUser(req));
+        // console.log(TypeOfUser(req) === null || TypeOfUser(req) === "");
+        if (TypeOfUser(req) === null || TypeOfUser(req) === ""){
+            return res.redirect("/profile");
+        } else {
+            return res.redirect("/dentist");
+        }        
     });
    })(req, res, next);
 }
@@ -82,7 +88,8 @@ export function ProcessRegisterPage(req: express.Request, res: express.Response,
     ({
         username: req.body.username,
         EmailAddress: req.body.emailAddress,
-        DisplayName: req.body.firstName + " " + req.body.lastName
+        DisplayName: req.body.firstName + " " + req.body.lastName,
+        typeOfUser: ""
     });
 
     User.register(newUser, req.body.password, function(err: any)

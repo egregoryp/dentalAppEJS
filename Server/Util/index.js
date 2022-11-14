@@ -3,8 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.convertUTCEDTDate = exports.getEDTDate = exports.getFormattedDate = exports.AuthGuardEditDelete = exports.AuthGuard = exports.UserEmail = exports.UserName = exports.UserDisplayName = void 0;
-const dentist_1 = __importDefault(require("../Models/dentist"));
+exports.convertUTCEDTDate = exports.getEDTDate = exports.getFormattedDate = exports.AuthGuardEditDelete = exports.AuthGuard = exports.TypeOfUser = exports.UserEmail = exports.UserName = exports.UserDisplayName = void 0;
+const appointment_1 = __importDefault(require("../Models/appointment"));
 const set_tz_1 = __importDefault(require("set-tz"));
 (0, set_tz_1.default)('America/Toronto');
 function UserDisplayName(req) {
@@ -31,6 +31,14 @@ function UserEmail(req) {
     return '';
 }
 exports.UserEmail = UserEmail;
+function TypeOfUser(req) {
+    if (req.user) {
+        let user = req.user;
+        return user.typeOfUser.toString();
+    }
+    return '';
+}
+exports.TypeOfUser = TypeOfUser;
 function AuthGuard(req, res, next) {
     let user = req.user;
     if (!req.isAuthenticated()) {
@@ -42,7 +50,7 @@ exports.AuthGuard = AuthGuard;
 function AuthGuardEditDelete(req, res, next) {
     let user = req.user;
     let id = req.params.id;
-    dentist_1.default.findOne({ _id: id }).lean().exec((err, doc) => {
+    appointment_1.default.findOne({ _id: id }).lean().exec((err, doc) => {
         if (err) {
             console.log(err);
             res.end(err);

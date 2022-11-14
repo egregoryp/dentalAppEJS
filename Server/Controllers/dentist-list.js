@@ -7,7 +7,7 @@ exports.ProcessDeleteDentistPage = exports.ProcessEditDentistPage = exports.Disp
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const mongoose_1 = __importDefault(require("mongoose"));
-const dentist_1 = __importDefault(require("../Models/dentist"));
+const appointment_1 = __importDefault(require("../Models/appointment"));
 const question_1 = __importDefault(require("../Models/question"));
 const response_1 = __importDefault(require("../Models/response"));
 const Util_1 = require("../Util");
@@ -16,7 +16,7 @@ const set_tz_1 = __importDefault(require("set-tz"));
 function DisplayDentistList(req, res, next) {
     let OwnerUsrName = (0, Util_1.UserName)(req);
     if (OwnerUsrName) {
-        dentist_1.default.find({ OwnerUserName: OwnerUsrName }).lean().exec((err, dentists) => {
+        appointment_1.default.find({ OwnerUserName: OwnerUsrName }).lean().exec((err, dentists) => {
             if (err) {
                 return console.error(err);
             }
@@ -32,7 +32,7 @@ function DisplayDentistList(req, res, next) {
         });
     }
     else {
-        dentist_1.default.find({ isActive: true }).lean().exec((err, dentists) => {
+        appointment_1.default.find({ isActive: true }).lean().exec((err, dentists) => {
             if (err) {
                 return console.error(err);
             }
@@ -74,7 +74,7 @@ function ProcessAddDentistPage(req, res, next) {
     else {
         itsActive = true;
     }
-    let newDentist = new dentist_1.default({
+    let newDentist = new appointment_1.default({
         Name: req.body.name,
         Owner: (0, Util_1.UserDisplayName)(req),
         OwnerUserName: (0, Util_1.UserName)(req),
@@ -83,7 +83,7 @@ function ProcessAddDentistPage(req, res, next) {
         Start_Date: edtStartDate,
         End_Date: edtEndDate
     });
-    dentist_1.default.create(newDentist, function (err) {
+    appointment_1.default.create(newDentist, function (err) {
         if (err) {
             console.error(err);
             res.end(err);
@@ -110,7 +110,7 @@ function ProcessAddDentistPage(req, res, next) {
 exports.ProcessAddDentistPage = ProcessAddDentistPage;
 function DisplayEditDentistPage(req, res, next) {
     let id = req.params.id;
-    dentist_1.default.findById(id, function (err, dentists) {
+    appointment_1.default.findById(id, function (err, dentists) {
         if (err) {
             console.log(err);
             res.end(err);
@@ -147,7 +147,7 @@ function ProcessEditDentistPage(req, res, next) {
     else {
         itsActive = Boolean(req.body.activeSurvey);
     }
-    let dentistFound = new dentist_1.default({
+    let dentistFound = new appointment_1.default({
         _id: id,
         Name: req.body.name,
         Owner: (0, Util_1.UserDisplayName)(req),
@@ -157,7 +157,7 @@ function ProcessEditDentistPage(req, res, next) {
         Start_Date: edtStartDate,
         End_Date: edtEndDate
     });
-    dentist_1.default.updateOne({ _id: id }, dentistFound, (err) => {
+    appointment_1.default.updateOne({ _id: id }, dentistFound, (err) => {
         if (err) {
             console.error(err);
             res.end(err);
@@ -181,7 +181,7 @@ function ProcessEditDentistPage(req, res, next) {
 exports.ProcessEditDentistPage = ProcessEditDentistPage;
 function ProcessDeleteDentistPage(req, res, next) {
     let id = req.params.id;
-    dentist_1.default.remove({ _id: id }, function (err) {
+    appointment_1.default.remove({ _id: id }, function (err) {
         if (err) {
             console.error(err);
             res.end(err);

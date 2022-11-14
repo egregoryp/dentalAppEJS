@@ -6,30 +6,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const DentistSchema = new Schema({
-    user_id: Object,
-    fullName: String,
-    EmailAddress: String,
-    dateOfBirth: Date,
-    sex: String,
-    address: String,
-    city: String,
-    province_state: String,
-    postalcode: String,
-    country: String,
-    phoneNumber: String,
-    comments: String,
-    specialty: String,
-    Created: {
+    Name: String,
+    Owner: String,
+    OwnerUserName: String,
+    isActive: Boolean,
+    type: String,
+    Start_Date: {
         type: Date,
         default: Date.now()
     },
-    Updated: {
-        type: Date,
-        default: Date.now()
-    }
+    End_Date: Date
 }, {
     collection: "dentist"
 });
 const Model = mongoose_1.default.model('Dentist', DentistSchema);
 exports.default = Model;
-//# sourceMappingURL=dentist.js.map
+//# sourceMappingURL=appointment.js.map

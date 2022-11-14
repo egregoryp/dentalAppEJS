@@ -24,33 +24,29 @@ const Schema = mongoose.Schema; // Schema alias
 // create a model class
 const DentistSchema = new Schema
 ({
-    user_id: Object,    
-    fullName: String,
-    EmailAddress: String,
-    dateOfBirth: Date,
-    sex: String,
-    address: String,
-    city: String,
-    province_state: String,
-    postalcode: String,
-    country: String,
-    phoneNumber: String,
-    comments: String,
-    specialty: String,
-    Created: 
+    Name: String,
+    Owner: String,
+    OwnerUserName: String,
+    // Dentist_ID: Number, //using default object id created by mongodb
+    isActive: Boolean,
+    type: String,         //--TF (True / False) --R (Range) --T (Text)
+    Start_Date: 
     {
-        type: Date,
-        default: Date.now()
-    },
-    Updated: 
-    {
-        type: Date,
-        default: Date.now()
-    }
+      type: Date,
+      default: Date.now()
+  },
+  End_Date: Date
+  //,question: Array      //moved to question model
 },
 {
   collection: "dentist"
 });
+
+//function to generate id Object
+// export function setId(){    
+//   let id = new mongoose.Types.ObjectId();
+//   return id;
+// }
 
 const Model = mongoose.model('Dentist', DentistSchema);
 export default Model;
