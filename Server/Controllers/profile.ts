@@ -55,6 +55,14 @@ export function DisplayAddProfilePage(
       });
     });
   }
+
+  export function DisplayAddAppointmentsPage(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) {
+    return res.redirect('/profile/appointments');
+  }
   
 //   export function ProcessEditProfilePage(
 //     req: express.Request,

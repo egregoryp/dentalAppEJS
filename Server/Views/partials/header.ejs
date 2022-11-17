@@ -12,7 +12,7 @@
   </head>
   <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="/"><img src="../Assets/images/logoDental.png" alt="" width="30" height="24"> Book a'Smile</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,12 +62,20 @@
 
           <% if(displayName) { %>   
             <li class="nav-item">
+              <% if(page=='appointments') { %>
+                <a class="nav-link active" href="/appointments"><i class="fa-regular fa-calendar-check"></i> Book Appointment</a>
+              <% } else { %> 
+                <a class="nav-link" href="/appointments"><i class="fa-regular fa-calendar-check"></i> Book Appointment</a>
+              <% } %>
+            </li>
+
+            <li class="nav-item">
               <% if(page=='edituser') { %>
                 <a class="nav-link active" href="/edituser"><i class="fa-solid fa-user-check fa-lg"></i> <%= displayName %></a>
               <% } else { %> 
                 <a class="nav-link" href="/edituser"><i class="fa-solid fa-user-check fa-lg"></i> <%= displayName %></a>
               <% } %>
-              </li>
+            </li>            
             
             <!-- <li id="userIcon" class="nav-item">
               <span class="nav-link active" aria-current="page">

@@ -26,10 +26,12 @@ import { AuthGuard, AuthGuardEditDelete } from '../Util';
 const router = express.Router();
 export default router;
 
-import { DisplayAddProfilePage } from "../Controllers/profile";
+import { DisplayAddProfilePage, DisplayAddAppointmentsPage } from "../Controllers/profile";
 
 // GET the Book Details page in order to edit an existing Book
 router.get('/', AuthGuard, DisplayAddProfilePage);
+
+router.get('/appointments', AuthGuard, DisplayAddAppointmentsPage);
 
 // POST - process the information passed from the details form and update the document
 // router.post('/:id', AuthGuard, DisplayEditProfilePage);

@@ -26,11 +26,11 @@ body {
 }
 .table{
   font-weight: bold;
-  color:#171b1e;
+  color:#6c757d;
 }
 
 .table-striped>tbody>tr:nth-of-type(odd)>* {
-  color:#171b1e;
+  color:#6c757d;
 
 }
 
@@ -119,21 +119,21 @@ body {
 
 /* Modified and center title for pages */
 h4 {
-  color: #171b1e;
+  color: #6c757d;
   padding-bottom: -20px;
   padding-top: 5px;
 }
 
 .navbar-brand {
-  color:white;
+  color:#6c757d;
 }
 
 h6 {
-  color:#171b1e
+  color:#6c757d
 }
 
 h7 {
-  color:#171b1e
+  color:#6c757d
 }
 h1 {
   text-align: center;
@@ -171,7 +171,7 @@ p.text-center.text-muted.small{
 }
 
 #hrContactPage {
-  color: #171b1e;
+  color: #6c757d;
   font-weight: bold;
   height: 5px;
 }
@@ -194,11 +194,11 @@ p.text-center.text-muted.small{
 }
 
 .leadSmall{
-  color:#171b1e; 
+  color:#6c757d; 
 }
 
 .fw-bold {
-  color:#171b1e;
+  color:#6c757d;
 }
 
 
