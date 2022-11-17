@@ -125,7 +125,7 @@ h4 {
 }
 
 .navbar-brand {
-  color:#6c757d;
+  color:white;
 }
 
 h6 {
@@ -139,6 +139,7 @@ h1 {
   text-align: center;
   font-size: 3em;
   width: 550px;
+  color:#6c757d
 }
 form {
   padding-bottom: 15px;
@@ -151,15 +152,19 @@ h3 {
   font-size: 3em;
   text-align: center;
   font-weight: bold;
+  color:#6c757d;
 }
 
 p.text-center.text-muted.small{
-  color:#171b1e;
+  color:#6c757d;
+}
+p {
+  color:#6c757d;
 }
 /* Css to change the color header and footer */
 #headerNav {
   background-image: linear-gradient(75deg, #264E49, black 100%);
-  color: #171b1e;
+  color: #6c757d;
 }
 
 #footerCopy {
@@ -167,7 +172,7 @@ p.text-center.text-muted.small{
       background: linear-gradient(153deg, rgba(11,121,9,1) 0%, rgba(0,3,4,1) 100%);
       width: 100%; */
   background-image: linear-gradient(75deg, #264E49, black 100%);
-  color: #171b1e;
+  color: #6c757d;
 }
 
 #hrContactPage {
@@ -189,7 +194,7 @@ p.text-center.text-muted.small{
 }  */
 
 .lead{
-  color:#171b1e;
+  color:#6c757d;
   font-weight: bold;
 }
 
