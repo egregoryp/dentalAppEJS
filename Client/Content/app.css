@@ -26,11 +26,11 @@ body {
 }
 .table{
   font-weight: bold;
-  color:#CCE1F4;
+  color:#171b1e;
 }
 
 .table-striped>tbody>tr:nth-of-type(odd)>* {
-  color:#CCE1F4;
+  color:#171b1e;
 
 }
 
@@ -119,21 +119,21 @@ body {
 
 /* Modified and center title for pages */
 h4 {
-  color: #CCE1F4;
+  color: #171b1e;
   padding-bottom: -20px;
   padding-top: 5px;
 }
 
 .navbar-brand {
-  color:#CCE1F4;
+  color:white;
 }
 
 h6 {
-  color:#CCE1F4
+  color:#171b1e
 }
 
 h7 {
-  color:#CCE1F4
+  color:#171b1e
 }
 h1 {
   text-align: center;
@@ -154,12 +154,12 @@ h3 {
 }
 
 p.text-center.text-muted.small{
-  color:#CCE1F4;
+  color:#171b1e;
 }
 /* Css to change the color header and footer */
 #headerNav {
   background-image: linear-gradient(75deg, #264E49, black 100%);
-  color: #CCE1F4;
+  color: #171b1e;
 }
 
 #footerCopy {
@@ -167,11 +167,11 @@ p.text-center.text-muted.small{
       background: linear-gradient(153deg, rgba(11,121,9,1) 0%, rgba(0,3,4,1) 100%);
       width: 100%; */
   background-image: linear-gradient(75deg, #264E49, black 100%);
-  color: #CCE1F4;
+  color: #171b1e;
 }
 
 #hrContactPage {
-  color: #CCE1F4;
+  color: #171b1e;
   font-weight: bold;
   height: 5px;
 }
@@ -189,16 +189,16 @@ p.text-center.text-muted.small{
 }  */
 
 .lead{
-  color:#CCE1F4;
+  color:#171b1e;
   font-weight: bold;
 }
 
 .leadSmall{
-  color:#CCE1F4; 
+  color:#171b1e; 
 }
 
 .fw-bold {
-  color:#CCE1F4;
+  color:#171b1e;
 }
 
 
