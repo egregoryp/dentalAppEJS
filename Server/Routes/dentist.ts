@@ -26,11 +26,13 @@ import { AuthGuard, AuthGuardEditDelete } from '../Util';
 const router = express.Router();
 export default router;
 
-import { DisplayDentistList, DisplayAddDentistList, ProcessAddDentistPage, DisplayEditDentistPage, ProcessEditDentistPage, ProcessDeleteDentistPage } from "../Controllers/dentist-list";
+import { DisplayDentistList, DisplayAddDentistList, ProcessAddDentistPage, DisplayEditDentistPage, ProcessEditDentistPage, ProcessDeleteDentistPage, DisplayAppointmentList } from "../Controllers/dentist-list";
 
 /* GET books List page. READ */
 router.get('/', DisplayDentistList);
 router.get('/home', DisplayDentistList);
+
+router.get('/appointments', DisplayAppointmentList);
 
 //  GET the dentist Details page in order to add a new dentist
 router.get('/add', AuthGuard, DisplayAddDentistList);

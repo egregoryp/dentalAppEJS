@@ -18,7 +18,9 @@ function DisplayRegisterPage(req, res, next) {
     if (!req.user) {
         return res.render('content/register', { title: 'Register', page: 'register', messages: req.flash('registerMessage'), displayName: (0, Util_1.UserDisplayName)(req) });
     }
-    return res.redirect("content/profile");
+    if ((0, Util_1.TypeOfUser)(req) === null || (0, Util_1.TypeOfUser)(req) === "") {
+        return res.render('content/profile');
+    }
 }
 exports.DisplayRegisterPage = DisplayRegisterPage;
 function DisplayEditUserPage(req, res, next) {
@@ -45,7 +47,7 @@ function ProcessLoginPage(req, res, next) {
                 console.error(err);
                 res.end(err);
             }
-            if ((0, Util_1.TypeOfUser)(req) === null || (0, Util_1.TypeOfUser)(req) === "") {
+            if (user.typeOfUser == null || user.typeOfUser === "") {
                 return res.redirect("/profile");
             }
             else {
@@ -117,4 +119,7 @@ function ProcessLogoutPage(req, res, next) {
     res.redirect('/login');
 }
 exports.ProcessLogoutPage = ProcessLogoutPage;
+function foreach() {
+    throw new Error('Function not implemented.');
+}
 //# sourceMappingURL=auth.js.map

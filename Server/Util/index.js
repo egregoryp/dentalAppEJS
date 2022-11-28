@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.convertUTCEDTDate = exports.getEDTDate = exports.getFormattedDate = exports.AuthGuardEditDelete = exports.AuthGuard = exports.TypeOfUser = exports.UserEmail = exports.UserName = exports.UserDisplayName = void 0;
+exports.convertUTCEDTDate = exports.getEDTDate = exports.getFormattedDate = exports.AuthGuardEditDelete = exports.AuthGuard = exports.TypeOfUser = exports.UserID = exports.UserEmail = exports.UserName = exports.UserDisplayName = void 0;
 const appointment_1 = __importDefault(require("../Models/appointment"));
 const set_tz_1 = __importDefault(require("set-tz"));
 (0, set_tz_1.default)('America/Toronto');
@@ -31,6 +31,14 @@ function UserEmail(req) {
     return '';
 }
 exports.UserEmail = UserEmail;
+function UserID(req) {
+    if (req.user) {
+        let user = req.user;
+        return user._id.toString();
+    }
+    return '';
+}
+exports.UserID = UserID;
 function TypeOfUser(req) {
     if (req.user) {
         let user = req.user;

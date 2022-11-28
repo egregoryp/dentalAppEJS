@@ -27,6 +27,11 @@
           <h1><%= title %></h1>
             <form class="form" method="post">
               <div class="form-group">
+                <label for="UserID">User ID</label>
+                <input type="text" class="form-control" id="UserIDTextField"
+                placeholder="User ID" name="userid" value="<%= users._id %>" disabled>
+              </div>
+              <div class="form-group">
                 <label for="NameTextField">Full Name</label>
                 <input type="text" class="form-control" id="NameTextField"
                 placeholder="User Name" name="name" value="<%= users.DisplayName %>" required>
@@ -59,12 +64,12 @@
                   <option value="M">Male</option>                  
                   <option value="F">Female</option>
                 </select>
-              </div>     
+              </div>                   
               <div class="form-group">
                 <label for="AddressTextField">Address</label>
                 <input type="text" class="form-control" id="AddressTextField"
-                placeholder="999 Danforth Ave" name="address" required>
-              </div>
+                placeholder="999 Danforth Ave" name="address" value="<%= profiles.address %>"  required>                               
+              </div>  
 
               <div class="form-group">
                 <label for="CityTextField">City</label>
@@ -98,7 +103,7 @@
               </div>
               <div class="form-group">
                 <label for="CommentsTextField">Special Considerations</label>
-                <textarea class="form-control" id="CommentsTextField" name="comments" rows="2" cols="10" 
+                <textarea class="form-control" id="CommentsTextField" name="specialConsiderations" rows="2" cols="10" 
                 placeholder="Nuts & Penciling Allergy, also had a colon surgery in 2002"></textarea>
               </div>
               <br>

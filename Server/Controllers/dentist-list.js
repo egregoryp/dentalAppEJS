@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessDeleteDentistPage = exports.ProcessEditDentistPage = exports.DisplayEditDentistPage = exports.ProcessAddDentistPage = exports.DisplayAddDentistList = exports.DisplayDentistList = void 0;
+exports.ProcessDeleteDentistPage = exports.ProcessEditDentistPage = exports.DisplayEditDentistPage = exports.ProcessAddDentistPage = exports.DisplayAddDentistList = exports.DisplayAppointmentList = exports.DisplayDentistList = void 0;
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const mongoose_1 = __importDefault(require("mongoose"));
@@ -21,7 +21,7 @@ function DisplayDentistList(req, res, next) {
                 return console.error(err);
             }
             else {
-                res.render("dentist/index", {
+                res.render("dentist/dentists", {
                     title: "dentist",
                     page: "dentist",
                     displayName: (0, Util_1.UserDisplayName)(req),
@@ -37,9 +37,9 @@ function DisplayDentistList(req, res, next) {
                 return console.error(err);
             }
             else {
-                res.render("dentist/index", {
-                    title: "dentist",
-                    page: "dentist",
+                res.render("dentist/dentists", {
+                    title: "dentists",
+                    page: "dentists",
                     displayName: (0, Util_1.UserDisplayName)(req),
                     user: (0, Util_1.UserName)(req),
                     surveys: dentists,
@@ -49,6 +49,23 @@ function DisplayDentistList(req, res, next) {
     }
 }
 exports.DisplayDentistList = DisplayDentistList;
+function DisplayAppointmentList(req, res, next) {
+    appointment_1.default.find({ isActive: true }).lean().exec((err, dentists) => {
+        if (err) {
+            return console.error(err);
+        }
+        else {
+            res.render("dentist/appointments", {
+                title: "appointments",
+                page: "appointments",
+                displayName: (0, Util_1.UserDisplayName)(req),
+                user: (0, Util_1.UserName)(req),
+                surveys: dentists,
+            });
+        }
+    });
+}
+exports.DisplayAppointmentList = DisplayAppointmentList;
 function DisplayAddDentistList(req, res, next) {
     let questionArr = new Array();
     res.render("dentist/details", {

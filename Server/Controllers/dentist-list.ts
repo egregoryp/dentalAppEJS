@@ -25,7 +25,7 @@ import mongoose from "mongoose";
 
 import { CallbackError, Collection } from "mongoose";
 
-import dentist from "../Models/appointment";
+import appointment from "../Models/appointment";
 
 import question from "../Models/question";
 
@@ -47,7 +47,7 @@ export function DisplayDentistList(
   
   if (OwnerUsrName) {
     // dentist.find({ OwnerUserName: OwnerUsrName },function (err: CallbackError, dentist: Collection) {
-      dentist.find({OwnerUserName: OwnerUsrName}).lean().exec((err, dentists) => {
+      appointment.find({OwnerUserName: OwnerUsrName}).lean().exec((err, dentists) => {
         if (err) {
           return console.error(err);
         } else {
@@ -61,7 +61,7 @@ export function DisplayDentistList(
           //   console.log(dentist[i].End_Date.toISOString());            
           // }     
 
-          res.render("dentist/index", {
+          res.render("dentist/dentists", {
             title: "dentist",
             page: "dentist",
             displayName: UserDisplayName(req),
@@ -72,8 +72,8 @@ export function DisplayDentistList(
         }
       });
   } else {    
-    // dentist.find({ isActive: true },function (err: CallbackError, dentists: Collection) {
-      dentist.find({ isActive: true }).lean().exec((err, dentists) => {
+    // appointment.find({ isActive: true },function (err: CallbackError, dentists: Collection) {
+      appointment.find({ isActive: true }).lean().exec((err, dentists) => {
         if (err) {
           return console.error(err);
         } else {
@@ -87,9 +87,9 @@ export function DisplayDentistList(
           //   console.log(dentists[i].End_Date.toISOString());            
           // }     
 
-          res.render("dentist/index", {
-            title: "dentist",
-            page: "dentist",
+          res.render("dentist/dentists", {
+            title: "dentists",
+            page: "dentists",
             displayName: UserDisplayName(req),
             user: UserName(req),   
             surveys: dentists,
@@ -97,6 +97,37 @@ export function DisplayDentistList(
         }
       });
   }
+}
+
+export function DisplayAppointmentList(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  appointment.find({ isActive: true }).lean().exec((err, dentists) => {
+    if (err) {
+      return console.error(err);
+    } else {
+      
+      // converting dates to EDT timezone
+      // for (let i=0; i < dentist.length; i++){                       
+      //   console.log(dentist[i].Start_Date);
+      //   console.log(dentist[i].Start_Date.toISOString());            
+
+      //   console.log(dentist[i].End_Date);            
+      //   console.log(dentist[i].End_Date.toISOString());            
+      // }           
+
+      res.render("dentist/appointments", {
+        title: "appointments",
+        page: "appointments",
+        displayName: UserDisplayName(req),
+        user: UserName(req),
+        surveys: dentists,
+      });               
+      
+    }
+  });
 }
 
 export function DisplayAddDentistList(
@@ -138,7 +169,7 @@ export function ProcessAddDentistPage(
     itsActive = true;
   }
 
-  let newDentist = new dentist({
+  let newDentist = new appointment({
     Name: req.body.name,
     Owner: UserDisplayName(req),
     OwnerUserName: UserName(req),
@@ -148,7 +179,7 @@ export function ProcessAddDentistPage(
     End_Date: edtEndDate      //End_Date: req.body.endDate,
   });
 
-  dentist.create(newDentist, function (err: CallbackError) {
+  appointment.create(newDentist, function (err: CallbackError) {
     if (err) {
       console.error(err);
       res.end(err);
@@ -184,7 +215,7 @@ export function DisplayEditDentistPage(
 ) {
   let id = req.params.id;
 
-  dentist.findById(id, function (err: CallbackError, dentists: Collection) {
+  appointment.findById(id, function (err: CallbackError, dentists: Collection) {
     if (err) {
       console.log(err);
       res.end(err);
@@ -243,7 +274,7 @@ export function ProcessEditDentistPage(
     itsActive = Boolean(req.body.activeSurvey);
   }
 
-  let dentistFound = new dentist({
+  let dentistFound = new appointment({
     _id: id,
     Name: req.body.name,
     Owner: UserDisplayName(req),
@@ -254,7 +285,7 @@ export function ProcessEditDentistPage(
     End_Date: edtEndDate      //End_Date: req.body.endDate,
   });
 
-  dentist.updateOne({ _id: id }, dentistFound, (err: CallbackError) => {
+  appointment.updateOne({ _id: id }, dentistFound, (err: CallbackError) => {
     if (err) {
       console.error(err);
       res.end(err);
@@ -292,7 +323,7 @@ export function ProcessDeleteDentistPage(
   next: express.NextFunction
 ) {
   let id = req.params.id;
-  dentist.remove({ _id: id }, function (err: CallbackError) {
+  appointment.remove({ _id: id }, function (err: CallbackError) {
     if (err) {
       console.error(err);
       res.end(err);

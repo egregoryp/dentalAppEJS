@@ -25,8 +25,6 @@ const Schema = mongoose.Schema; // Schema alias
 const DentistSchema = new Schema
 ({
     user_id: Object,    
-    fullName: String,
-    EmailAddress: String,
     dateOfBirth: Date,
     sex: String,
     address: String,
@@ -36,7 +34,7 @@ const DentistSchema = new Schema
     country: String,
     phoneNumber: String,
     comments: String,
-    specialty: String,
+    specialty: String,    
     Created: 
     {
         type: Date,

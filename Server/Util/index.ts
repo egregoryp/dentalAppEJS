@@ -20,6 +20,7 @@
 
 import express from 'express';
 import dentist from "../Models/appointment";
+import User from "../Models/user";
 
 import { CallbackError, Collection } from 'mongoose';
 
@@ -58,6 +59,18 @@ export function UserEmail(req: express.Request): string
     }
     return '';
 }
+
+// convenience function to return the all User ID
+export function UserID(req: express.Request): string
+{
+    if(req.user)
+    {
+        let user = req.user as UserDocument
+        return user._id.toString();
+    }
+    return '';
+}
+
 
 // convenience function to return type of user
 export function TypeOfUser(req: express.Request): string

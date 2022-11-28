@@ -50,6 +50,19 @@ export function DisplayAboutPage(
   });
 }
 
+export function DisplayCalendarPage(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  res.render("content/calendar", {
+    title: "Calendar",
+    page: "calendar",
+    displayName: UserDisplayName(req),
+    surveys: "",
+  });
+}
+
 export function DisplayContactPage(
   req: express.Request,
   res: express.Response,

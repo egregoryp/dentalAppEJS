@@ -26,14 +26,17 @@ import { AuthGuard, AuthGuardEditDelete } from '../Util';
 const router = express.Router();
 export default router;
 
-import { DisplayAddProfilePage, DisplayAddAppointmentsPage } from "../Controllers/profile";
+import { DisplayAddProfilePage, ProcessAddProfilePage } from "../Controllers/profile";
 
-// GET the Book Details page in order to edit an existing Book
+// GET the Profile Details page in order to edit an existing Profile
 router.get('/', AuthGuard, DisplayAddProfilePage);
 
-router.get('/appointments', AuthGuard, DisplayAddAppointmentsPage);
+// POST the Profile Details page in order to edit an existing Profile
+router.post('/', AuthGuard, ProcessAddProfilePage);
 
-// POST - process the information passed from the details form and update the document
+
+
+
 // router.post('/:id', AuthGuard, DisplayEditProfilePage);
 
 // GET to download the file

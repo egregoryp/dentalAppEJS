@@ -26,8 +26,12 @@ import { CallbackError, Collection } from "mongoose";
 // need to include the User model for authentication functions
 import User from '../Models/user';
 
+//import other models
+import patient from '../Models/patient';
+import dentist from '../Models/dentist';
+
 // import the DisplayName Utility method
-import { UserDisplayName, UserName, UserEmail, getFormattedDate, getEDTDate, convertUTCEDTDate } from "../Util";
+import { UserDisplayName, UserName, UserID, UserEmail, getFormattedDate, getEDTDate, convertUTCEDTDate } from "../Util";
 
 import setTZ from 'set-tz';
 setTZ('America/Toronto')
@@ -38,100 +42,126 @@ export function DisplayAddProfilePage(
     next: express.NextFunction
   ) {
     // let id = req.params.id;
-    let id = '63717c3f0d605d8fc6d50ed4';
+    let id = UserID(req);
   
-    User.findById(id, function (err: CallbackError, userCollection: Collection) {
+    User.findOne({_id:id}).lean().exec((err:CallbackError, userCollection:any) => {
+    //User.findById(id, function (err: CallbackError, userCollection: Collection) {
       if (err) {
         console.log(err);
         res.end(err);
       }  
-      
-      res.render("profile/profile", {
-        title: "Complete Profile",
-        page: "profile",
-        users: userCollection,
-        displayName: UserDisplayName(req),
-        user: UserName(req)
-      });
-    });
+
+      console.log(userCollection.typeOfUser);
+
+      if(userCollection.typeOfUser === 'D'){
+        dentist.findOne({user_id:id}).lean().exec((err:CallbackError, profileCollection:any) => {
+                   
+          console.log(profileCollection);
+
+          res.render("profile/profile", {
+              title: "Complete Profile",
+              page: "profile",
+              users: userCollection,
+              profiles: profileCollection,
+              displayName: UserDisplayName(req),
+              user: UserName(req)
+          });
+        });
+      } 
+        else if (userCollection.typeOfUser === 'P')
+      {
+        dentist.findOne({user_id:id}).lean().exec((err:CallbackError, profileCollection:any) => {
+          res.render("profile/profile", {
+            title: "Complete Profile",
+            page: "profile",
+            users: userCollection,
+            profiles: profileCollection,
+            displayName: UserDisplayName(req),
+            user: UserName(req)
+          });      
+        });
+      }
+    });  
   }
 
-  export function DisplayAddAppointmentsPage(
+  export function ProcessAddProfilePage(
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) {
-    return res.redirect('/profile/appointments');
+    let birthdateVar = new Date(req.body.birthDate);   
+    let edtbirthdate  = convertUTCEDTDate(birthdateVar);
+
+    let typeOfUserVal = req.body.TypeOfUser
+    
+    // let itsActive;
+  
+    // if (edtEndDate < edtDateTime) {
+    //   itsActive = false;
+    // } else {
+    //   itsActive = true;
+    // }
+    
+    //update user info
+    User.findOneAndUpdate({_id: UserID(req) }, {typeOfUser: typeOfUserVal, DisplayName: req.body.name, EmailAddress: req.body.EmailAddress} , 
+                          function (err:CallbackError, docs:any) {
+      if (err){
+          console.log(err)
+      }
+
+    });
+
+    //Create profile according type of user
+    let userProfile;
+    if (typeOfUserVal==="D"){
+      
+      userProfile = new dentist({
+        user_id: UserID(req),
+        dateOfBirth: edtbirthdate,         
+        sex: req.body.Sex,         
+        address: req.body.address,         
+        city: req.body.city,         
+        province_state: req.body.province,         
+        postalcode: req.body.postalcode,         
+        country: req.body.country,         
+        phoneNumber: req.body.phoneNumber,         
+        comments: req.body.comments,         
+        specialty: req.body.specialty,    
+      });
+
+      dentist.create(userProfile, function (err: CallbackError) {
+      if (err) {
+        console.error(err);
+        res.end(err);
+      }
+
+      res.redirect("/dentist");
+      });
+
+    } else if (typeOfUserVal==="P"){
+      userProfile = new patient({
+        user_id: UserID(req),     
+        dateOfBirth: edtbirthdate,
+        sex: req.body.Sex,         
+        address: req.body.address,         
+        city: req.body.city,         
+        province_state: req.body.province,         
+        postalcode: req.body.postalcode,         
+        country: req.body.country,         
+        phoneNumber: req.body.phoneNumber,         
+        comments: req.body.comments,         
+        specialConsiderations: req.body.specialty,         
+      });
+
+      patient.create(userProfile, function (err: CallbackError) {
+        if (err) {
+          console.error(err);
+          res.end(err);
+        }
+  
+        res.redirect("/"); //should be redirected to appointments
+        });
+    }
   }
-  
-//   export function ProcessEditProfilePage(
-//     req: express.Request,
-//     res: express.Response,
-//     next: express.NextFunction
-//   ) {
-//     let id = req.params.id;
-  
-//     let start_date = new Date(req.body.startDate);   
-//     let edtStartDate  = convertUTCEDTDate(start_date);
-  
-//     let end_date = new Date(req.body.endDate);   
-//     let edtEndDate  = convertUTCEDTDate(end_date);
-    
-//     let edtDateTime = getEDTDate(false);
-    
-//     // console.log(end_date);
-//     // console.log(edtEndDate);
-//     // console.log(edtDateTime);
-  
-//     let itsActive;
-  
-//     if (edtEndDate < edtDateTime) {
-//       itsActive = false;
-//     } else {
-//       itsActive = Boolean(req.body.activeSurvey);
-//     }
-  
-//     let dentistFound = new dentist({
-//       _id: id,
-//       Name: req.body.name,
-//       Owner: UserDisplayName(req),
-//       OwnerUserName: UserName(req),
-//       isActive: itsActive,
-//       type: req.body.type,
-//       Start_Date: edtStartDate, //Start_Date: req.body.startDate,
-//       End_Date: edtEndDate      //End_Date: req.body.endDate,
-//     });
-  
-//     dentist.updateOne({ _id: id }, dentistFound, (err: CallbackError) => {
-//       if (err) {
-//         console.error(err);
-//         res.end(err);
-//       }
-//     });
-  
-//     let questionFound = [];
-//     questionFound.push(req.body.q1);
-//     questionFound.push(req.body.q2);
-//     questionFound.push(req.body.q3);
-//     questionFound.push(req.body.q4);
-//     questionFound.push(req.body.q5);
-  
-//     //converting dentistID to object
-//     let qid = new mongoose.Types.ObjectId(id);
-  
-//     question.findOneAndUpdate(
-//       { Survey_ID: qid },
-//       { question: questionFound },
-//       function (err: CallbackError, docs: any) {
-//         if (err) {
-//           console.error(err);
-//           res.end(err);
-//         }
-  
-//         // if no error will continue and go back to the dentists
-//         res.redirect("/dentist");
-//       }
-//     );
-//   }
 
   export default router;

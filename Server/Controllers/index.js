@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessContactPage = exports.DisplayContactPage = exports.DisplayAboutPage = exports.DisplayHomePage = void 0;
+exports.ProcessContactPage = exports.DisplayContactPage = exports.DisplayCalendarPage = exports.DisplayAboutPage = exports.DisplayHomePage = void 0;
 const Util_1 = require("../Util");
 const mail_1 = __importDefault(require("@sendgrid/mail"));
 function DisplayHomePage(req, res, next) {
@@ -24,6 +24,15 @@ function DisplayAboutPage(req, res, next) {
     });
 }
 exports.DisplayAboutPage = DisplayAboutPage;
+function DisplayCalendarPage(req, res, next) {
+    res.render("content/calendar", {
+        title: "Calendar",
+        page: "calendar",
+        displayName: (0, Util_1.UserDisplayName)(req),
+        surveys: "",
+    });
+}
+exports.DisplayCalendarPage = DisplayCalendarPage;
 function DisplayContactPage(req, res, next) {
     res.render("content/contact", {
         title: "Contact Us",

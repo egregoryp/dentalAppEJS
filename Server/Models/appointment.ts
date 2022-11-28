@@ -22,7 +22,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema; // Schema alias
 
 // create a model class
-const DentistSchema = new Schema
+const AppointmentSchema = new Schema
 ({
     Name: String,
     Owner: String,
@@ -39,14 +39,8 @@ const DentistSchema = new Schema
   //,question: Array      //moved to question model
 },
 {
-  collection: "dentist"
+  collection: "appointment"
 });
 
-//function to generate id Object
-// export function setId(){    
-//   let id = new mongoose.Types.ObjectId();
-//   return id;
-// }
-
-const Model = mongoose.model('Dentist', DentistSchema);
+const Model = mongoose.model('Appointment', AppointmentSchema);
 export default Model;

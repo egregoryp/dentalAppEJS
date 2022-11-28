@@ -8,7 +8,7 @@ import passport from 'passport';
 import User from '../Models/user';
 
 // import the DisplayName Utility method
-import { UserDisplayName, UserName, UserEmail, TypeOfUser } from '../Util';
+import { UserDisplayName, UserName, UserEmail, UserID, TypeOfUser } from '../Util';
 
 // Display Functions
 export function DisplayLoginPage(req: express.Request, res: express.Response, next: express.NextFunction)
@@ -26,8 +26,11 @@ export function DisplayRegisterPage(req: express.Request, res: express.Response,
     if(!req.user)
     {
         return res.render('content/register', { title: 'Register', page: 'register', messages: req.flash('registerMessage'), displayName: UserDisplayName(req)});
+    } 
+    
+    if (TypeOfUser(req) === null || TypeOfUser(req) === ""){
+        return res.render('content/profile');    
     }
-    return res.redirect("content/profile");
 }
 
 export function DisplayEditUserPage(req: express.Request, res: express.Response, next: express.NextFunction)
@@ -59,7 +62,7 @@ export function ProcessLoginPage(req: express.Request, res: express.Response, ne
         req.flash('loginMessage', 'Authentication Error!');
         return res.redirect('/login');
     }
-
+    
     // no problems - we have a good username and password
     req.logIn(user, function(err)
     {
@@ -69,10 +72,8 @@ export function ProcessLoginPage(req: express.Request, res: express.Response, ne
             console.error(err);
             res.end(err);
         }
-
-        // console.log(TypeOfUser(req));
-        // console.log(TypeOfUser(req) === null || TypeOfUser(req) === "");
-        if (TypeOfUser(req) === null || TypeOfUser(req) === ""){
+        
+        if (user.typeOfUser == null || user.typeOfUser === ""){
             return res.redirect("/profile");
         } else {
             return res.redirect("/dentist");
@@ -173,4 +174,8 @@ export function ProcessLogoutPage(req: express.Request, res: express.Response, n
     res.redirect('/login');
 }
 
+
+function foreach() {
+    throw new Error('Function not implemented.');
+}
 

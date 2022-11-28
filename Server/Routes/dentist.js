@@ -10,6 +10,7 @@ exports.default = router;
 const dentist_list_1 = require("../Controllers/dentist-list");
 router.get('/', dentist_list_1.DisplayDentistList);
 router.get('/home', dentist_list_1.DisplayDentistList);
+router.get('/appointments', dentist_list_1.DisplayAppointmentList);
 router.get('/add', Util_1.AuthGuard, dentist_list_1.DisplayAddDentistList);
 router.post('/add', Util_1.AuthGuard, dentist_list_1.ProcessAddDentistPage);
 router.get('/:id', Util_1.AuthGuardEditDelete, dentist_list_1.DisplayEditDentistPage);
