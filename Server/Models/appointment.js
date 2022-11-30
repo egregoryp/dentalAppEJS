@@ -7,15 +7,16 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const AppointmentSchema = new Schema({
     Name: String,
-    Owner: String,
-    OwnerUserName: String,
+    Dentist_ID: Object,
+    Patient_ID: Object,
+    Patient_Name: String,
     isActive: Boolean,
     type: String,
-    Start_Date: {
+    Appointment_Date: {
         type: Date,
         default: Date.now()
     },
-    End_Date: Date
+    Description: String
 }, {
     collection: "appointment"
 });

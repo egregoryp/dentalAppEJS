@@ -25,29 +25,22 @@ const Schema = mongoose.Schema; // Schema alias
 const AppointmentSchema = new Schema
 ({
     Name: String,
-    Dentist_ID: Object, 
-    Patient_ID: Object,
-    Patient_Name: String,
+    Owner: String,
+    OwnerUserName: String,
+    // Dentist_ID: Number, //using default object id created by mongodb
     isActive: Boolean,
-    type: String,       
-    Appointment_Date: 
+    type: String,         //--TF (True / False) --R (Range) --T (Text)
+    Start_Date: 
     {
       type: Date,
       default: Date.now()
   },
-  Description: String
- // End_Date: Date
- 
+  End_Date: Date
+  //,question: Array      //moved to question model
 },
 {
   collection: "appointment"
 });
-
-//function to generate id Object
-// export function setId(){    
-//   let id = new mongoose.Types.ObjectId();
-//   return id;
-// }
 
 const Model = mongoose.model('Appointment', AppointmentSchema);
 export default Model;
