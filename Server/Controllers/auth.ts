@@ -73,11 +73,22 @@ export function ProcessLoginPage(req: express.Request, res: express.Response, ne
             res.end(err);
         }
         
+        console.log( (user.typeOfUser == null || user.typeOfUser === ""));
+
         if (user.typeOfUser == null || user.typeOfUser === ""){
-            return res.redirect("/profile");
+            //return res.redirect("/profile");
+            return  res.render("profile/profile", {
+                title: "Complete Profile",
+                page: "profile",
+                users: user,
+                profiles: null,
+                typeUserVal: user.typeOfUser,
+                displayName: UserDisplayName(req),
+                user: UserName(req)
+            });      
         } else {
             return res.redirect("/dentist");
-        }        
+        } 
     });
    })(req, res, next);
 }
@@ -115,7 +126,7 @@ export function ProcessRegisterPage(req: express.Request, res: express.Response,
         // automatically login the user
         return passport.authenticate('local')(req, res, function()
         {
-            return res.redirect('/dentist');
+            return res.redirect('/profile');
         });
     });
 }

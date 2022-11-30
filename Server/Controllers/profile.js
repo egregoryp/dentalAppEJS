@@ -20,7 +20,8 @@ function DisplayAddProfilePage(req, res, next) {
             res.end(err);
         }
         console.log(userCollection.typeOfUser);
-        if (userCollection.typeOfUser === 'D') {
+        if (userCollection.typeOfUser === 'D'
+            || userCollection.typeOfUser === 'A') {
             dentist_1.default.findOne({ user_id: id }).lean().exec((err, profileCollection) => {
                 console.log(profileCollection);
                 res.render("profile/profile", {
@@ -28,6 +29,7 @@ function DisplayAddProfilePage(req, res, next) {
                     page: "profile",
                     users: userCollection,
                     profiles: profileCollection,
+                    typeUserVal: userCollection.typeOfUser,
                     displayName: (0, Util_1.UserDisplayName)(req),
                     user: (0, Util_1.UserName)(req)
                 });
@@ -40,6 +42,7 @@ function DisplayAddProfilePage(req, res, next) {
                     page: "profile",
                     users: userCollection,
                     profiles: profileCollection,
+                    typeUserVal: userCollection.typeOfUser,
                     displayName: (0, Util_1.UserDisplayName)(req),
                     user: (0, Util_1.UserName)(req)
                 });
@@ -49,10 +52,11 @@ function DisplayAddProfilePage(req, res, next) {
 }
 exports.DisplayAddProfilePage = DisplayAddProfilePage;
 function ProcessAddProfilePage(req, res, next) {
+    let id = req.params.id;
     let birthdateVar = new Date(req.body.birthDate);
     let edtbirthdate = (0, Util_1.convertUTCEDTDate)(birthdateVar);
     let typeOfUserVal = req.body.TypeOfUser;
-    user_1.default.findOneAndUpdate({ _id: (0, Util_1.UserID)(req) }, { typeOfUser: typeOfUserVal, DisplayName: req.body.name, EmailAddress: req.body.EmailAddress }, function (err, docs) {
+    user_1.default.findOneAndUpdate({ _id: id }, { typeOfUser: typeOfUserVal, DisplayName: req.body.name, EmailAddress: req.body.EmailAddress }, function (err, docs) {
         if (err) {
             console.log(err);
         }
@@ -60,17 +64,17 @@ function ProcessAddProfilePage(req, res, next) {
     let userProfile;
     if (typeOfUserVal === "D") {
         userProfile = new dentist_1.default({
-            user_id: (0, Util_1.UserID)(req),
+            user_id: id,
             dateOfBirth: edtbirthdate,
             sex: req.body.Sex,
             address: req.body.address,
             city: req.body.city,
             province_state: req.body.province,
-            postalcode: req.body.postalcode,
+            postalcode: req.body.postalCode,
             country: req.body.country,
             phoneNumber: req.body.phoneNumber,
             comments: req.body.comments,
-            specialty: req.body.specialty,
+            specialty: req.body.specialConsiderations
         });
         dentist_1.default.create(userProfile, function (err) {
             if (err) {
@@ -82,24 +86,24 @@ function ProcessAddProfilePage(req, res, next) {
     }
     else if (typeOfUserVal === "P") {
         userProfile = new patient_1.default({
-            user_id: (0, Util_1.UserID)(req),
+            user_id: id,
             dateOfBirth: edtbirthdate,
             sex: req.body.Sex,
             address: req.body.address,
             city: req.body.city,
             province_state: req.body.province,
-            postalcode: req.body.postalcode,
+            postalcode: req.body.postalCode,
             country: req.body.country,
             phoneNumber: req.body.phoneNumber,
             comments: req.body.comments,
-            specialConsiderations: req.body.specialty,
+            specialConsiderations: req.body.specialConsiderations
         });
         patient_1.default.create(userProfile, function (err) {
             if (err) {
                 console.error(err);
                 res.end(err);
             }
-            res.redirect("/");
+            res.redirect("/dentist");
         });
     }
 }

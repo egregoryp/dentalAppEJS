@@ -40,11 +40,38 @@
                 <label for="EmailAddress">Email Address</label>
                 <input type="email" class="form-control" id="EmailAddress"
                 name="EmailAddress" value="<%= users.EmailAddress %>"  required>                               
-              </div>                  
+              </div>               
+              
+              <% 
+              let edtbirthdate;
+              let getAddress; 
+              let getCity; 
+              let getProvince; 
+              let getPostalCode; 
+              let getCountry; 
+              let getPhoneNumber;
+              let getComments; 
+              let getSpecialConsiderations;
+              if(typeUserVal) {
+                  edtbirthdate  = getFormatDate(profiles.birthDate);
+                  getAddress    = profiles.address  
+                  getCity       = profiles.city; 
+                  getProvince   = profiles.province_state; 
+                  getPostalCode = profiles.postalcode;
+                  getCountry    = profiles.country; 
+                  getPhoneNumber= profiles.phoneNumber; 
+                  getComments   = profiles.comments;                   
+                  getSpecialConsiderations  = profiles.specialty;
+              }               
+
+              if (typeUserVal == 'P'){
+                getSpecialConsiderations = profiles.specialConsiderations;
+              }%>
+
               <div class="form-group">
                 <label for="BirthDateTextField">Birth Date</label>
                 <input type="datetime-local" class="form-control" id="BirthDateTextField"
-                placeholder="Birth Date" name="birthDate" value="<%= users.dateOfBirth %>" required>
+                placeholder="Birth Date" name="birthDate" value="<%= edtbirthdate %>" required>
               </div>              
               <div class="form-group">
                 <label for="TypeOfUser">Type of User</label>
@@ -68,43 +95,43 @@
               <div class="form-group">
                 <label for="AddressTextField">Address</label>
                 <input type="text" class="form-control" id="AddressTextField"
-                placeholder="999 Danforth Ave" name="address" value="<%= profiles.address %>"  required>                               
+                placeholder="999 Danforth Ave" name="address" value="<%= getAddress %>"  required>                               
               </div>  
 
               <div class="form-group">
                 <label for="CityTextField">City</label>
                 <input type="text" class="form-control" id="CityTextField"
-                placeholder="Toronto" name="city" required>
+                placeholder="Toronto" name="city" value="<%= getCity %>" required>
               </div>
               <div class="form-group">
                 <label for="ProvinceTextField">Province</label>
                 <input type="text" class="form-control" id="ProvinceTextField"
-                placeholder="Ontario" name="province" required>
+                placeholder="Ontario" name="province" value="<%= getProvince %>" required>
               </div>
               <div class="form-group">
                 <label for="PostalCodeTextField">Postal Code</label>
                 <input type="text" class="form-control" id="PostalCodeTextField"
-                placeholder="M2M 2M2" name="postalCode" required>
+                placeholder="M2M 2M2" name="postalCode" value="<%= getPostalCode %>" required>
               </div>
               <div class="form-group">
                 <label for="CountryTextField">Country</label>
                 <input type="text" class="form-control" id="CountryTextField"
-                placeholder="Canada" name="country" required>
+                placeholder="Canada" name="country" value="<%= getCountry %>" required>
               </div>
               <div class="form-group">
                 <label for="PhoneTextField">Phone Number</label>
                 <input type="text" class="form-control" id="PhoneTextField"
-                placeholder="999-999-9999" name="phoneNumber" required>
+                placeholder="999-999-9999" name="phoneNumber" value="<%= getPhoneNumber %>" required>
               </div>
               <div class="form-group">
                 <label for="CommentsTextField">Comments</label>
                 <textarea class="form-control" id="CommentsTextField" name="comments" rows="2" cols="10" 
-                placeholder="Morning appointments preferable"></textarea>
+                placeholder="Morning appointments preferable" value="<%= getComments %>"><%= getComments %></textarea>
               </div>
               <div class="form-group">
                 <label for="CommentsTextField">Special Considerations</label>
                 <textarea class="form-control" id="CommentsTextField" name="specialConsiderations" rows="2" cols="10" 
-                placeholder="Nuts & Penciling Allergy, also had a colon surgery in 2002"></textarea>
+                placeholder="Nuts & Penciling Allergy, also had a colon surgery in 2002" value="<%= getSpecialConsiderations %>"><%= getSpecialConsiderations %></textarea>
               </div>
               <br>
 

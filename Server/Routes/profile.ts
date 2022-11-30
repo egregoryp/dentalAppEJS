@@ -32,7 +32,7 @@ import { DisplayAddProfilePage, ProcessAddProfilePage } from "../Controllers/pro
 router.get('/', AuthGuard, DisplayAddProfilePage);
 
 // POST the Profile Details page in order to edit an existing Profile
-router.post('/', AuthGuard, ProcessAddProfilePage);
+router.post('/:id', AuthGuard, ProcessAddProfilePage);
 
 
 

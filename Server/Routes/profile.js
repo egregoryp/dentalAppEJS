@@ -9,5 +9,5 @@ const router = express_1.default.Router();
 exports.default = router;
 const profile_1 = require("../Controllers/profile");
 router.get('/', Util_1.AuthGuard, profile_1.DisplayAddProfilePage);
-router.post('/', Util_1.AuthGuard, profile_1.ProcessAddProfilePage);
+router.post('/:id', Util_1.AuthGuard, profile_1.ProcessAddProfilePage);
 //# sourceMappingURL=profile.js.map

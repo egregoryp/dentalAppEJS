@@ -46,9 +46,7 @@ import User from '../Models/user';
 
 // import the router data
 import indexRouter from '../Routes/index';      // top-level routes
-import statistics from '../Routes/statistics';  // routes for statistics
 import authRouter from '../Routes/auth';        // authentication routes
-import response from '../Routes/response';      // routes for response
 import dentist from '../Routes/dentist';        // routes for dentist
 import profile from '../Routes/profile';        // routes for dentist
 
@@ -120,8 +118,6 @@ app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/profile', profile);
 app.use('/dentist', dentist);
-app.use('/response', response);
-app.use('/statistics', statistics);
 
 // to handel querystring
 let queryObject:any;

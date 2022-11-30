@@ -41,9 +41,7 @@ const cors_1 = __importDefault(require("cors"));
 let localStrategy = passport_local_1.default.Strategy;
 const user_1 = __importDefault(require("../Models/user"));
 const index_1 = __importDefault(require("../Routes/index"));
-const statistics_1 = __importDefault(require("../Routes/statistics"));
 const auth_1 = __importDefault(require("../Routes/auth"));
-const response_1 = __importDefault(require("../Routes/response"));
 const dentist_1 = __importDefault(require("../Routes/dentist"));
 const profile_1 = __importDefault(require("../Routes/profile"));
 const url_1 = __importDefault(require("url"));
@@ -86,8 +84,6 @@ app.use('/', index_1.default);
 app.use('/', auth_1.default);
 app.use('/profile', profile_1.default);
 app.use('/dentist', dentist_1.default);
-app.use('/response', response_1.default);
-app.use('/statistics', statistics_1.default);
 let queryObject;
 app.use(function (req, res) {
     queryObject = url_1.default.parse(req.url, true).query;

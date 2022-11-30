@@ -65,15 +65,24 @@
 
                     <td class="text-center">
                       <a
-                      href="/response/<%=surveys[count]._id %>"
-                      id="answerButton"
+                      href="/statistics/<%=surveys[count]._id %>"
+                      id="statButton"
                       role="button"
-                      class="btn btn-success btn-sm edit"
+                      class="btn btn-secondary btn-sm statistics"
                     >
-                    <i class="fa-solid fa-pen-to-square"></i><span class="btn-text"> Answer survey</span>
-                    </a>
-                    </td>
+                    <i class="fa-solid fa-chart-line"></i><span class="btn-text"> Dentist Profile</span>
+                    </td>                
                     <% if(displayName) { %>                                  
+                      <td class="text-center">
+                        <a
+                        href="/response/<%=surveys[count]._id %>"
+                        id="answerButton"
+                        role="button"
+                        class="btn btn-success btn-sm edit"
+                      >
+                      <i class="fa-solid fa-pen-to-square"></i><span class="btn-text"> Book Appointment</span>
+                      </a>
+                      </td>
                       <td class="text-center">
                         <a
                         href="/dentist/<%=surveys[count]._id %>"
@@ -93,16 +102,7 @@
                         class="btn btn-danger btn-sm delete"
                       >
                       <i class="fa-solid fa-trash"></i><span class="btn-text"> Delete</span>
-                      </td> 
-                      <td class="text-center">
-                        <a
-                        href="/statistics/<%=surveys[count]._id %>"
-                        id="statButton"
-                        role="button"
-                        class="btn btn-secondary btn-sm statistics"
-                      >
-                      <i class="fa-solid fa-chart-line"></i><span class="btn-text"> Statistics</span>
-                      </td>                   
+                      </td>                          
                     <% } %>
                   </tr>
                   <% } %>

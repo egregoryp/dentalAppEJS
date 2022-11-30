@@ -27,7 +27,7 @@
           <br>
           <h3>Appointments</h3>   
           <br>       
-          <a href="/dentist/add" class="btn btn-primary"><i class="fa fa-plus"></i> Register as a Dentist</a>
+          <a href="/dentist/add" class="btn btn-primary"><i class="fa fa-plus"></i> Book Appointment</a>
           <br>
           <br>
           <div class="row justify-content-center">
@@ -62,18 +62,18 @@
                     <% if(displayName) { %>                           
                       <td class="text-center"><%= surveys[count].isActive == true ? "Active" : "Inactive"  %></td>
                     <% } %>     
-
-                    <td class="text-center">
-                      <a
-                      href="/response/<%=surveys[count]._id %>"
-                      id="answerButton"
-                      role="button"
-                      class="btn btn-success btn-sm edit"
-                    >
-                    <i class="fa-solid fa-pen-to-square"></i><span class="btn-text"> Answer survey</span>
-                    </a>
-                    </td>
-                    <% if(displayName) { %>                                  
+                    
+                    <% if(displayName) { %>  
+                      <td class="text-center">
+                        <a
+                        href="/statistics/<%=surveys[count]._id %>"
+                        id="statButton"
+                        role="button"
+                        class="btn btn-secondary btn-sm statistics"
+                      >
+                      <i class="fa-solid fa-chart-line"></i><span class="btn-text"> Dentist Profile</span>
+                      </td>   
+                                                                 
                       <td class="text-center">
                         <a
                         href="/dentist/<%=surveys[count]._id %>"
@@ -93,16 +93,7 @@
                         class="btn btn-danger btn-sm delete"
                       >
                       <i class="fa-solid fa-trash"></i><span class="btn-text"> Delete</span>
-                      </td> 
-                      <td class="text-center">
-                        <a
-                        href="/statistics/<%=surveys[count]._id %>"
-                        id="statButton"
-                        role="button"
-                        class="btn btn-secondary btn-sm statistics"
-                      >
-                      <i class="fa-solid fa-chart-line"></i><span class="btn-text"> Statistics</span>
-                      </td>                   
+                      </td>                            
                     <% } %>
                   </tr>
                   <% } %>

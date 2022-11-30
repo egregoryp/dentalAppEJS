@@ -53,7 +53,9 @@ export function DisplayAddProfilePage(
 
       console.log(userCollection.typeOfUser);
 
-      if(userCollection.typeOfUser === 'D'){
+      if(userCollection.typeOfUser === 'D'
+      || userCollection.typeOfUser === 'A'     //adjust
+      ){
         dentist.findOne({user_id:id}).lean().exec((err:CallbackError, profileCollection:any) => {
                    
           console.log(profileCollection);
@@ -63,6 +65,7 @@ export function DisplayAddProfilePage(
               page: "profile",
               users: userCollection,
               profiles: profileCollection,
+              typeUserVal: userCollection.typeOfUser,
               displayName: UserDisplayName(req),
               user: UserName(req)
           });
@@ -76,6 +79,7 @@ export function DisplayAddProfilePage(
             page: "profile",
             users: userCollection,
             profiles: profileCollection,
+            typeUserVal: userCollection.typeOfUser,
             displayName: UserDisplayName(req),
             user: UserName(req)
           });      
@@ -89,6 +93,9 @@ export function DisplayAddProfilePage(
     res: express.Response,
     next: express.NextFunction
   ) {
+
+    let id = req.params.id;
+
     let birthdateVar = new Date(req.body.birthDate);   
     let edtbirthdate  = convertUTCEDTDate(birthdateVar);
 
@@ -103,7 +110,7 @@ export function DisplayAddProfilePage(
     // }
     
     //update user info
-    User.findOneAndUpdate({_id: UserID(req) }, {typeOfUser: typeOfUserVal, DisplayName: req.body.name, EmailAddress: req.body.EmailAddress} , 
+    User.findOneAndUpdate({_id: id }, {typeOfUser: typeOfUserVal, DisplayName: req.body.name, EmailAddress: req.body.EmailAddress} , 
                           function (err:CallbackError, docs:any) {
       if (err){
           console.log(err)
@@ -116,41 +123,41 @@ export function DisplayAddProfilePage(
     if (typeOfUserVal==="D"){
       
       userProfile = new dentist({
-        user_id: UserID(req),
+        user_id: id,
         dateOfBirth: edtbirthdate,         
         sex: req.body.Sex,         
         address: req.body.address,         
         city: req.body.city,         
         province_state: req.body.province,         
-        postalcode: req.body.postalcode,         
+        postalcode: req.body.postalCode,         
         country: req.body.country,         
         phoneNumber: req.body.phoneNumber,         
         comments: req.body.comments,         
-        specialty: req.body.specialty,    
+        specialty: req.body.specialConsiderations   
       });
 
       dentist.create(userProfile, function (err: CallbackError) {
       if (err) {
         console.error(err);
         res.end(err);
-      }
+      }      
 
       res.redirect("/dentist");
       });
 
     } else if (typeOfUserVal==="P"){
       userProfile = new patient({
-        user_id: UserID(req),     
+        user_id: id,     
         dateOfBirth: edtbirthdate,
         sex: req.body.Sex,         
         address: req.body.address,         
         city: req.body.city,         
         province_state: req.body.province,         
-        postalcode: req.body.postalcode,         
+        postalcode: req.body.postalCode,         
         country: req.body.country,         
         phoneNumber: req.body.phoneNumber,         
         comments: req.body.comments,         
-        specialConsiderations: req.body.specialty,         
+        specialConsiderations: req.body.specialConsiderations         
       });
 
       patient.create(userProfile, function (err: CallbackError) {
@@ -159,9 +166,9 @@ export function DisplayAddProfilePage(
           res.end(err);
         }
   
-        res.redirect("/"); //should be redirected to appointments
+        res.redirect("/dentist"); //should be redirected to appointments
         });
-    }
+    }    
   }
 
   export default router;
