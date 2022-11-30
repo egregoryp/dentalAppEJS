@@ -1,0 +1,103 @@
+  <!--COMP231 Web Application Development - Mantis Developers Team
+    --Principal Developers's : 
+    ---Name: Ricardo Lopez Tuiran           ---Student ID: 301167302 
+    ---Name: Elias Pena Evertz              ---Student ID: 301166037
+    ---Name: Silvana Gjini                  ---Student ID: 301201477
+    ---Name: Bhupinder Dabb                 ---Student ID: 301187371
+    
+    --Support Team Members (Secondary Developers, UI/UX Designers)    
+    ---Name: Ankit Kodan                    ---Student ID: 
+    ---Name: Rishabh Dev Dogra              ---Student ID:
+    ---Name: Balkaran Singh                 ---Student ID:
+    ---Name: Mehwish Mehmood                ---Student ID:
+    ---Name: Ala’a Al-khdour                ---Student ID:    
+
+    --Web App name: Book a'Smile
+    --Description: The Dental Appointments Management System is a software application that will allow users to register, 
+    --edit and manage their personal accounts, book appointments according to the dentist availability, keep track on appointments 
+    --and have a history of procedures with dates and specific notes.   
+  -->
+
+  <%- include('../partials/header.ejs'); %>
+
+  <div class="container" id="tables">
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+          <br>
+          <h3>Appointments</h3>   
+          <br>       
+          <div class="row justify-content-center">
+            <div class="table-responsive-lg">
+              <table class="table table-striped">
+              <!-- <table class="table table-bordered table-striped table-hover"> -->
+                <thead>
+                  <tr>                     
+                    
+                    <th class="text-center">Patient Name</th>
+                    <th class="text-center">Time</th>
+                    <th class="text-center">Date</th>     
+                    <th class="text-center">Details</th>                              
+                    <th class="text-center">Status</th>
+                      <th class="text-center"></th>     
+                      <th class="text-center"></th>
+                      <th class="text-center"></th>
+                      
+                    
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <!-- Template Row -->
+               
+                  <tr>
+                    <td class="text-center">Test</td>               
+                    <td class="text-center">Test</td> 
+                    <td class="text-center">Test</td> 
+                    <td class="text-center">Test</td> 
+                    <td class="text-center">Test</td> 
+                       
+  
+                    <td class="text-center">
+                      <a
+                      href="/"
+                      id="answerButton"
+                      role="button"
+                      class="btn btn-success btn-sm edit"
+                    >
+                    <i class="fa-solid fa-pen-to-square"></i><span class="btn-text"> View Details</span>
+                    </a>
+                    </td>
+                                                   
+                      <td class="text-center">
+                        <a
+                        href="/"
+                        id="editButton"
+                        role="button"
+                        class="btn btn-primary btn-sm edit"                      
+                      >
+                        <i class="fa-solid fa-pen-to-square"></i><span class="btn-text"> Edit</span>
+                      </a>
+                      </td>
+    
+                      <td class="text-center">
+                        <a
+                        href="/"
+                        id="delButton"
+                        role="button"
+                        class="btn btn-danger btn-sm delete"
+                      >
+                      <i class="fa-solid fa-trash"></i><span class="btn-text"> Delete</span>
+                      </td> 
+                                       
+                    
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>          
+        </div>
+      </div>
+    </div>
+  
+  
+  <%- include('../partials/footer.ejs'); %>

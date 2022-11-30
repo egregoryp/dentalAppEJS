@@ -28,16 +28,6 @@
             <% } %>
           </li>
 
-          <% if(displayName) { %>  
-            <li class="nav-item">
-              <% if(userType=='D') { %>
-                <a class="nav-link active" href="/appointment/user"><i class="fas fa-book fa-lg"></i> Appointments</a>
-              <% } else { %> 
-                <a class="nav-link" href="/appointment"><i class="fas fa-book fa-lg"></i> Appointments</a>
-              <% } %>
-              </li>
-              <% } %>
-
           <li class="nav-item">
           <% if(page=='dentist') { %>
             <a class="nav-link active" href="/dentist"><i class="fas fa-book fa-lg"></i> Dentists List</a>

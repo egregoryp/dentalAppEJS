@@ -44,6 +44,7 @@ const index_1 = __importDefault(require("../Routes/index"));
 const auth_1 = __importDefault(require("../Routes/auth"));
 const dentist_1 = __importDefault(require("../Routes/dentist"));
 const profile_1 = __importDefault(require("../Routes/profile"));
+const appointment_1 = __importDefault(require("../Routes/appointment"));
 const url_1 = __importDefault(require("url"));
 const dotenv = __importStar(require("dotenv"));
 dotenv.config({ path: path_1.default.resolve(__dirname, '../../variables.env') });
@@ -84,6 +85,7 @@ app.use('/', index_1.default);
 app.use('/', auth_1.default);
 app.use('/profile', profile_1.default);
 app.use('/dentist', dentist_1.default);
+app.use('/appointment', appointment_1.default);
 let queryObject;
 app.use(function (req, res) {
     queryObject = url_1.default.parse(req.url, true).query;

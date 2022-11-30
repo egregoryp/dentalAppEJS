@@ -49,7 +49,6 @@ import indexRouter from '../Routes/index';      // top-level routes
 import authRouter from '../Routes/auth';        // authentication routes
 import dentist from '../Routes/dentist';        // routes for dentist
 import profile from '../Routes/profile';        // routes for dentist
-import appointment from '../Routes/appointment';        // routes for appointment list
 
 
 import url from 'url';
@@ -119,7 +118,6 @@ app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/profile', profile);
 app.use('/dentist', dentist);
-app.use('/appointment', appointment);
 
 // to handel querystring
 let queryObject:any;
