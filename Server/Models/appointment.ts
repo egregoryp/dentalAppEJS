@@ -24,11 +24,10 @@ const Schema = mongoose.Schema; // Schema alias
 // create a model class
 const AppointmentSchema = new Schema
 ({
-    Name: String,
+    Subject: String,
     Dentist_ID: Object, 
     Patient_ID: Object,
-    Patient_Name: String,
-    isActive: Boolean,
+    Patient_Name: String,    
     type: String,       
     Appointment_Date: 
     {

@@ -9,5 +9,6 @@ exports.default = router;
 const appointment_1 = require("../Controllers/appointment");
 router.get('/', appointment_1.DisplayDentistAppointments);
 router.get('/home', appointment_1.DisplayDentistAppointments);
-router.get('/user', appointment_1.DisplayUserAppointments);
+router.get('/appointments', appointment_1.DisplayBookAppointment);
+router.post('/appointments/:id', appointment_1.ProcessBookAppointment);
 //# sourceMappingURL=appointment.js.map

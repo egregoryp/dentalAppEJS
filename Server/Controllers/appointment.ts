@@ -26,68 +26,126 @@ import mongoose from "mongoose";
 import { CallbackError, Collection } from "mongoose";
 
 import appointment from "../Models/appointment";
+import User from "../Models/user";
+import patient from "../Models/patient";
 
-import { UserDisplayName, UserName, getFormattedDate, getEDTDate, convertUTCEDTDate, TypeOfUser } from "../Util";
+import { UserDisplayName, UserName, getFormattedDate, getEDTDate, convertUTCEDTDate, TypeOfUser, UserID } from "../Util";
 
 export function DisplayDentistAppointments(
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) {
+
+    let id = UserID(req);
     
+    User.findOne({_id: id }, function (err:CallbackError, docs:any) {
+      if (err){
+      console.log(err)
+      }
+        if (docs.typeOfUser =='D') {
+          
+            appointment.find({}, function(err: CallbackError, appointments: Collection){
+              if (err) {
+                return console.error(err);
+              } else {
+              res.render("appointment/dentistAppointment", {
+                title: "Appointments",
+                page: "appointment",
+                displayName: UserDisplayName(req),
+                userType: TypeOfUser(req),
+                appointmentList: appointments
+              })
+            }      
+          });
+        } else {
+          appointment.find({}, function(err: CallbackError, appointments: Collection){
 
-    appointment.find({}, function(err: CallbackError, appointments: Collection){
-
-      if (err) {
-        return console.error(err);
-      } else {
-      res.render("appointment/dentistAppointment", {
-        title: "Appointments",
-        page: "appointment",
-        displayName: UserDisplayName(req),
-        userType: TypeOfUser(req),
-        appointmentList: appointments
-     
-
-    })
-
-  }
+            if (err) {
+              return console.error(err);
+            } else {
+              res.render("appointment/userAppointment", {
+                title: "Appointments",
+                page: "userAppointment",
+                displayName: UserDisplayName(req),
+                userType: TypeOfUser(req),
+              appointmentList: appointments
+              })
       
+            }            
+          });
+        }
     });
-
-
-    console.log(TypeOfUser(req));
   }
 
 
-  export function DisplayUserAppointments(
+  export function DisplayBookAppointment(
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) {
-    
-
-   
-      appointment.find({}, function(err: CallbackError, appointments: Collection){
-
-        if (err) {
-          return console.error(err);
-        } else {
-          res.render("appointment/userAppointment", {
-            title: "Appointments",
-            page: "userAppointment",
-            displayName: UserDisplayName(req),
-            userType: TypeOfUser(req),
-          appointmentList: appointments
-       
-  
-      })
-  
-    }
+    appointment.find({ isActive: true }).lean().exec((err, dentists) => {
+      if (err) {
+        return console.error(err);
+      } else {
         
+        // converting dates to EDT timezone
+        // for (let i=0; i < dentist.length; i++){                       
+        //   console.log(dentist[i].Start_Date);
+        //   console.log(dentist[i].Start_Date.toISOString());            
+  
+        //   console.log(dentist[i].End_Date);            
+        //   console.log(dentist[i].End_Date.toISOString());            
+        // }           
+  
+        res.render("appointment/bookAppointments", {
+          title: "appointments",
+          page: "appointments",
+          displayName: UserDisplayName(req),
+          typeUser: TypeOfUser(req),
+          user: UserName(req),
+          surveys: dentists,
+        });               
+        
+      }
+    });
+  }
+
+  export function ProcessBookAppointment(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) {
+
+    let dentist_id = req.params.id;
+
+    let u_id = UserID(req);
+    
+    patient.findOne({user_id: u_id }, function (err:CallbackError, docs:any) {
+      if (err){
+      console.log(err)
+      }
+
+      let appointment_date = new Date(req.body.appointmentDate);   
+      let edtappointmentDate  = convertUTCEDTDate(appointment_date);
+
+      let newAppointment = new appointment({
+        Subject: req.body.subject,
+        Dentist_ID: dentist_id, 
+        Patient_ID: docs.id,
+        Patient_Name: UserDisplayName(req),
+        type: '',       
+        Appointment_Date: edtappointmentDate,
+        Description: req.body.description,
       });
   
-  
-      console.log(TypeOfUser(req));
+      appointment.create(newAppointment, function (err: CallbackError) {
+        if (err) {
+          console.error(err);
+          res.end(err);
+        }
+      });
+
+    })  
+    res.redirect("/appointment");
   }
-  

@@ -20,7 +20,7 @@
 
 import express from "express";
 
-import { UserDisplayName, UserName } from "../Util";
+import { UserDisplayName, TypeOfUser } from "../Util";
 
 import sgMail from "@sendgrid/mail";
 
@@ -29,10 +29,13 @@ export function DisplayHomePage(
   res: express.Response,
   next: express.NextFunction
 ) {
+
+  //console.log(req.user);
   res.render("content/index", {
     title: "Home",
     page: "home",
     displayName: UserDisplayName(req),
+    userType: TypeOfUser(req),
     surveys: "",
   });
 }
@@ -46,6 +49,7 @@ export function DisplayAboutPage(
     title: "About Us",
     page: "about",
     displayName: UserDisplayName(req),
+    userType: TypeOfUser(req),
     surveys: "",
   });
 }
@@ -59,6 +63,7 @@ export function DisplayCalendarPage(
     title: "Calendar",
     page: "calendar",
     displayName: UserDisplayName(req),
+    userType: TypeOfUser(req),
     surveys: "",
   });
 }
@@ -72,6 +77,7 @@ export function DisplayContactPage(
     title: "Contact Us",
     page: "contact",
     displayName: UserDisplayName(req),
+    userType: TypeOfUser(req),
     surveys: "",
   });
 }

@@ -26,11 +26,10 @@ import { AuthGuard, AuthGuardEditDelete } from '../Util';
 const router = express.Router();
 export default router;
 
-import {DisplayDentistAppointments, DisplayUserAppointments} from "../Controllers/appointment";
+import {DisplayDentistAppointments, DisplayBookAppointment, ProcessBookAppointment} from "../Controllers/appointment";
 
 
 router.get('/', DisplayDentistAppointments);
 router.get('/home', DisplayDentistAppointments);
-
-router.get('/user', DisplayUserAppointments);
-
+router.get('/appointments', DisplayBookAppointment);
+router.post('/appointments/:id', ProcessBookAppointment);

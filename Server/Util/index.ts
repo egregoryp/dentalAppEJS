@@ -29,7 +29,7 @@ setTZ('America/Toronto');
 
 // convenience function to return the DisplayName of the User
 export function UserDisplayName(req: express.Request): string
-{
+{ 
     if(req.user)
     {
         let user = req.user as UserDocument
@@ -78,7 +78,9 @@ export function TypeOfUser(req: express.Request): string
     if(req.user)
     {
         let user = req.user as UserDocument
-        return user.typeOfUser.toString();
+        if (user.typeOfUser) {
+          return user.typeOfUser.toString();
+        }        
     }
     return '';
 }
@@ -111,7 +113,7 @@ export function AuthGuardEditDelete(req: express.Request, res: express.Response,
         if(!req.isAuthenticated())
         {
             return res.redirect('/login');
-        } else if (user.username.toString() != doc!.OwnerUserName) {
+        } else {
             return res.redirect('/dentist');
         }
         next();

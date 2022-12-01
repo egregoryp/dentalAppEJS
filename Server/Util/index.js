@@ -42,7 +42,9 @@ exports.UserID = UserID;
 function TypeOfUser(req) {
     if (req.user) {
         let user = req.user;
-        return user.typeOfUser.toString();
+        if (user.typeOfUser) {
+            return user.typeOfUser.toString();
+        }
     }
     return '';
 }
@@ -66,7 +68,7 @@ function AuthGuardEditDelete(req, res, next) {
         if (!req.isAuthenticated()) {
             return res.redirect('/login');
         }
-        else if (user.username.toString() != doc.OwnerUserName) {
+        else {
             return res.redirect('/dentist');
         }
         next();

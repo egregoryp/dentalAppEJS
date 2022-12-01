@@ -25,133 +25,123 @@
       <div class="row">
         <div class="col-md-offset-3 col-md-6">
           <h1><%= title %></h1>
-            <form class="form" method="post">
-              <div class="form-group">
-                <label for="NameTextField">Survey Name</label>
-                <input type="text" class="form-control" id="NameTextField"
-                placeholder="Survey Name" name="name" value="<%= surveys.Name %>"" required>
+          <form method="POST" id="registerForm" novalidate>
+            <p class="hint-text">
+              Create Dentist account.
+            </p>
+  
+            <div class="form-group">
+              <div class="row">
+                <p class="lead">
+                  <i class="fas fa-user-shield"></i> Personal Information
+                </p>
+                <div class="col-md-6">
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="firstName"
+                    id="firstName"
+                    placeholder="First Name"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="lastName"
+                    id="lastName"
+                    placeholder="Last Name"
+                    required
+                  />
+                </div>
               </div>
-              <div class="form-group">
-                <label for="OwnerTextField">Owner</label>
-                <input type="text" class="form-control" id="OwnerTextField"
-                name="owner" value="<%= displayName %>"  required readonly>                               
-              </div>    
-              <% let startDateOutput;              
-                if(title=="Edit Surveys")
-                {
-                  startDateOutput = new Date(surveys.Start_Date).toISOString().slice(0, -5);
-                } else 
-                { startDateOutput="";}
-              %>                   
-              <div class="form-group">
-                <label for="StartDateTextField">Start Date</label>
-                <input type="datetime-local" class="form-control" id="StartDateTextField"
-                placeholder="Survey Start Date" name="startDate" value="<%= startDateOutput %>"  required>
+            </div>
+  
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-12">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="emailAddress"
+                    name="emailAddress"
+                    required
+                    value=""
+                    placeholder="Email"
+                  />
+                </div>
               </div>
-              <% let endDateOutput;              
-                if(title=="Edit Surveys")
-                {
-                  endDateOutput = new Date(surveys.End_Date).toISOString().slice(0, -5);
-                } else 
-                { endDateOutput="";}
-              %>
-              <div class="form-group">
-                <label for="EndDateTextField">End Date</label>
-                <input type="datetime-local" class="form-control" id="EndDateTextField"
-                placeholder="Survey End Date" name="endDate" value="<%= endDateOutput %>"  required>
+            </div>
+  
+            <div class="form-group mt-4">
+              <div class="row">
+                <p class="lead">
+                  <i class="fas fa-database"></i> System Identification
+                </p>
+                <div class="col-md-12">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    name="username"
+                    required
+                    value=""
+                    placeholder="Username"
+                  />
+                </div>
               </div>
-
-              <!-- Default switch -->
-              <%                   
-                let activeSurveyChecked;
-
-                if (surveys.isActive)
-                {
-                  activeSurveyChecked = "checked";
-                } else {
-                  activeSurveyChecked = "";
-                }
-                // console.log(activeSurveyChecked);
-              %>
-              <div class="form-check form-switch">
-                <label class="form-check-label" for="activeSurvey">Active Survey</label>
-                <input class="form-check-input" type="checkbox" role="switch" id="activeSurvey" name="activeSurvey" <%= activeSurveyChecked %>>                
+            </div>
+  
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-12">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    required
+                    value=""
+                    placeholder="Password"
+                  />
+                </div>
               </div>
-
-              <div class="form-group">
-                <br/>
-                  
-                <%                   
-                  typeChecked = new Array("", "", "");
-                  if (surveys.type == "R") 
-                  {
-                    typeChecked[0] ="checked";
-                    typeChecked[1] ="";
-                    typeChecked[2] ="";
-                  } else if (surveys.type == "TF")
-                  {
-                    typeChecked[0] ="";
-                    typeChecked[1] ="checked";
-                    typeChecked[2] ="";
-                  } else if (surveys.type == "T")
-                  {
-                    typeChecked[0] ="";
-                    typeChecked[1] ="";
-                    typeChecked[2] ="checked";
-                  } 
-
-                  if (title == "Add dentist"){
-                    addQuestions = new Array("", "", "", "", "");
-                  } else if (title == "Edit dentist"){
-                    addQuestions = new Array("", "", "", "", "");
-
-                    addQuestions[0] = questions[0].question[0];
-                    addQuestions[1] = questions[0].question[1];
-                    addQuestions[2] = questions[0].question[2];
-                    addQuestions[3] = questions[0].question[3];
-                    addQuestions[4] = questions[0].question[4];                    
-                  }
-                %>
-
-                <p>Please select the type of Survey Questions Format:</p>
-                  <input type="radio" id="aRange" name="type" value="R" <%= typeChecked[0] %>>
-                  <label for="aRange">Range</label>
-                  <input type="radio" id="aTF" name="type" value="TF" <%= typeChecked[1] %>>
-                  <label for="aTG">True or False</label>
-                  <input type="radio" id="aT" name="type" value="T" <%= typeChecked[2] %>>
-                  <label for="aT">Input Text</label>        
-                <p></p>        
+            </div>
+  
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-12">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    required
+                    value=""
+                    placeholder="Confirm Password"
+                  />
+                </div>
               </div>
-              <div class="form-group">
-                <label for="q1TextField">Question 1</label>
-                <input type="text" class="form-control" id="q1TextField"
-                placeholder="What is your question 1?" name="q1" value="<%= addQuestions[0] %>"  required>
-              </div>
-              <div class="form-group">
-                <label for="q2TextField">Question 2</label>
-                <input type="text" class="form-control" id="q2TextField"
-                placeholder="What is your question 2?" name="q2" value="<%= addQuestions[1] %>"  required>
-              </div>
-              <div class="form-group">
-                <label for="q3TextField">Question 3</label>
-                <input type="text" class="form-control" id="q3TextField"
-                placeholder="What is your question 3?" name="q3" value="<%= addQuestions[2] %>"  required>
-              </div>
-              <div class="form-group">
-                <label for="q4TextField">Question 4</label>
-                <input type="text" class="form-control" id="q4TextField"
-                placeholder="What is your question 4?" name="q4" value="<%= addQuestions[3] %>"  required>
-              </div>
-              <div class="form-group">
-                <label for="q5TextField">Question 5</label>
-                <input type="text" class="form-control" id="q5TextField"
-                placeholder="What is your question 5?" name="q5" value="<%= addQuestions[4] %>"  required>
-              </div>
-              <br/>
-
-              <button type="submit" class="btn btn-primary submit"><i class="fa fa-check-square-o"></i> Submit</button>
-              <a href="/dentist" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
-            </form>
+            </div>
+  
+            <div class="text-center mt-2 mb-4">
+              <button
+                id="registerButton"
+                type="submit"
+                class="btn btn-outline-dark btn-sm registerButton"
+              >
+                <i class="fas fa-user-plus"></i> Register
+              </button>
+              <button
+                id="cancelButton"
+                type="reset"
+                class="btn btn-outline-dark btn-sm"
+              >
+                <i class="fas fa-undo"></i> Clear
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>    

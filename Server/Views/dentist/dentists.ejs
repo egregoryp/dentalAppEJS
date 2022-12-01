@@ -27,7 +27,9 @@
           <br>
           <h3>Dentists List</h3>   
           <br>       
-          <a href="/dentist/add" class="btn btn-primary"><i class="fa fa-plus"></i> Register as a Dentist</a>
+          <%  if(displayName && typeUser != 'P') { %>  
+            <a href="/dentist/add" class="btn btn-primary"><i class="fa fa-plus"></i> Register a Dentist</a>
+          <%  } %>  
           <br>
           <br>
           <div class="row justify-content-center">
@@ -71,11 +73,11 @@
                       class="btn btn-secondary btn-sm statistics"
                     >
                     <i class="fa-solid fa-chart-line"></i><span class="btn-text"> Dentist Profile</span>
-                    </td>                
-                    <% if(displayName) { %>                                  
+                    </td>        
+                    <% if(displayName && typeUser == "P") { %>
                       <td class="text-center">
                         <a
-                        href="/response/<%=surveys[count]._id %>"
+                        href="/appointment/appointments"
                         id="answerButton"
                         role="button"
                         class="btn btn-success btn-sm edit"
@@ -83,6 +85,7 @@
                       <i class="fa-solid fa-pen-to-square"></i><span class="btn-text"> Book Appointment</span>
                       </a>
                       </td>
+                    <% } else if(displayName && typeUser != "P") { %>                                                        
                       <td class="text-center">
                         <a
                         href="/dentist/<%=surveys[count]._id %>"

@@ -11,6 +11,7 @@ function DisplayHomePage(req, res, next) {
         title: "Home",
         page: "home",
         displayName: (0, Util_1.UserDisplayName)(req),
+        userType: (0, Util_1.TypeOfUser)(req),
         surveys: "",
     });
 }
@@ -20,6 +21,7 @@ function DisplayAboutPage(req, res, next) {
         title: "About Us",
         page: "about",
         displayName: (0, Util_1.UserDisplayName)(req),
+        userType: (0, Util_1.TypeOfUser)(req),
         surveys: "",
     });
 }
@@ -29,6 +31,7 @@ function DisplayCalendarPage(req, res, next) {
         title: "Calendar",
         page: "calendar",
         displayName: (0, Util_1.UserDisplayName)(req),
+        userType: (0, Util_1.TypeOfUser)(req),
         surveys: "",
     });
 }
@@ -38,6 +41,7 @@ function DisplayContactPage(req, res, next) {
         title: "Contact Us",
         page: "contact",
         displayName: (0, Util_1.UserDisplayName)(req),
+        userType: (0, Util_1.TypeOfUser)(req),
         surveys: "",
     });
 }

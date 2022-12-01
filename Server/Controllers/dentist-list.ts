@@ -31,7 +31,7 @@ import question from "../Models/question";
 
 import response from "../Models/response";
 
-import { UserDisplayName, UserName, getFormattedDate, getEDTDate, convertUTCEDTDate } from "../Util";
+import { UserDisplayName, UserName, TypeOfUser, getFormattedDate, getEDTDate, convertUTCEDTDate } from "../Util";
 
 import setTZ from 'set-tz';
 setTZ('America/Toronto')
@@ -65,6 +65,7 @@ export function DisplayDentistList(
             title: "dentist",
             page: "dentist",
             displayName: UserDisplayName(req),
+            typeUser: TypeOfUser(req),
             user: UserName(req),
             surveys: dentists,
           });               
@@ -91,43 +92,13 @@ export function DisplayDentistList(
             title: "dentists",
             page: "dentists",
             displayName: UserDisplayName(req),
+            typeUser: TypeOfUser(req),
             user: UserName(req),   
             surveys: dentists,
           });
         }
       });
   }
-}
-
-export function DisplayAppointmentList(
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) {
-  appointment.find({ isActive: true }).lean().exec((err, dentists) => {
-    if (err) {
-      return console.error(err);
-    } else {
-      
-      // converting dates to EDT timezone
-      // for (let i=0; i < dentist.length; i++){                       
-      //   console.log(dentist[i].Start_Date);
-      //   console.log(dentist[i].Start_Date.toISOString());            
-
-      //   console.log(dentist[i].End_Date);            
-      //   console.log(dentist[i].End_Date.toISOString());            
-      // }           
-
-      res.render("dentist/appointments", {
-        title: "appointments",
-        page: "appointments",
-        displayName: UserDisplayName(req),
-        user: UserName(req),
-        surveys: dentists,
-      });               
-      
-    }
-  });
 }
 
 export function DisplayAddDentistList(
@@ -142,6 +113,7 @@ export function DisplayAddDentistList(
     page: "details",
     surveys: "",
     displayName: UserDisplayName(req),
+    typeUser: TypeOfUser(req),
     questions: questionArr,
   });
 
@@ -239,6 +211,7 @@ export function DisplayEditDentistPage(
           page: "details",
           surveys: dentists,
           displayName: UserDisplayName(req),
+          typeUser: TypeOfUser(req),
           user: UserName(req),
           questions: questions,
         });

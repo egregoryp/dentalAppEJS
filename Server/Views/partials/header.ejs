@@ -30,13 +30,20 @@
 
           <% if(displayName) { %>  
             <li class="nav-item">
-              <% if(userType=='D') { %>
-                <a class="nav-link active" href="/appointment/user"><i class="fas fa-book fa-lg"></i> Appointments</a>
+              <% if(page=='appointment') { %>
+                <a class="nav-link active" href="/appointment"><i class="fas fa-book fa-lg"></i> Appointments</a>
               <% } else { %> 
                 <a class="nav-link" href="/appointment"><i class="fas fa-book fa-lg"></i> Appointments</a>
               <% } %>
-              </li>
+            </li>            
+            <li class="nav-item">
+              <% if(page=='appointments') { %>
+                <a class="nav-link active" href="/appointment/appointments"><i class="fa-regular fa-calendar-check"></i> Book Appointment</a>
+              <% } else { %> 
+                <a class="nav-link" href="/appointment/appointments"><i class="fa-regular fa-calendar-check"></i> Book Appointment</a>
               <% } %>
+            </li>
+          <% } %>
 
           <li class="nav-item">
           <% if(page=='dentist') { %>
@@ -63,12 +70,14 @@
           </li>
 
           <li class="nav-item">
-            <% if(page=='calendar') { %>
-              <a class="nav-link active" href="/calendar"><i class="fa-solid fa-calendar-days fa-lg"></i> Calendar</a>
-            <% } else { %> 
-              <a class="nav-link" href="/calendar"><i class="fa-solid fa-calendar-days fa-lg"></i> Calendar</a>
+            <% if(displayName) { %>  
+              <% if(page=='calendar') { %>
+                <a class="nav-link active" href="/calendar"><i class="fa-solid fa-calendar-days fa-lg"></i> Calendar</a>
+              <% } else { %> 
+                <a class="nav-link" href="/calendar"><i class="fa-solid fa-calendar-days fa-lg"></i> Calendar</a>
+              <% } %>
             <% } %>
-            </li>
+          </li>
 
           <!-- <li class="nav-item">
             <% if(page=='contact') { %>
@@ -78,15 +87,7 @@
             <% } %>
             </li> -->
 
-          <% if(displayName) { %>   
-            <li class="nav-item">
-              <% if(page=='appointments') { %>
-                <a class="nav-link active" href="/dentist/appointments"><i class="fa-regular fa-calendar-check"></i> Book Appointment</a>
-              <% } else { %> 
-                <a class="nav-link" href="/dentist/appointments"><i class="fa-regular fa-calendar-check"></i> Book Appointment</a>
-              <% } %>
-            </li>
-
+          <% if(displayName) { %>               
             <li class="nav-item">
               <% if(page=='edituser') { %>
                 <a class="nav-link active" href="/edituser"><i class="fa-solid fa-user-check fa-lg"></i> <%= displayName %></a>
