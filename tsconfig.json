@@ -7,6 +7,7 @@
         "removeComments": true,
         "strict": true,
         "noImplicitAny": true,
+        "skipLibCheck": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "strictPropertyInitialization": true,

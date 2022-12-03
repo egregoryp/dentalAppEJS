@@ -20,7 +20,7 @@
 
 export const LocalURI = "mongodb://127.0.0.1/survey";
 
-// add RemoteURI for MongDb Atlas database as env variable
+// add RemoteURI for MongDb Atlas database as env variable 
 
 export const HostName = "MongoDB Atlas";
 export const Secret = "someSecret";
