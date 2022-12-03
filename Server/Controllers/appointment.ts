@@ -21,8 +21,6 @@
 import express from "express";
 const router = express.Router();
 
-import mongoose from "mongoose";
-
 import { CallbackError, Collection } from "mongoose";
 
 import appointment from "../Models/appointment";

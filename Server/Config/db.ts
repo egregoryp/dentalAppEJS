@@ -18,7 +18,7 @@
 // --and have a history of procedures with dates and specific notes.   
 // -->
 
-export const LocalURI = "mongodb://127.0.0.1/survey";
+export const LocalURI = "mongodb://127.0.0.1/dentalApp";
 
 // add RemoteURI for MongDb Atlas database as env variable 
 

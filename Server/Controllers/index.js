@@ -54,9 +54,9 @@ function ProcessContactPage(req, res, next) {
     const msg = {
         to: 'epenaeve@my.centennialcollege.ca',
         from: 'epenaeve@my.centennialcollege.ca',
-        subject: "Mega Survey by Mantis Dev - Contact Email: " + contactMe.subject,
+        subject: "Dental Appointment App Book a'Smile by Mantis Dev - Contact Email: " + contactMe.subject,
         text: contactMe.msg,
-        html: "<h1><strong>Mega Survey by Mantis Dev - Contact Email</strong></h1>" +
+        html: "<h1><strong>Dental Appointment App Book a'Smile by Mantis Dev - Contact Email</strong></h1>" +
             "<p>From: " + contactMe.name + "</p>" +
             "<p>Email: " + contactMe.email + "</p>" +
             "<p>Comments: </p>" + contactMe.msg,
