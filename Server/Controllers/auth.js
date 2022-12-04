@@ -19,13 +19,13 @@ function DisplayRegisterPage(req, res, next) {
         return res.render('content/register', { title: 'Register', page: 'register', messages: req.flash('registerMessage'), displayName: (0, Util_1.UserDisplayName)(req), userID: (0, Util_1.UserID)(req) });
     }
     if ((0, Util_1.TypeOfUser)(req) === null || (0, Util_1.TypeOfUser)(req) === "") {
-        return res.render('content/profile');
+        return res.render('/dentist');
     }
 }
 exports.DisplayRegisterPage = DisplayRegisterPage;
 function DisplayEditUserPage(req, res, next) {
     if (req.user) {
-        return res.render('content/edituser', { title: 'Edit User', page: 'edituser', messages: req.flash('registerMessage'), displayName: (0, Util_1.UserDisplayName)(req), userName: (0, Util_1.UserName)(req), userEmail: (0, Util_1.UserEmail)(req), userID: (0, Util_1.UserID)(req) });
+        return res.render('content/edituser', { title: 'Edit User', page: 'edituser', messages: req.flash('registerMessage'), displayName: (0, Util_1.UserDisplayName)(req), userName: (0, Util_1.UserName)(req), userEmail: (0, Util_1.UserEmail)(req), userID: (0, Util_1.UserID)(req), typeOfUser: (0, Util_1.TypeOfUser)(req) });
     }
     else {
         return res.redirect("/dentist");
@@ -48,7 +48,7 @@ function ProcessLoginPage(req, res, next) {
                 res.end(err);
             }
             if (user.typeOfUser == null || user.typeOfUser === "") {
-                return res.redirect("/");
+                return res.redirect("/edituser");
             }
             else {
                 return res.redirect("/dentist");

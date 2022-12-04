@@ -29,7 +29,7 @@ export function DisplayRegisterPage(req: express.Request, res: express.Response,
     } 
     
     if (TypeOfUser(req) === null || TypeOfUser(req) === ""){
-        return res.render('content/profile');    
+        return res.render('/dentist');    
     }
 }
 
@@ -37,7 +37,7 @@ export function DisplayEditUserPage(req: express.Request, res: express.Response,
 {
     if(req.user)
     {
-        return res.render('content/edituser', { title: 'Edit User', page: 'edituser', messages: req.flash('registerMessage'), displayName: UserDisplayName(req), userName: UserName(req), userEmail: UserEmail(req), userID: UserID(req)});
+        return res.render('content/edituser', { title: 'Edit User', page: 'edituser', messages: req.flash('registerMessage'), displayName: UserDisplayName(req), userName: UserName(req), userEmail: UserEmail(req), userID: UserID(req), typeOfUser: TypeOfUser(req)});
     } else {
         return res.redirect("/dentist");
     }
@@ -76,8 +76,9 @@ export function ProcessLoginPage(req: express.Request, res: express.Response, ne
         //console.log( (user.typeOfUser == null || user.typeOfUser === ""));
 
         if (user.typeOfUser == null || user.typeOfUser === ""){
-            return res.redirect("/");
-            // return  res.render("profile/profile", {
+            return res.redirect("/edituser");
+            
+            // return  res.render("profile/profile", { //NOT WORKING
             //     title: "Complete Profile",
             //     page: "profile",
             //     users: user,
@@ -86,10 +87,12 @@ export function ProcessLoginPage(req: express.Request, res: express.Response, ne
             //     displayName: UserDisplayName(req),
             //     user: UserName(req)
             // });      
+
         } else {
             return res.redirect("/dentist");
         } 
-    });
+    });    
+
    })(req, res, next);
 }
  

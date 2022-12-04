@@ -51,7 +51,7 @@
               <% } %>
             </li> -->
           <% } %>
-
+        
           <li class="nav-item">
           <% if(page=='dentist') { %>
             <a class="nav-link active" href="/dentist"><i class="fas fa-book fa-lg"></i> Dentists List</a>
@@ -95,12 +95,8 @@
             </li> -->
 
           <% if(displayName) { %>               
-            <li class="nav-item">
-              <% if(page=='edituser') { %>
-                <a class="nav-link active" href="/edituser"><i class="fa-solid fa-user-check fa-lg"></i> <%= displayName %></a>
-              <% } else { %> 
-                <a class="nav-link" href="/edituser"><i class="fa-solid fa-user-check fa-lg"></i> <%= displayName %></a>
-              <% } %>
+            <li class="nav-item">              
+                <a id="userdn" class="nav-link <% if(page=='edituser') { 'active' } %>" href="/edituser"><i class="fa-solid fa-user-check fa-lg"></i> <%= displayName %></a>              
             </li>            
             
             <!-- <li id="userIcon" class="nav-item">

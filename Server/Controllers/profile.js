@@ -19,8 +19,7 @@ function DisplayAddProfilePage(req, res, next) {
             console.log(err);
             res.end(err);
         }
-        console.log(userCollection.typeOfUser);
-        if (userCollection.typeOfUser == null) {
+        if (!userCollection.typeOfUser) {
             res.render("profile/profile", {
                 title: "Complete Profile",
                 page: "profile",
@@ -71,47 +70,106 @@ function ProcessAddProfilePage(req, res, next) {
             console.log(err);
         }
     });
-    let userProfile;
     if (typeOfUserVal === "D") {
-        userProfile = new dentist_1.default({
-            user_id: id,
-            dateOfBirth: edtbirthdate,
-            sex: req.body.Sex,
-            address: req.body.address,
-            city: req.body.city,
-            province_state: req.body.province,
-            postalcode: req.body.postalCode,
-            country: req.body.country,
-            phoneNumber: req.body.phoneNumber,
-            comments: req.body.comments,
-            specialty: req.body.specialConsiderations
-        });
-        dentist_1.default.create(userProfile, function (err) {
+        dentist_1.default.findOne({ user_id: id }).lean().exec((err, patVal) => {
             if (err) {
-                console.error(err);
-                res.end(err);
+                console.log(err);
+            }
+            if (patVal) {
+                let userProfile = new dentist_1.default({
+                    _id: patVal._id,
+                    user_id: id,
+                    dateOfBirth: edtbirthdate,
+                    sex: req.body.Sex,
+                    address: req.body.address,
+                    city: req.body.city,
+                    province_state: req.body.province,
+                    postalcode: req.body.postalCode,
+                    country: req.body.country,
+                    phoneNumber: req.body.phoneNumber,
+                    comments: req.body.comments,
+                    specialty: req.body.specialConsiderations
+                });
+                dentist_1.default.updateOne({ user_id: id }, userProfile, function (err, docs) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    console.log('update');
+                });
+            }
+            else {
+                let newUserProfile = new dentist_1.default({
+                    user_id: id,
+                    dateOfBirth: edtbirthdate,
+                    sex: req.body.Sex,
+                    address: req.body.address,
+                    city: req.body.city,
+                    province_state: req.body.province,
+                    postalcode: req.body.postalCode,
+                    country: req.body.country,
+                    phoneNumber: req.body.phoneNumber,
+                    comments: req.body.comments,
+                    specialty: req.body.specialConsiderations
+                });
+                dentist_1.default.create(newUserProfile, function (err) {
+                    if (err) {
+                        console.error(err);
+                        res.end(err);
+                    }
+                    console.log('create');
+                });
             }
             res.redirect("/dentist");
         });
     }
     else if (typeOfUserVal === "P") {
-        userProfile = new patient_1.default({
-            user_id: id,
-            dateOfBirth: edtbirthdate,
-            sex: req.body.Sex,
-            address: req.body.address,
-            city: req.body.city,
-            province_state: req.body.province,
-            postalcode: req.body.postalCode,
-            country: req.body.country,
-            phoneNumber: req.body.phoneNumber,
-            comments: req.body.comments,
-            specialConsiderations: req.body.specialConsiderations
-        });
-        patient_1.default.create(userProfile, function (err) {
+        patient_1.default.findOne({ user_id: id }).lean().exec((err, patVal) => {
             if (err) {
-                console.error(err);
-                res.end(err);
+                console.log(err);
+            }
+            if (patVal) {
+                let userProfile = new patient_1.default({
+                    _id: patVal._id,
+                    user_id: id,
+                    dateOfBirth: edtbirthdate,
+                    sex: req.body.Sex,
+                    address: req.body.address,
+                    city: req.body.city,
+                    province_state: req.body.province,
+                    postalcode: req.body.postalCode,
+                    country: req.body.country,
+                    phoneNumber: req.body.phoneNumber,
+                    comments: req.body.comments,
+                    specialConsiderations: req.body.specialConsiderations
+                });
+                patient_1.default.updateOne({ user_id: id }, userProfile, function (err, docs) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    console.log('update');
+                });
+            }
+            else {
+                let newUserProfile = new patient_1.default({
+                    user_id: id,
+                    dateOfBirth: edtbirthdate,
+                    sex: req.body.Sex,
+                    address: req.body.address,
+                    city: req.body.city,
+                    province_state: req.body.province,
+                    postalcode: req.body.postalCode,
+                    country: req.body.country,
+                    phoneNumber: req.body.phoneNumber,
+                    comments: req.body.comments,
+                    specialConsiderations: req.body.specialConsiderations
+                });
+                patient_1.default.create(newUserProfile, function (err) {
+                    if (err) {
+                        console.error(err);
+                        res.end(err);
+                    }
+                    console.log('create');
+                });
             }
             res.redirect("/dentist");
         });

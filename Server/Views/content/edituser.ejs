@@ -46,7 +46,7 @@
                   placeholder="Name"
                   required
                   value="<%= displayName %> "
-                />
+                />             
               </div>              
             </div>
           </div>
@@ -65,6 +65,14 @@
                 />
               </div>
             </div>
+            <input              
+              type="text"
+              name="editName"
+              id="txtTypeOfUser"
+              placeholder="Name"
+              required
+              value="<%= typeOfUser %> "
+            />
           </div>
 
           <div class="form-group mt-4">
@@ -120,6 +128,13 @@
           </div>
 
           <div class="text-center mt-2 mb-4">
+            <p id="txtMsg" class="profileMsg">
+              <% let pulseRedClass 
+                 if (!typeOfUser) 
+                 { pulseRedClass = 'profileMsg'; %> 
+                   Please edit profile to complete registration!               
+              <% } %>                                           
+            </p>
             <button
               id="editButton"
               type="submit"
@@ -127,7 +142,10 @@
             >
               <i class="fas fa-user-plus"></i> Confirm
             </button>            
-            <a href="/profile/profile/" class="btn btn-outline-dark btn-sm"><i class="fa-regular fa-id-badge"></i> Edit Profile</a>
+            <a href="/profile/profile/" class="btn btn-outline-dark btn-sm <%=pulseRedClass %> ">
+              <i class="fa-regular fa-id-badge"></i> 
+              Edit Profile
+            </a>
             <a href="/" class="btn btn-outline-dark btn-sm"><i class="fa fa-undo"></i> Cancel</a>
           </div>
         </form>

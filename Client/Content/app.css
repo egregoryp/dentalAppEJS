@@ -251,10 +251,18 @@ p {
   }
 }
 
+.profileMsg{
+  color: rgb(207, 22, 22);
+  /* color: black; */  
+}
 
+#txtTypeOfUser{
+  visibility: hidden;
+} 
 
-
-
+/* #txtMsg{
+  visibility: hidden;
+}*/
 
 
 

@@ -34,6 +34,10 @@
                 event.preventDefault();
                 alert('Password and Password Confirmation must match!');
             }
+            if (!pwd) {
+                event.preventDefault();
+                alert('Please enter a valid Password!');
+            }
         });
     }
     function Start() {
@@ -41,6 +45,18 @@
         confirmDelete();
         validateSurveyDates();
         validateRegistrationPWDMatch();
+        $(document).ready(function () {
+            var i = 0;
+            function pulsate() {
+                if (i >= 3)
+                    return;
+                $(".profileMsg").
+                    animate({ opacity: 0.2 }, 1000, 'linear').
+                    animate({ opacity: 1 }, 1000, 'linear', pulsate);
+                i++;
+            }
+            pulsate();
+        });
     }
     $("button.btnExport").on("click", function (event) {
         window.open("/statistics");
