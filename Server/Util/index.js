@@ -93,11 +93,11 @@ function getFormattedDate(inputDate, fullDate = false) {
     }
     if (fullDate) {
         date_return =
-            ("0" + (inputDateF.getMonth() + 1)).slice(-2) +
+            inputDateF.getFullYear() +
+                "-" +
+                ("0" + (inputDateF.getMonth() + 1)).slice(-2) +
                 "-" +
                 ("0" + inputDateF.getDate()).slice(-2) +
-                "-" +
-                inputDateF.getFullYear() +
                 " " +
                 ("0" + hoursAMPM).slice(-2) +
                 ":" +
@@ -107,9 +107,9 @@ function getFormattedDate(inputDate, fullDate = false) {
     }
     else {
         date_return =
-            ("0" + (inputDateF.getMonth() + 1)).slice(-2) + "-" +
-                ("0" + inputDateF.getDate()).slice(-2) + "-" +
-                inputDateF.getFullYear();
+            inputDateF.getFullYear() + "-" +
+                ("0" + (inputDateF.getMonth() + 1)).slice(-2) + "-" +
+                ("0" + inputDateF.getDate()).slice(-2);
     }
     return date_return;
 }

@@ -44,6 +44,9 @@
               
               <% 
               let edtbirthdate;
+              let getSex; 
+              let sexSelectedM;
+              let sexSelectedF;
               let getAddress; 
               let getCity; 
               let getProvince; 
@@ -52,16 +55,37 @@
               let getPhoneNumber;
               let getComments; 
               let getSpecialConsiderations;
-              if(typeUserVal) {
-                  edtbirthdate  = getFormatDate(profiles.birthDate);
-                  getAddress    = profiles.address  
-                  getCity       = profiles.city; 
-                  getProvince   = profiles.province_state; 
-                  getPostalCode = profiles.postalcode;
-                  getCountry    = profiles.country; 
-                  getPhoneNumber= profiles.phoneNumber; 
-                  getComments   = profiles.comments;                   
+
+              let typeUserValSelectedD;
+              let typeUserValSelectedP;
+              if(typeUserVal) {                
+                  //edtbirthdate  = getFormatDate(profiles.dateOfBirth);    
+                  //console.log(getFormatDate(profiles.dateOfBirth));
+                  edtbirthdate              = getFormatDate(profiles.dateOfBirth);
+                  getSex                    = profiles.sex;
+                  if (getSex == 'F'){
+                    sexSelectedM = '';
+                    sexSelectedF = 'selected';
+                  } else if (getSex == 'M'){
+                    sexSelectedM = 'selected';
+                    sexSelectedF = '';
+                  }
+                  getAddress                = profiles.address;
+                  getCity                   = profiles.city; 
+                  getProvince               = profiles.province_state; 
+                  getPostalCode             = profiles.postalcode;
+                  getCountry                = profiles.country; 
+                  getPhoneNumber            = profiles.phoneNumber; 
+                  getComments               = profiles.comments;                   
                   getSpecialConsiderations  = profiles.specialty;
+
+                  if (typeUserVal == 'D'){
+                    typeUserValSelectedD = 'selected';
+                    typeUserValSelectedP = '';
+                  } else if (typeUserVal == 'P'){
+                    typeUserValSelectedD = '';
+                    typeUserValSelectedP = 'selected';
+                  }
               }               
 
               if (typeUserVal == 'P'){
@@ -69,27 +93,27 @@
               }%>
 
               <div class="form-group">
-                <label for="BirthDateTextField">Birth Date</label>
-                <input type="datetime-local" class="form-control" id="BirthDateTextField"
+                <label for="BirthDateTextField">Date of Birth</label>
+                <input type="date" class="form-control" id="BirthDateTextField"
                 placeholder="Birth Date" name="birthDate" value="<%= edtbirthdate %>" required>
               </div>              
               <div class="form-group">
                 <label for="TypeOfUser">Type of User</label>
                 <br>
                 <select name="TypeOfUser" id="TypeOfUser">
-                  <% if (users.TypeOfUser == "A" && title == "Edit Profile") {%> 
+                  <!-- <% if (users.TypeOfUser == "A" && title == "Edit Profile") {%> 
                   <option value="A">Administrator</option>                  
-                  <% } %> 
-                  <option value="D">Dentist</option>                  
-                  <option value="P">Patient</option>
+                  <% } %>  -->                  
+                  <option value="D" <%=typeUserValSelectedD%> >Dentist</option>                  
+                  <option value="P" <%=typeUserValSelectedP%>>Patient</option>                  
                 </select>
               </div>      
               <div class="form-group">
                 <label for="Sex">Sex</label>
                 <br>
                 <select name="Sex" id="Sex">                  
-                  <option value="M">Male</option>                  
-                  <option value="F">Female</option>
+                  <option value="M" <%=sexSelectedM%>>Male</option>                  
+                  <option value="F" <%=sexSelectedF%>>Female</option>
                 </select>
               </div>                   
               <div class="form-group">

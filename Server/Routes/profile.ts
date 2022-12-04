@@ -29,10 +29,10 @@ export default router;
 import { DisplayAddProfilePage, ProcessAddProfilePage } from "../Controllers/profile";
 
 // GET the Profile Details page in order to edit an existing Profile
-router.get('/', AuthGuard, DisplayAddProfilePage);
+router.get('/profile', AuthGuard, DisplayAddProfilePage);
 
 // POST the Profile Details page in order to edit an existing Profile
-router.post('/:id', AuthGuard, ProcessAddProfilePage);
+router.post('/profile', AuthGuard, ProcessAddProfilePage);
 
 
 

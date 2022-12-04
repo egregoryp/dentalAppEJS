@@ -15,7 +15,7 @@ export function DisplayLoginPage(req: express.Request, res: express.Response, ne
 {
     if(!req.user)
     {
-        return res.render('content/login', { title: 'Login', page: 'login', messages: req.flash('loginMessage'), displayName: UserDisplayName(req)});
+        return res.render('content/login', { title: 'Login', page: 'login', messages: req.flash('loginMessage'), displayName: UserDisplayName(req), userID: UserID(req)});
     }
     return res.redirect("/dentist");
     
@@ -25,7 +25,7 @@ export function DisplayRegisterPage(req: express.Request, res: express.Response,
 {
     if(!req.user)
     {
-        return res.render('content/register', { title: 'Register', page: 'register', messages: req.flash('registerMessage'), displayName: UserDisplayName(req)});
+        return res.render('content/register', { title: 'Register', page: 'register', messages: req.flash('registerMessage'), displayName: UserDisplayName(req), userID: UserID(req)});
     } 
     
     if (TypeOfUser(req) === null || TypeOfUser(req) === ""){
@@ -37,7 +37,7 @@ export function DisplayEditUserPage(req: express.Request, res: express.Response,
 {
     if(req.user)
     {
-        return res.render('content/edituser', { title: 'Edit User', page: 'edituser', messages: req.flash('registerMessage'), displayName: UserDisplayName(req), userName: UserName(req), userEmail: UserEmail(req)});
+        return res.render('content/edituser', { title: 'Edit User', page: 'edituser', messages: req.flash('registerMessage'), displayName: UserDisplayName(req), userName: UserName(req), userEmail: UserEmail(req), userID: UserID(req)});
     } else {
         return res.redirect("/dentist");
     }
@@ -73,19 +73,19 @@ export function ProcessLoginPage(req: express.Request, res: express.Response, ne
             res.end(err);
         }
         
-        console.log( (user.typeOfUser == null || user.typeOfUser === ""));
+        //console.log( (user.typeOfUser == null || user.typeOfUser === ""));
 
         if (user.typeOfUser == null || user.typeOfUser === ""){
-            //return res.redirect("/profile");
-            return  res.render("profile/profile", {
-                title: "Complete Profile",
-                page: "profile",
-                users: user,
-                profiles: null,
-                typeUserVal: user.typeOfUser,
-                displayName: UserDisplayName(req),
-                user: UserName(req)
-            });      
+            return res.redirect("/");
+            // return  res.render("profile/profile", {
+            //     title: "Complete Profile",
+            //     page: "profile",
+            //     users: user,
+            //     profiles: null,
+            //     typeUserVal: user.typeOfUser,
+            //     displayName: UserDisplayName(req),
+            //     user: UserName(req)
+            // });      
         } else {
             return res.redirect("/dentist");
         } 

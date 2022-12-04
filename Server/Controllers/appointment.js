@@ -63,6 +63,7 @@ function DisplayBookAppointment(req, res, next) {
                 displayName: (0, Util_1.UserDisplayName)(req),
                 typeUser: (0, Util_1.TypeOfUser)(req),
                 user: (0, Util_1.UserName)(req),
+                userID: (0, Util_1.UserID)(req),
                 surveys: dentists,
             });
         }
@@ -72,6 +73,9 @@ exports.DisplayBookAppointment = DisplayBookAppointment;
 function ProcessBookAppointment(req, res, next) {
     let dentist_id = req.params.id;
     let u_id = (0, Util_1.UserID)(req);
+    res.send({
+        'id': dentist_id
+    });
     patient_1.default.findOne({ user_id: u_id }, function (err, docs) {
         if (err) {
             console.log(err);

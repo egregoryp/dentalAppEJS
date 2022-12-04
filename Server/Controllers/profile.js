@@ -20,8 +20,18 @@ function DisplayAddProfilePage(req, res, next) {
             res.end(err);
         }
         console.log(userCollection.typeOfUser);
-        if (userCollection.typeOfUser === 'D'
-            || userCollection.typeOfUser === 'A') {
+        if (userCollection.typeOfUser == null) {
+            res.render("profile/profile", {
+                title: "Complete Profile",
+                page: "profile",
+                users: userCollection,
+                profiles: null,
+                typeUserVal: userCollection.typeOfUser,
+                displayName: (0, Util_1.UserDisplayName)(req),
+                user: (0, Util_1.UserName)(req)
+            });
+        }
+        else if (userCollection.typeOfUser === 'D' || userCollection.typeOfUser === 'A') {
             dentist_1.default.findOne({ user_id: id }).lean().exec((err, profileCollection) => {
                 console.log(profileCollection);
                 res.render("profile/profile", {
@@ -36,7 +46,7 @@ function DisplayAddProfilePage(req, res, next) {
             });
         }
         else if (userCollection.typeOfUser === 'P') {
-            dentist_1.default.findOne({ user_id: id }).lean().exec((err, profileCollection) => {
+            patient_1.default.findOne({ user_id: id }).lean().exec((err, profileCollection) => {
                 res.render("profile/profile", {
                     title: "Complete Profile",
                     page: "profile",
@@ -52,7 +62,7 @@ function DisplayAddProfilePage(req, res, next) {
 }
 exports.DisplayAddProfilePage = DisplayAddProfilePage;
 function ProcessAddProfilePage(req, res, next) {
-    let id = req.params.id;
+    let id = (0, Util_1.UserID)(req);
     let birthdateVar = new Date(req.body.birthDate);
     let edtbirthdate = (0, Util_1.convertUTCEDTDate)(birthdateVar);
     let typeOfUserVal = req.body.TypeOfUser;

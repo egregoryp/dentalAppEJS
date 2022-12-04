@@ -27,6 +27,7 @@ function DisplayDentistList(req, res, next) {
                     displayName: (0, Util_1.UserDisplayName)(req),
                     typeUser: (0, Util_1.TypeOfUser)(req),
                     user: (0, Util_1.UserName)(req),
+                    userID: (0, Util_1.UserID)(req),
                     surveys: dentists,
                 });
             }
@@ -44,6 +45,7 @@ function DisplayDentistList(req, res, next) {
                     displayName: (0, Util_1.UserDisplayName)(req),
                     typeUser: (0, Util_1.TypeOfUser)(req),
                     user: (0, Util_1.UserName)(req),
+                    userID: (0, Util_1.UserID)(req),
                     surveys: dentists,
                 });
             }
@@ -59,6 +61,8 @@ function DisplayAddDentistList(req, res, next) {
         surveys: "",
         displayName: (0, Util_1.UserDisplayName)(req),
         typeUser: (0, Util_1.TypeOfUser)(req),
+        user: (0, Util_1.UserName)(req),
+        userID: (0, Util_1.UserID)(req),
         questions: questionArr,
     });
     console.log(questionArr);
@@ -131,6 +135,7 @@ function DisplayEditDentistPage(req, res, next) {
                 displayName: (0, Util_1.UserDisplayName)(req),
                 typeUser: (0, Util_1.TypeOfUser)(req),
                 user: (0, Util_1.UserName)(req),
+                userID: (0, Util_1.UserID)(req),
                 questions: questions,
             });
         });

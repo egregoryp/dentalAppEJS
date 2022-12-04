@@ -20,7 +20,7 @@
 
 import express from "express";
 
-import { UserDisplayName, TypeOfUser } from "../Util";
+import { UserDisplayName, TypeOfUser, UserID } from "../Util";
 
 import sgMail from "@sendgrid/mail";
 
@@ -36,6 +36,7 @@ export function DisplayHomePage(
     page: "home",
     displayName: UserDisplayName(req),
     userType: TypeOfUser(req),
+    userID: UserID(req),
     surveys: "",
   });
 }
@@ -50,6 +51,7 @@ export function DisplayAboutPage(
     page: "about",
     displayName: UserDisplayName(req),
     userType: TypeOfUser(req),
+    userID: UserID(req),
     surveys: "",
   });
 }
@@ -64,6 +66,7 @@ export function DisplayCalendarPage(
     page: "calendar",
     displayName: UserDisplayName(req),
     userType: TypeOfUser(req),
+    userID: UserID(req),
     surveys: "",
   });
 }
@@ -78,6 +81,7 @@ export function DisplayContactPage(
     page: "contact",
     displayName: UserDisplayName(req),
     userType: TypeOfUser(req),
+    userID: UserID(req),
     surveys: "",
   });
 }

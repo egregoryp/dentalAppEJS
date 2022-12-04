@@ -31,7 +31,7 @@ import question from "../Models/question";
 
 import response from "../Models/response";
 
-import { UserDisplayName, UserName, TypeOfUser, getFormattedDate, getEDTDate, convertUTCEDTDate } from "../Util";
+import { UserDisplayName, UserName, TypeOfUser, UserID, getFormattedDate, getEDTDate, convertUTCEDTDate } from "../Util";
 
 import setTZ from 'set-tz';
 setTZ('America/Toronto')
@@ -67,6 +67,7 @@ export function DisplayDentistList(
             displayName: UserDisplayName(req),
             typeUser: TypeOfUser(req),
             user: UserName(req),
+            userID: UserID(req),
             surveys: dentists,
           });               
           
@@ -94,6 +95,7 @@ export function DisplayDentistList(
             displayName: UserDisplayName(req),
             typeUser: TypeOfUser(req),
             user: UserName(req),   
+            userID: UserID(req),
             surveys: dentists,
           });
         }
@@ -114,6 +116,8 @@ export function DisplayAddDentistList(
     surveys: "",
     displayName: UserDisplayName(req),
     typeUser: TypeOfUser(req),
+    user: UserName(req),   
+    userID: UserID(req),
     questions: questionArr,
   });
 
@@ -212,7 +216,8 @@ export function DisplayEditDentistPage(
           surveys: dentists,
           displayName: UserDisplayName(req),
           typeUser: TypeOfUser(req),
-          user: UserName(req),
+          user: UserName(req),   
+          userID: UserID(req),
           questions: questions,
         });
       }

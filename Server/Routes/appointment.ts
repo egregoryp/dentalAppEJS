@@ -29,7 +29,7 @@ export default router;
 import {DisplayDentistAppointments, DisplayBookAppointment, ProcessBookAppointment} from "../Controllers/appointment";
 
 
-router.get('/', DisplayDentistAppointments);
-router.get('/home', DisplayDentistAppointments);
-router.get('/appointments', DisplayBookAppointment);
-router.post('/appointments/:id', ProcessBookAppointment);
+router.get('/', AuthGuard, DisplayDentistAppointments);
+router.get('/home', AuthGuard, DisplayDentistAppointments);
+router.get('/appointments', AuthGuard, DisplayBookAppointment);
+router.post('/appointments/:id', AuthGuard, ProcessBookAppointment);

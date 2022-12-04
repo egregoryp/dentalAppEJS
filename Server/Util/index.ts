@@ -145,11 +145,11 @@ export function getFormattedDate(inputDate: Date, fullDate: Boolean=false): stri
 
   if (fullDate){
     date_return =
+    inputDateF.getFullYear() +
+    "-" +    
     ("0" + (inputDateF.getMonth() + 1)).slice(-2) +
     "-" +
-    ("0" + inputDateF.getDate()).slice(-2) +
-    "-" +
-    inputDateF.getFullYear() +
+    ("0" + inputDateF.getDate()).slice(-2) +    
     " " +
     ("0" + hoursAMPM).slice(-2) +
     ":" +
@@ -158,9 +158,9 @@ export function getFormattedDate(inputDate: Date, fullDate: Boolean=false): stri
     ("0" + inputDateF.getSeconds()).slice(-2)+" "+vAMPM;
   } else {
     date_return =
+    inputDateF.getFullYear()+ "-" +
     ("0" + (inputDateF.getMonth() + 1)).slice(-2) + "-" +
-    ("0" + inputDateF.getDate()).slice(-2) + "-" +
-    inputDateF.getFullYear();
+    ("0" + inputDateF.getDate()).slice(-2);
   }
 
   return date_return;

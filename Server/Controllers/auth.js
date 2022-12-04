@@ -9,14 +9,14 @@ const user_1 = __importDefault(require("../Models/user"));
 const Util_1 = require("../Util");
 function DisplayLoginPage(req, res, next) {
     if (!req.user) {
-        return res.render('content/login', { title: 'Login', page: 'login', messages: req.flash('loginMessage'), displayName: (0, Util_1.UserDisplayName)(req) });
+        return res.render('content/login', { title: 'Login', page: 'login', messages: req.flash('loginMessage'), displayName: (0, Util_1.UserDisplayName)(req), userID: (0, Util_1.UserID)(req) });
     }
     return res.redirect("/dentist");
 }
 exports.DisplayLoginPage = DisplayLoginPage;
 function DisplayRegisterPage(req, res, next) {
     if (!req.user) {
-        return res.render('content/register', { title: 'Register', page: 'register', messages: req.flash('registerMessage'), displayName: (0, Util_1.UserDisplayName)(req) });
+        return res.render('content/register', { title: 'Register', page: 'register', messages: req.flash('registerMessage'), displayName: (0, Util_1.UserDisplayName)(req), userID: (0, Util_1.UserID)(req) });
     }
     if ((0, Util_1.TypeOfUser)(req) === null || (0, Util_1.TypeOfUser)(req) === "") {
         return res.render('content/profile');
@@ -25,7 +25,7 @@ function DisplayRegisterPage(req, res, next) {
 exports.DisplayRegisterPage = DisplayRegisterPage;
 function DisplayEditUserPage(req, res, next) {
     if (req.user) {
-        return res.render('content/edituser', { title: 'Edit User', page: 'edituser', messages: req.flash('registerMessage'), displayName: (0, Util_1.UserDisplayName)(req), userName: (0, Util_1.UserName)(req), userEmail: (0, Util_1.UserEmail)(req) });
+        return res.render('content/edituser', { title: 'Edit User', page: 'edituser', messages: req.flash('registerMessage'), displayName: (0, Util_1.UserDisplayName)(req), userName: (0, Util_1.UserName)(req), userEmail: (0, Util_1.UserEmail)(req), userID: (0, Util_1.UserID)(req) });
     }
     else {
         return res.redirect("/dentist");
@@ -47,17 +47,8 @@ function ProcessLoginPage(req, res, next) {
                 console.error(err);
                 res.end(err);
             }
-            console.log((user.typeOfUser == null || user.typeOfUser === ""));
             if (user.typeOfUser == null || user.typeOfUser === "") {
-                return res.render("profile/profile", {
-                    title: "Complete Profile",
-                    page: "profile",
-                    users: user,
-                    profiles: null,
-                    typeUserVal: user.typeOfUser,
-                    displayName: (0, Util_1.UserDisplayName)(req),
-                    user: (0, Util_1.UserName)(req)
-                });
+                return res.redirect("/");
             }
             else {
                 return res.redirect("/dentist");

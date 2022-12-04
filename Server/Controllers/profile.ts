@@ -52,9 +52,19 @@ export function DisplayAddProfilePage(
       }  
 
       console.log(userCollection.typeOfUser);
-
-      if(userCollection.typeOfUser === 'D'
-      || userCollection.typeOfUser === 'A'     //adjust
+      
+      if(userCollection.typeOfUser == null) {
+        res.render("profile/profile", {
+          title: "Complete Profile",
+          page: "profile",
+          users: userCollection,
+          profiles: null,
+          typeUserVal: userCollection.typeOfUser,
+          displayName: UserDisplayName(req),
+          user: UserName(req)
+        });
+      } 
+        else if(userCollection.typeOfUser === 'D' || userCollection.typeOfUser === 'A'     //adjust
       ){
         dentist.findOne({user_id:id}).lean().exec((err:CallbackError, profileCollection:any) => {
                    
@@ -73,7 +83,7 @@ export function DisplayAddProfilePage(
       } 
         else if (userCollection.typeOfUser === 'P')
       {
-        dentist.findOne({user_id:id}).lean().exec((err:CallbackError, profileCollection:any) => {
+        patient.findOne({user_id:id}).lean().exec((err:CallbackError, profileCollection:any) => {
           res.render("profile/profile", {
             title: "Complete Profile",
             page: "profile",
@@ -94,7 +104,7 @@ export function DisplayAddProfilePage(
     next: express.NextFunction
   ) {
 
-    let id = req.params.id;
+    let id = UserID(req);
 
     let birthdateVar = new Date(req.body.birthDate);   
     let edtbirthdate  = convertUTCEDTDate(birthdateVar);
@@ -136,12 +146,15 @@ export function DisplayAddProfilePage(
         specialty: req.body.specialConsiderations   
       });
 
+
+      //console.log(userProfile);
+
       dentist.create(userProfile, function (err: CallbackError) {
       if (err) {
         console.error(err);
         res.end(err);
       }      
-
+      
       res.redirect("/dentist");
       });
 
@@ -160,12 +173,14 @@ export function DisplayAddProfilePage(
         specialConsiderations: req.body.specialConsiderations         
       });
 
+      //console.log(userProfile);
+
       patient.create(userProfile, function (err: CallbackError) {
         if (err) {
           console.error(err);
           res.end(err);
         }
-  
+
         res.redirect("/dentist"); //should be redirected to appointments
         });
     }    

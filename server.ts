@@ -2,7 +2,7 @@
 
 import app from './Server/Config/app';
 import debug from 'debug';
-debug('comp229-m2022-megaSurvey:server');
+debug('dentalApp:server');
 import http from 'http';
 import { HttpError } from 'http-errors';
 

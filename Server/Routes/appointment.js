@@ -4,11 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const Util_1 = require("../Util");
 const router = express_1.default.Router();
 exports.default = router;
 const appointment_1 = require("../Controllers/appointment");
-router.get('/', appointment_1.DisplayDentistAppointments);
-router.get('/home', appointment_1.DisplayDentistAppointments);
-router.get('/appointments', appointment_1.DisplayBookAppointment);
-router.post('/appointments/:id', appointment_1.ProcessBookAppointment);
+router.get('/', Util_1.AuthGuard, appointment_1.DisplayDentistAppointments);
+router.get('/home', Util_1.AuthGuard, appointment_1.DisplayDentistAppointments);
+router.get('/appointments', Util_1.AuthGuard, appointment_1.DisplayBookAppointment);
+router.post('/appointments/:id', Util_1.AuthGuard, appointment_1.ProcessBookAppointment);
 //# sourceMappingURL=appointment.js.map

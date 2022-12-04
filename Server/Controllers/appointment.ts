@@ -102,6 +102,7 @@ export function DisplayDentistAppointments(
           displayName: UserDisplayName(req),
           typeUser: TypeOfUser(req),
           user: UserName(req),
+          userID: UserID(req),
           surveys: dentists,
         });               
         
@@ -118,6 +119,10 @@ export function DisplayDentistAppointments(
     let dentist_id = req.params.id;
 
     let u_id = UserID(req);
+
+    res.send({
+      'id': dentist_id
+    });    
     
     patient.findOne({user_id: u_id }, function (err:CallbackError, docs:any) {
       if (err){
