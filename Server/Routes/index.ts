@@ -23,7 +23,7 @@ import express from 'express';
 const router = express.Router();
 export default router;
 
-import { DisplayHomePage, DisplayAboutPage, DisplayContactPage, ProcessContactPage, DisplayCalendarPage } from '../Controllers/index';
+import { DisplayHomePage, DisplayAboutPage, DisplayContactPage, ProcessContactPage, DisplayCalendarPage, DisplayServicesPage } from '../Controllers/index';
 
 /* Display home page. */
 router.get('/', DisplayHomePage);
@@ -39,6 +39,9 @@ router.get('/contact', DisplayContactPage);
 
 /* Display home page. */
 router.get('/calendar', DisplayCalendarPage);
+
+/* Display home page. */
+router.get('/services', DisplayServicesPage);
 
 /*Process Contact Send Mail*/
 router.get('/contact/mail/:query' , ProcessContactPage);

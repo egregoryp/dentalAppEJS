@@ -1,0 +1,144 @@
+  <!--COMP231 Web Application Development - Mantis Developers Team
+    --Principal Developers's : 
+    ---Name: Ricardo Lopez Tuiran           ---Student ID: 301167302 
+    ---Name: Elias Pena Evertz              ---Student ID: 301166037
+    ---Name: Silvana Gjini                  ---Student ID: 301201477
+    ---Name: Bhupinder Dabb                 ---Student ID: 301187371
+    
+    --Support Team Members (Secondary Developers, UI/UX Designers)    
+    ---Name: Ankit Kodan                    ---Student ID: 
+    ---Name: Rishabh Dev Dogra              ---Student ID:
+    ---Name: Balkaran Singh                 ---Student ID:
+    ---Name: Mehwish Mehmood                ---Student ID:
+    ---Name: Ala’a Al-khdour                ---Student ID:    
+
+    --Web App name: Book a'Smile
+    --Description: The Dental Appointments Management System is a software application that will allow users to register, 
+    --edit and manage their personal accounts, book appointments according to the dentist availability, keep track on appointments 
+    --and have a history of procedures with dates and specific notes.   
+  -->
+
+  <%- include('../partials/header.ejs'); %>
+
+<header class="masthead">
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+        <div class="d-flex justify-content-center">
+            <div class="text-center">
+                <h1 class="mx-auto my-0 text-uppercase">Book Smile</h1>
+                <h2 class="text-black-50 mx-auto mt-2 mb-5">Your Smile is just a click away.</h2>
+                <a class="btn btn-primary" href="/login">Book an Appointment</a>
+            </div>
+        </div>
+    </div>
+</header><section class="about-section text-center" id="about">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="text-black mb-4"> Complete Dentistry for all ages - Customized Treatment & Payment Plans - Extended Hours</h2>
+                    <p class="text-black-50">
+                    We take pride in providing our community with comprehensive dental care that is pleasant and reasonably priced.
+                    </p>
+                </div>
+            </div>
+            <img class="img-fluid" src="../public/Smile.jpg" alt="..." />
+        </div>
+    </section><section class="projects-section bg-light" id="projects">
+        <div class="container px-4 px-lg-5">
+            
+            <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+                <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/bg-masthead.jpg" alt="..." /></div>
+                <div class="col-xl-4 col-lg-5">
+                    <div class="featured-text text-center text-lg-left">
+                        <h4>We proudly provide</h4>
+                        <li class="text-black-50 mb-0">Comprehensive Dentistry</li>
+                        <li class="text-black-50 mb-0">Emergency Care</li>
+                        <li class="text-black-50 mb-0">Surgeries</li>
+                        <li class="text-black-50 mb-0">Sleep Apnea</li>
+                        <li class="text-black-50 mb-0">Grinding</li>
+                        <li class="text-black-50 mb-0">Health Screening/ Oral Screening for cancer</li>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+                <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-01.jpg" alt="..." /></div>
+                <div class="col-lg-6">
+                    <div class="bg-black text-center h-100 project">
+                        <div class="d-flex h-100">
+                            <div class="project-text w-100 my-auto text-center text-lg-left">
+                                <h4 class="text-white">Technology</h4>
+                                <li class="mb-0 text-white-50">Digital X-Rays</li>
+                                <li class="mb-0 text-white-50">Cone Beam Computed</li>
+                                <li class="mb-0 text-white-50">Sterlization</li>
+                                <li class="mb-0 text-white-50">Diagnodent</li>
+                                <li class="mb-0 text-white-50">Invisalign</li>
+                                <li class="mb-0 text-white-50">Dental Operating Microscope</li>
+                                <hr class="d-none d-lg-block mb-0 ms-0" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row gx-0 justify-content-center">
+                <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-02.jpg" alt="..." /></div>
+                <div class="col-lg-6 order-lg-first">
+                    <div class="bg-black text-center h-100 project">
+                        <div class="d-flex h-100">
+                            <div class="project-text w-100 my-auto text-center text-lg-right">
+                                <h4 class="text-white">Meet The Doctors</h4>
+                                <li class="mb-0 text-white-50">Dr. Ankit</li>
+                                <li class="mb-0 text-white-50">Dr. Balkaran</li>
+                                <li class="mb-0 text-white-50">Dr. Elias</li>
+                                <li class="mb-0 text-white-50">Dr. Ricardo</li>
+                                <li class="mb-0 text-white-50">Dr. Silvana</li>
+                                <hr class="d-none d-lg-block mb-0 me-0" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><section class="contact-section bg-black">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="card py-4 h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-map-marked-alt text-primary mb-2"></i>
+                            <h4 class="text-uppercase m-0">Address</h4>
+                            <hr class="my-4 mx-auto" />
+                            <div class="small text-black-50"><a href="#!">Multiple Locations</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="card py-4 h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-envelope text-primary mb-2"></i>
+                            <h4 class="text-uppercase m-0">Email</h4>
+                            <hr class="my-4 mx-auto" />
+                            <div class="small text-black-50"><a href="#!">hello@yourdomain.com</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="card py-4 h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-mobile-alt text-primary mb-2"></i>
+                            <h4 class="text-uppercase m-0">Phone</h4>
+                            <hr class="my-4 mx-auto" />
+                            <div class="small text-black-50">+1 (555) 902-8832</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="social d-flex justify-content-center">
+                <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </section>
+    <%- include('../partials/footer.ejs'); %>

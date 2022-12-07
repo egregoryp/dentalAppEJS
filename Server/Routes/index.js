@@ -12,5 +12,6 @@ router.get('/home', index_1.DisplayHomePage);
 router.get('/about', index_1.DisplayAboutPage);
 router.get('/contact', index_1.DisplayContactPage);
 router.get('/calendar', index_1.DisplayCalendarPage);
+router.get('/services', index_1.DisplayServicesPage);
 router.get('/contact/mail/:query', index_1.ProcessContactPage);
 //# sourceMappingURL=index.js.map

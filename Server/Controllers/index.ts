@@ -71,6 +71,21 @@ export function DisplayCalendarPage(
   });
 }
 
+export function DisplayServicesPage(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  res.render("content/services", {
+    title: "Services",
+    page: "services",
+    displayName: UserDisplayName(req),
+    userType: TypeOfUser(req),
+    userID: UserID(req),
+    surveys: "",
+  });
+}
+
 export function DisplayContactPage(
   req: express.Request,
   res: express.Response,
