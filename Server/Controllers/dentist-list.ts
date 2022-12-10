@@ -52,33 +52,67 @@ export function DisplayDentistList(
   
   if (typeOfUser == 'D') {
     // dentist.find({ OwnerUserName: OwnerUsrName },function (err: CallbackError, dentist: Collection) {
-      dentist.find({user_id: userID}).lean().exec((err, dentists) => {
-        if (err) {
-          return console.error(err);
-        } else {
-          
-          // converting dates to EDT timezone
-          // for (let i=0; i < dentist.length; i++){                       
-          //   console.log(dentist[i].Start_Date);
-          //   console.log(dentist[i].Start_Date.toISOString());            
+      User.aggregate([  
+                      {
+                        "$project":   {
+                          "_id": {
+                            "$toString": "$_id"
+                          },
+                          "DisplayName": {
+                            "$toString": "$DisplayName"
+                          },
+                          "username": {
+                            "$toString": "$username"
+                          },
+                          "EmailAddress": {
+                            "$toString": "$EmailAddress"
+                          }
+                        }
+                      },
+                      { "$match" : { "_id" : userID } }, 
+                      { 
+                        "$lookup": {
+                          "from": "dentist",
+                          "localField": "_id",
+                          "foreignField": "user_id",
+                          "as": "dentist"
+                        }
+                      }                                              
+                      ]).exec((err, dentistAdd) => {
 
-          //   console.log(dentist[i].End_Date);            
-          //   console.log(dentist[i].End_Date.toISOString());            
-          // }     
+              let dUser;        
+              let dentistUser;
+              let dentistUserArr = [];
 
-          res.render("dentist/dentists", {
-            title: "dentist",
-            page: "dentist",
-            displayName: UserDisplayName(req),
-            typeUser: TypeOfUser(req),
-            user: UserName(req),
-            userID: UserID(req),
-            dentists: dentists,
-            surveys: dentists,
-          });               
-          
-        }
-      });
+              for (let i = 0; i < dentistAdd.length; i++) {
+              dUser = {
+              DisplayName: dentistAdd[i].DisplayName,
+              username: dentistAdd[i].username,           
+              EmailAddress: dentistAdd[i].EmailAddress              
+              }
+
+              //Creating one object from user - dentist profile
+              dentistUser = {
+              ...dUser,
+              ...dentistAdd[i].dentist[0] 
+              }
+
+              //pushing objects into array
+              dentistUserArr.push(dentistUser);
+              }
+
+              res.render("dentist/dentists", {
+              title: "dentists",
+              page: "dentists",
+              displayName: UserDisplayName(req),
+              typeUser: TypeOfUser(req),
+              user: UserName(req),   
+              userID: UserID(req),
+              dentists: dentistUserArr,
+              surveys: dentistUserArr,
+              });
+              });
+
   } else {    
     // appointment.find({ isActive: true },function (err: CallbackError, dentists: Collection) {
       User.aggregate([  
@@ -86,49 +120,61 @@ export function DisplayDentistList(
                           "$project":   {
                             "_id": {
                               "$toString": "$_id"
+                            },
+                            "DisplayName": {
+                              "$toString": "$DisplayName"
+                            },
+                            "username": {
+                              "$toString": "$username"
+                            },
+                            "EmailAddress": {
+                              "$toString": "$EmailAddress"
                             }
                           }
                         },
-                        { "$lookup": {
+                        { 
+                          "$lookup": {
                             "from": "dentist",
                             "localField": "_id",
                             "foreignField": "user_id",
                             "as": "dentist"
                           }
-                        }                       
+                        }                                              
                         ]).exec((err, dentistAdd) => {
-        console.log(dentistAdd);        
-        dentistAdd.forEach(function (value) {
-          console.log(value);
-        }); 
-      });
 
-      dentist.find().lean().exec((err, dentists) => {
-        if (err) {
-          return console.error(err);
-        } else {
+        let dUser;        
+        let dentistUser;
+        let dentistUserArr = [];
 
-          // converting dates to EDT timezone
-          // for (let i=0; i < dentists.length; i++){            
-          //   console.log(dentists[i].Start_Date);
-          //   console.log(dentists[i].Start_Date.toISOString());            
+        for (let i = 0; i < dentistAdd.length; i++) {
+          dUser = {
+              DisplayName: dentistAdd[i].DisplayName,
+              username: dentistAdd[i].username,           
+              EmailAddress: dentistAdd[i].EmailAddress              
+          }
 
-          //   console.log(dentists[i].End_Date);            
-          //   console.log(dentists[i].End_Date.toISOString());            
-          // }     
+          //Creating one object from user - dentist profile
+          dentistUser = {
+            ...dUser,
+            ...dentistAdd[i].dentist[0] 
+          }
 
-          res.render("dentist/dentists", {
-            title: "dentists",
-            page: "dentists",
-            displayName: UserDisplayName(req),
-            typeUser: TypeOfUser(req),
-            user: UserName(req),   
-            userID: UserID(req),
-            dentists: dentists,
-            surveys: dentists,
-          });
+          //pushing objects into array
+          dentistUserArr.push(dentistUser);
         }
+
+        res.render("dentist/dentists", {
+          title: "dentists",
+          page: "dentists",
+          displayName: UserDisplayName(req),
+          typeUser: TypeOfUser(req),
+          user: UserName(req),   
+          userID: UserID(req),
+          dentists: dentistUserArr,
+          surveys: dentistUserArr,
+        });
       });
+     
   }
 }
 

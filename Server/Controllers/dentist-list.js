@@ -9,7 +9,6 @@ const router = express_1.default.Router();
 const mongoose_1 = __importDefault(require("mongoose"));
 const user_1 = __importDefault(require("../Models/user"));
 const appointment_1 = __importDefault(require("../Models/appointment"));
-const dentist_1 = __importDefault(require("../Models/dentist"));
 const question_1 = __importDefault(require("../Models/question"));
 const response_1 = __importDefault(require("../Models/response"));
 const Util_1 = require("../Util");
@@ -19,22 +18,58 @@ function DisplayDentistList(req, res, next) {
     let typeOfUser = (0, Util_1.TypeOfUser)(req);
     let userID = (0, Util_1.UserID)(req);
     if (typeOfUser == 'D') {
-        dentist_1.default.find({ user_id: userID }).lean().exec((err, dentists) => {
-            if (err) {
-                return console.error(err);
+        user_1.default.aggregate([
+            {
+                "$project": {
+                    "_id": {
+                        "$toString": "$_id"
+                    },
+                    "DisplayName": {
+                        "$toString": "$DisplayName"
+                    },
+                    "username": {
+                        "$toString": "$username"
+                    },
+                    "EmailAddress": {
+                        "$toString": "$EmailAddress"
+                    }
+                }
+            },
+            { "$match": { "_id": userID } },
+            {
+                "$lookup": {
+                    "from": "dentist",
+                    "localField": "_id",
+                    "foreignField": "user_id",
+                    "as": "dentist"
+                }
             }
-            else {
-                res.render("dentist/dentists", {
-                    title: "dentist",
-                    page: "dentist",
-                    displayName: (0, Util_1.UserDisplayName)(req),
-                    typeUser: (0, Util_1.TypeOfUser)(req),
-                    user: (0, Util_1.UserName)(req),
-                    userID: (0, Util_1.UserID)(req),
-                    dentists: dentists,
-                    surveys: dentists,
-                });
+        ]).exec((err, dentistAdd) => {
+            let dUser;
+            let dentistUser;
+            let dentistUserArr = [];
+            for (let i = 0; i < dentistAdd.length; i++) {
+                dUser = {
+                    DisplayName: dentistAdd[i].DisplayName,
+                    username: dentistAdd[i].username,
+                    EmailAddress: dentistAdd[i].EmailAddress
+                };
+                dentistUser = {
+                    ...dUser,
+                    ...dentistAdd[i].dentist[0]
+                };
+                dentistUserArr.push(dentistUser);
             }
+            res.render("dentist/dentists", {
+                title: "dentists",
+                page: "dentists",
+                displayName: (0, Util_1.UserDisplayName)(req),
+                typeUser: (0, Util_1.TypeOfUser)(req),
+                user: (0, Util_1.UserName)(req),
+                userID: (0, Util_1.UserID)(req),
+                dentists: dentistUserArr,
+                surveys: dentistUserArr,
+            });
         });
     }
     else {
@@ -43,10 +78,20 @@ function DisplayDentistList(req, res, next) {
                 "$project": {
                     "_id": {
                         "$toString": "$_id"
+                    },
+                    "DisplayName": {
+                        "$toString": "$DisplayName"
+                    },
+                    "username": {
+                        "$toString": "$username"
+                    },
+                    "EmailAddress": {
+                        "$toString": "$EmailAddress"
                     }
                 }
             },
-            { "$lookup": {
+            {
+                "$lookup": {
                     "from": "dentist",
                     "localField": "_id",
                     "foreignField": "user_id",
@@ -54,27 +99,31 @@ function DisplayDentistList(req, res, next) {
                 }
             }
         ]).exec((err, dentistAdd) => {
-            console.log(dentistAdd);
-            dentistAdd.forEach(function (value) {
-                console.log(value);
+            let dUser;
+            let dentistUser;
+            let dentistUserArr = [];
+            for (let i = 0; i < dentistAdd.length; i++) {
+                dUser = {
+                    DisplayName: dentistAdd[i].DisplayName,
+                    username: dentistAdd[i].username,
+                    EmailAddress: dentistAdd[i].EmailAddress
+                };
+                dentistUser = {
+                    ...dUser,
+                    ...dentistAdd[i].dentist[0]
+                };
+                dentistUserArr.push(dentistUser);
+            }
+            res.render("dentist/dentists", {
+                title: "dentists",
+                page: "dentists",
+                displayName: (0, Util_1.UserDisplayName)(req),
+                typeUser: (0, Util_1.TypeOfUser)(req),
+                user: (0, Util_1.UserName)(req),
+                userID: (0, Util_1.UserID)(req),
+                dentists: dentistUserArr,
+                surveys: dentistUserArr,
             });
-        });
-        dentist_1.default.find().lean().exec((err, dentists) => {
-            if (err) {
-                return console.error(err);
-            }
-            else {
-                res.render("dentist/dentists", {
-                    title: "dentists",
-                    page: "dentists",
-                    displayName: (0, Util_1.UserDisplayName)(req),
-                    typeUser: (0, Util_1.TypeOfUser)(req),
-                    user: (0, Util_1.UserName)(req),
-                    userID: (0, Util_1.UserID)(req),
-                    dentists: dentists,
-                    surveys: dentists,
-                });
-            }
         });
     }
 }

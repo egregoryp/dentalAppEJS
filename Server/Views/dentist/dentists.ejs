@@ -39,10 +39,10 @@
                 <thead>
                   <tr>                     
                     
-                    <th class="text-center">Dentist Name</th>
-                    <th class="text-center">Specialty</th>
+                    <th class="text-center">Dentist Name</th>                    
                     <th class="text-center">Province</th>                  
-                    <th class="text-center">Country</th>                                      
+                    <th class="text-center">Country</th>     
+                    <th class="text-center">Specialty</th>                                 
                     <%  if(displayName) { %>             
                       <th class="text-center"></th>     
                       <th class="text-center"></th>
@@ -55,12 +55,11 @@
                   <!-- Template Row -->
                   <% for (let count = 0; count < dentists.length; count++) { %>
                   <tr>
-                    <td><%= dentists[count].Name %></td>               
-                    <td class="text-center" data-toggle="popover" title="<%= getFormatDate(surveys[count].Start_Date, true) %>"><%= getFormatDate(surveys[count].Start_Date) %></td>
-                    <td class="text-center" data-toggle="popover" title="<%= getFormatDate(surveys[count].End_Date, true) %>" ><%= getFormatDate(surveys[count].End_Date) %></td>
-                    <% if(displayName) { %>                           
-                      <td class="text-center"><%= surveys[count].isActive == true ? "Active" : "Inactive"  %></td>
-                    <% } %>     
+                    <td><%= dentists[count].DisplayName %></td>               
+                    <!-- <td class="text-center" data-toggle="popover" title="<%= getFormatDate(surveys[count].Start_Date, true) %>"><%= getFormatDate(surveys[count].Start_Date) %></td> -->                                        
+                    <td class="text-center"><%= dentists[count].province_state %></td>
+                    <td class="text-center"><%= dentists[count].country %></td>
+                    <td class="text-center"><%= dentists[count].specialty %></td>
 
                     <td class="text-center">
                       <a
