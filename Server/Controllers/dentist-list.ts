@@ -66,10 +66,13 @@ export function DisplayDentistList(
                           },
                           "EmailAddress": {
                             "$toString": "$EmailAddress"
+                          },
+                          "typeOfUser": {
+                            "$toString": "$typeOfUser"
                           }
                         }
                       },
-                      { "$match" : { "_id" : userID } }, 
+                      { "$match" : { "_id" : userID, "typeOfUser" : "D"} }, 
                       { 
                         "$lookup": {
                           "from": "dentist",
@@ -129,9 +132,13 @@ export function DisplayDentistList(
                             },
                             "EmailAddress": {
                               "$toString": "$EmailAddress"
+                            },
+                            "typeOfUser": {
+                              "$toString": "$typeOfUser"
                             }
                           }
                         },
+                        { "$match" : { "typeOfUser" : "D"} }, 
                         { 
                           "$lookup": {
                             "from": "dentist",

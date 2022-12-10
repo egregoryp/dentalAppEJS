@@ -32,10 +32,13 @@ function DisplayDentistList(req, res, next) {
                     },
                     "EmailAddress": {
                         "$toString": "$EmailAddress"
+                    },
+                    "typeOfUser": {
+                        "$toString": "$typeOfUser"
                     }
                 }
             },
-            { "$match": { "_id": userID } },
+            { "$match": { "_id": userID, "typeOfUser": "D" } },
             {
                 "$lookup": {
                     "from": "dentist",
@@ -87,9 +90,13 @@ function DisplayDentistList(req, res, next) {
                     },
                     "EmailAddress": {
                         "$toString": "$EmailAddress"
+                    },
+                    "typeOfUser": {
+                        "$toString": "$typeOfUser"
                     }
                 }
             },
+            { "$match": { "typeOfUser": "D" } },
             {
                 "$lookup": {
                     "from": "dentist",
