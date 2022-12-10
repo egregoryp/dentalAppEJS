@@ -25,7 +25,11 @@
       <div class="row">
         <div class="col-md-offset-1 col-md-10">
           <br>
-          <h3>Dentists List</h3>   
+          <% if (typeOfUser =='A') { %> 
+            <h3>Users List</h3>   
+          <% } else { %> 
+            <h3>Dentists List</h3>   
+          <% } %> 
           <br>       
           <%  if(displayName && typeUser != 'P') { %>  
             <a href="/dentist/add" class="btn btn-primary"><i class="fa fa-plus"></i> Register a Dentist</a>

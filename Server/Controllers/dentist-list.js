@@ -3,14 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessDeleteDentistPage = exports.ProcessEditDentistPage = exports.DisplayEditDentistPage = exports.ProcessAddDentistPage = exports.DisplayAddDentistList = exports.DisplayDentistList = void 0;
+exports.ProcessDeleteDentistPage = exports.ProcessEditDentistPage = exports.DisplayEditDentistPage = exports.DisplayDentistList = void 0;
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const mongoose_1 = __importDefault(require("mongoose"));
 const user_1 = __importDefault(require("../Models/user"));
 const appointment_1 = __importDefault(require("../Models/appointment"));
+const dentist_1 = __importDefault(require("../Models/dentist"));
 const question_1 = __importDefault(require("../Models/question"));
-const response_1 = __importDefault(require("../Models/response"));
 const Util_1 = require("../Util");
 const set_tz_1 = __importDefault(require("set-tz"));
 (0, set_tz_1.default)('America/Toronto');
@@ -70,6 +70,81 @@ function DisplayDentistList(req, res, next) {
                 typeUser: (0, Util_1.TypeOfUser)(req),
                 user: (0, Util_1.UserName)(req),
                 userID: (0, Util_1.UserID)(req),
+                typeOfUser: typeOfUser,
+                dentists: dentistUserArr,
+                surveys: dentistUserArr,
+            });
+        });
+    }
+    else if (typeOfUser == 'A') {
+        user_1.default.aggregate([
+            {
+                "$project": {
+                    "_id": {
+                        "$toString": "$_id"
+                    },
+                    "DisplayName": {
+                        "$toString": "$DisplayName"
+                    },
+                    "username": {
+                        "$toString": "$username"
+                    },
+                    "EmailAddress": {
+                        "$toString": "$EmailAddress"
+                    },
+                    "typeOfUser": {
+                        "$toString": "$typeOfUser"
+                    }
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "dentist",
+                    "localField": "_id",
+                    "foreignField": "user_id",
+                    "as": "dentist"
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "patient",
+                    "localField": "_id",
+                    "foreignField": "user_id",
+                    "as": "patient"
+                }
+            }
+        ]).exec((err, dentistAdd) => {
+            let dUser;
+            let dentistPatientUser;
+            let dentistUserArr = [];
+            for (let i = 0; i < dentistAdd.length; i++) {
+                dUser = {
+                    DisplayName: dentistAdd[i].DisplayName,
+                    username: dentistAdd[i].username,
+                    EmailAddress: dentistAdd[i].EmailAddress
+                };
+                if (dentistAdd[i].dentist[0]) {
+                    dentistPatientUser = {
+                        ...dUser,
+                        ...dentistAdd[i].dentist[0]
+                    };
+                }
+                else {
+                    dentistPatientUser = {
+                        ...dUser,
+                        ...dentistAdd[i].patient[0]
+                    };
+                }
+                dentistUserArr.push(dentistPatientUser);
+            }
+            res.render("dentist/dentists", {
+                title: "dentists",
+                page: "dentists",
+                displayName: (0, Util_1.UserDisplayName)(req),
+                typeUser: (0, Util_1.TypeOfUser)(req),
+                user: (0, Util_1.UserName)(req),
+                userID: (0, Util_1.UserID)(req),
+                typeOfUser: typeOfUser,
                 dentists: dentistUserArr,
                 surveys: dentistUserArr,
             });
@@ -128,6 +203,7 @@ function DisplayDentistList(req, res, next) {
                 typeUser: (0, Util_1.TypeOfUser)(req),
                 user: (0, Util_1.UserName)(req),
                 userID: (0, Util_1.UserID)(req),
+                typeOfUser: typeOfUser,
                 dentists: dentistUserArr,
                 surveys: dentistUserArr,
             });
@@ -135,77 +211,14 @@ function DisplayDentistList(req, res, next) {
     }
 }
 exports.DisplayDentistList = DisplayDentistList;
-function DisplayAddDentistList(req, res, next) {
-    let questionArr = new Array();
-    res.render("dentist/details", {
-        title: "Add dentist",
-        page: "details",
-        surveys: "",
-        displayName: (0, Util_1.UserDisplayName)(req),
-        typeUser: (0, Util_1.TypeOfUser)(req),
-        user: (0, Util_1.UserName)(req),
-        userID: (0, Util_1.UserID)(req),
-        questions: questionArr,
-    });
-    console.log(questionArr);
-}
-exports.DisplayAddDentistList = DisplayAddDentistList;
-function ProcessAddDentistPage(req, res, next) {
-    let start_date = new Date(req.body.startDate);
-    let edtStartDate = (0, Util_1.convertUTCEDTDate)(start_date);
-    let end_date = new Date(req.body.endDate);
-    let edtEndDate = (0, Util_1.convertUTCEDTDate)(end_date);
-    let edtDateTime = (0, Util_1.getEDTDate)(false);
-    let itsActive;
-    if (edtEndDate < edtDateTime) {
-        itsActive = false;
-    }
-    else {
-        itsActive = true;
-    }
-    let newDentist = new appointment_1.default({
-        Name: req.body.name,
-        Owner: (0, Util_1.UserDisplayName)(req),
-        OwnerUserName: (0, Util_1.UserName)(req),
-        isActive: itsActive,
-        type: req.body.type,
-        Start_Date: edtStartDate,
-        End_Date: edtEndDate
-    });
-    appointment_1.default.create(newDentist, function (err) {
-        if (err) {
-            console.error(err);
-            res.end(err);
-        }
-        let newQuestion = new question_1.default({
-            Survey_ID: newDentist._id,
-            question: [
-                req.body.q1,
-                req.body.q2,
-                req.body.q3,
-                req.body.q4,
-                req.body.q5,
-            ],
-        });
-        question_1.default.create(newQuestion, function (err) {
-            if (err) {
-                console.error(err);
-                res.end(err);
-            }
-        });
-        res.redirect("/dentist");
-    });
-}
-exports.ProcessAddDentistPage = ProcessAddDentistPage;
 function DisplayEditDentistPage(req, res, next) {
     let id = req.params.id;
-    appointment_1.default.findById(id, function (err, dentists) {
+    dentist_1.default.findById(id, function (err, dentists) {
         if (err) {
             console.log(err);
             res.end(err);
         }
-        let qId = new mongoose_1.default.Types.ObjectId(id);
-        question_1.default.find({ Survey_ID: qId }, function (err, questions) {
+        user_1.default.find({ _id: dentists.user_id }, function (err, questions) {
             if (err) {
                 console.log(err);
                 res.end(err);
@@ -213,12 +226,11 @@ function DisplayEditDentistPage(req, res, next) {
             res.render("dentist/details", {
                 title: "Edit dentist",
                 page: "details",
-                surveys: dentists,
                 displayName: (0, Util_1.UserDisplayName)(req),
                 typeUser: (0, Util_1.TypeOfUser)(req),
                 user: (0, Util_1.UserName)(req),
                 userID: (0, Util_1.UserID)(req),
-                questions: questions,
+                dentists: dentists
             });
         });
     });
@@ -272,20 +284,13 @@ function ProcessEditDentistPage(req, res, next) {
 exports.ProcessEditDentistPage = ProcessEditDentistPage;
 function ProcessDeleteDentistPage(req, res, next) {
     let id = req.params.id;
-    appointment_1.default.remove({ _id: id }, function (err) {
+    dentist_1.default.remove({ _id: id }, function (err) {
         if (err) {
             console.error(err);
             res.end(err);
         }
     });
-    let qid = new mongoose_1.default.Types.ObjectId(id);
-    question_1.default.findOneAndDelete({ Survey_ID: qid }, function (err, docs) {
-        if (err) {
-            console.error(err);
-            res.end(err);
-        }
-    });
-    response_1.default.deleteMany({ Survey_ID: id }, function (err) {
+    user_1.default.findOneAndUpdate({ user_id: id }, { typeOfUser: "" }, function (err, docs) {
         if (err) {
             console.error(err);
             res.end(err);

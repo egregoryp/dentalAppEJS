@@ -26,17 +26,17 @@ import { AuthGuard, AuthGuardEditDelete } from '../Util';
 const router = express.Router();
 export default router;
 
-import { DisplayDentistList, DisplayAddDentistList, ProcessAddDentistPage, DisplayEditDentistPage, ProcessEditDentistPage, ProcessDeleteDentistPage } from "../Controllers/dentist-list";
+import { DisplayDentistList, DisplayEditDentistPage, ProcessEditDentistPage, ProcessDeleteDentistPage } from "../Controllers/dentist-list";
 
 /* GET books List page. READ */
 router.get('/', DisplayDentistList);
 router.get('/home', DisplayDentistList);
 
 //  GET the dentist Details page in order to add a new dentist
-router.get('/add', AuthGuard, DisplayAddDentistList);
+// router.get('/add', AuthGuard, DisplayAddDentistList);
 
 // POST process the Book Details page and create a new dentist - CREATE
-router.post('/add', AuthGuard, ProcessAddDentistPage);
+// router.post('/add', AuthGuard, ProcessAddDentistPage);
 
 // GET the Book Details page in order to edit an existing Book
 router.get('/:id', AuthGuardEditDelete, DisplayEditDentistPage);
