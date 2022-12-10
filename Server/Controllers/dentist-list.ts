@@ -25,7 +25,11 @@ import mongoose from "mongoose";
 
 import { CallbackError, Collection } from "mongoose";
 
+import User from "../Models/user";
+
 import appointment from "../Models/appointment";
+
+import dentist from "../Models/dentist";
 
 import question from "../Models/question";
 
@@ -43,11 +47,12 @@ export function DisplayDentistList(
 ) {
   // find all dentist in the dentist collection
 
-  let OwnerUsrName = UserName(req);
+  let typeOfUser = TypeOfUser(req);  
+  let userID = UserID(req);  
   
-  if (OwnerUsrName) {
+  if (typeOfUser == 'D') {
     // dentist.find({ OwnerUserName: OwnerUsrName },function (err: CallbackError, dentist: Collection) {
-      appointment.find({OwnerUserName: OwnerUsrName}).lean().exec((err, dentists) => {
+      dentist.find({user_id: userID}).lean().exec((err, dentists) => {
         if (err) {
           return console.error(err);
         } else {
@@ -68,6 +73,7 @@ export function DisplayDentistList(
             typeUser: TypeOfUser(req),
             user: UserName(req),
             userID: UserID(req),
+            dentists: dentists,
             surveys: dentists,
           });               
           
@@ -75,7 +81,29 @@ export function DisplayDentistList(
       });
   } else {    
     // appointment.find({ isActive: true },function (err: CallbackError, dentists: Collection) {
-      appointment.find({ isActive: true }).lean().exec((err, dentists) => {
+      User.aggregate([  
+                        {
+                          "$project":   {
+                            "_id": {
+                              "$toString": "$_id"
+                            }
+                          }
+                        },
+                        { "$lookup": {
+                            "from": "dentist",
+                            "localField": "_id",
+                            "foreignField": "user_id",
+                            "as": "dentist"
+                          }
+                        }                       
+                        ]).exec((err, dentistAdd) => {
+        console.log(dentistAdd);        
+        dentistAdd.forEach(function (value) {
+          console.log(value);
+        }); 
+      });
+
+      dentist.find().lean().exec((err, dentists) => {
         if (err) {
           return console.error(err);
         } else {
@@ -96,6 +124,7 @@ export function DisplayDentistList(
             typeUser: TypeOfUser(req),
             user: UserName(req),   
             userID: UserID(req),
+            dentists: dentists,
             surveys: dentists,
           });
         }

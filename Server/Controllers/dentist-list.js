@@ -7,16 +7,19 @@ exports.ProcessDeleteDentistPage = exports.ProcessEditDentistPage = exports.Disp
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const mongoose_1 = __importDefault(require("mongoose"));
+const user_1 = __importDefault(require("../Models/user"));
 const appointment_1 = __importDefault(require("../Models/appointment"));
+const dentist_1 = __importDefault(require("../Models/dentist"));
 const question_1 = __importDefault(require("../Models/question"));
 const response_1 = __importDefault(require("../Models/response"));
 const Util_1 = require("../Util");
 const set_tz_1 = __importDefault(require("set-tz"));
 (0, set_tz_1.default)('America/Toronto');
 function DisplayDentistList(req, res, next) {
-    let OwnerUsrName = (0, Util_1.UserName)(req);
-    if (OwnerUsrName) {
-        appointment_1.default.find({ OwnerUserName: OwnerUsrName }).lean().exec((err, dentists) => {
+    let typeOfUser = (0, Util_1.TypeOfUser)(req);
+    let userID = (0, Util_1.UserID)(req);
+    if (typeOfUser == 'D') {
+        dentist_1.default.find({ user_id: userID }).lean().exec((err, dentists) => {
             if (err) {
                 return console.error(err);
             }
@@ -28,13 +31,35 @@ function DisplayDentistList(req, res, next) {
                     typeUser: (0, Util_1.TypeOfUser)(req),
                     user: (0, Util_1.UserName)(req),
                     userID: (0, Util_1.UserID)(req),
+                    dentists: dentists,
                     surveys: dentists,
                 });
             }
         });
     }
     else {
-        appointment_1.default.find({ isActive: true }).lean().exec((err, dentists) => {
+        user_1.default.aggregate([
+            {
+                "$project": {
+                    "_id": {
+                        "$toString": "$_id"
+                    }
+                }
+            },
+            { "$lookup": {
+                    "from": "dentist",
+                    "localField": "_id",
+                    "foreignField": "user_id",
+                    "as": "dentist"
+                }
+            }
+        ]).exec((err, dentistAdd) => {
+            console.log(dentistAdd);
+            dentistAdd.forEach(function (value) {
+                console.log(value);
+            });
+        });
+        dentist_1.default.find().lean().exec((err, dentists) => {
             if (err) {
                 return console.error(err);
             }
@@ -46,6 +71,7 @@ function DisplayDentistList(req, res, next) {
                     typeUser: (0, Util_1.TypeOfUser)(req),
                     user: (0, Util_1.UserName)(req),
                     userID: (0, Util_1.UserID)(req),
+                    dentists: dentists,
                     surveys: dentists,
                 });
             }

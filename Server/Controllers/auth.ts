@@ -121,7 +121,7 @@ export function ProcessRegisterPage(req: express.Request, res: express.Response,
                 console.error(err.name); // other error
                 req.flash('registerMessage', 'Server Error');
             }
-            return res.redirect('/register');
+            return res.redirect('/register');            
         }
 
         // everything is ok - user has been registered
@@ -129,7 +129,9 @@ export function ProcessRegisterPage(req: express.Request, res: express.Response,
         // automatically login the user
         return passport.authenticate('local')(req, res, function()
         {
-            return res.redirect('/profile');
+            //return res.redirect('/profile');
+            return res.redirect("/edituser");
+            
         });
     });
 }

@@ -77,7 +77,7 @@ function ProcessRegisterPage(req, res, next) {
             return res.redirect('/register');
         }
         return passport_1.default.authenticate('local')(req, res, function () {
-            return res.redirect('/profile');
+            return res.redirect("/edituser");
         });
     });
 }
