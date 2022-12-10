@@ -24,7 +24,7 @@ import express, { NextFunction } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import { getFormattedDate } from "../Util";
+import { getFormattedDate, TypeOfUserID } from "../Util";
 
 // import db package
 import mongoose from 'mongoose';
@@ -62,6 +62,11 @@ const app = express();
 //create a helper function to use in ejs files
 app.locals.getFormatDate = (inputDate:Date, fullDate: Boolean=false) =>{
   return getFormattedDate(inputDate, fullDate);
+}
+
+//create a helper function to use in ejs files
+app.locals.TypeOfUserID = (inputID:String) =>{
+  return TypeOfUserID(inputID);
 }
 
 // Complete the DB Configuration

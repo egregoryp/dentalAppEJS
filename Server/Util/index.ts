@@ -22,6 +22,8 @@ import express from 'express';
 import dentist from "../Models/appointment";
 import User from "../Models/user";
 
+import mongoose from "mongoose";
+
 import { CallbackError, Collection } from 'mongoose';
 
 import setTZ from 'set-tz';
@@ -82,6 +84,22 @@ export function TypeOfUser(req: express.Request): string
           return user.typeOfUser.toString();
         }        
     }
+    return '';
+}
+
+// convenience function to return type of user
+export function TypeOfUserID(userID:String): string
+{   //let id = new mongoose.Types.ObjectId(userID);
+    // console.log(userID);
+    User.findById(userID, function (err: CallbackError, doc: any) {
+      if (err) {
+        console.log(err);        
+      }
+      
+      console.log(doc.typeOfUser);
+      return doc.typeOfUser;
+      
+    });
     return '';
 }
 

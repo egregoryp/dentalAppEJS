@@ -52,6 +52,9 @@ const app = (0, express_1.default)();
 app.locals.getFormatDate = (inputDate, fullDate = false) => {
     return (0, Util_1.getFormattedDate)(inputDate, fullDate);
 };
+app.locals.TypeOfUserID = (inputID) => {
+    return (0, Util_1.TypeOfUserID)(inputID);
+};
 const DBConfig = __importStar(require("./db"));
 mongoose_1.default.connect((process.env.RemoteURI) ? process.env.RemoteURI : DBConfig.LocalURI);
 const db = mongoose_1.default.connection;

@@ -3,8 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.convertUTCEDTDate = exports.getEDTDate = exports.getFormattedDate = exports.AuthGuardEditDelete = exports.AuthGuard = exports.TypeOfUser = exports.UserID = exports.UserEmail = exports.UserName = exports.UserDisplayName = void 0;
+exports.convertUTCEDTDate = exports.getEDTDate = exports.getFormattedDate = exports.AuthGuardEditDelete = exports.AuthGuard = exports.TypeOfUserID = exports.TypeOfUser = exports.UserID = exports.UserEmail = exports.UserName = exports.UserDisplayName = void 0;
 const appointment_1 = __importDefault(require("../Models/appointment"));
+const user_1 = __importDefault(require("../Models/user"));
 const set_tz_1 = __importDefault(require("set-tz"));
 (0, set_tz_1.default)('America/Toronto');
 function UserDisplayName(req) {
@@ -49,6 +50,17 @@ function TypeOfUser(req) {
     return '';
 }
 exports.TypeOfUser = TypeOfUser;
+function TypeOfUserID(userID) {
+    user_1.default.findById(userID, function (err, doc) {
+        if (err) {
+            console.log(err);
+        }
+        console.log(doc.typeOfUser);
+        return doc.typeOfUser;
+    });
+    return '';
+}
+exports.TypeOfUserID = TypeOfUserID;
 function AuthGuard(req, res, next) {
     let user = req.user;
     if (!req.isAuthenticated()) {
