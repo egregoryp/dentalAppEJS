@@ -207,11 +207,15 @@ p {
 }
 
 
-.aboutPageImgs{padding-left:17px; width: 34%; height: 50%; margin: auto;}
-.aboutPageImg{padding-left:17px;width: 44%; height: 60%; margin: auto;}
-.aboutPageImgbhup{padding-left:17px;width: 35%; height: 40%; margin: auto;}
-.aboutPageImgSilvana{padding-left:17px;width: 32%; height: 45%; margin: auto;}
+.aboutPageRic{padding-left:17px; width: 34%; height: 50%; margin: auto;}
+.aboutPageImgMeh{padding-left:17px;width: 55%; height: 65%; margin: auto;}
+.aboutPageImgBhups{padding-left:17px;width: 35%; height: 40%; margin: auto;}
+.aboutPageImgSil{padding-left:17px;width: 32%; height: 45%; margin: auto;}
 .aboutPageImgElias{padding-left:17px;width: 55%; height: 70%; margin: auto;}
+.aboutPageImgBal{padding-left:17px;width: 55%; height: 65%; margin: auto;}
+.aboutPageImgRis{padding-left:17px;width: 55%; height: 65%; margin: auto;}
+.aboutPageImgAnkit{padding-left:17px;width: 55%; height: 65%; margin: auto;}
+.aboutPageImgAla{padding-left:17px;width: 55%; height: 65%; margin: auto;}
 
 .contactLabel{
   color: #1F5D5E;
