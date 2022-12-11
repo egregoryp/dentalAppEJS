@@ -8,6 +8,7 @@ const Schema = mongoose_1.default.Schema;
 const AppointmentSchema = new Schema({
     Subject: String,
     Dentist_ID: Object,
+    Dentist_name: String,
     Patient_ID: Object,
     Patient_Name: String,
     type: String,

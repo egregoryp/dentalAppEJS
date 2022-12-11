@@ -1,0 +1,68 @@
+  <!--COMP231 Web Application Development - Mantis Developers Team
+    --Principal Developers's : 
+    ---Name: Ricardo Lopez Tuiran           ---Student ID: 301167302 
+    ---Name: Elias Pena Evertz              ---Student ID: 301166037
+    ---Name: Silvana Gjini                  ---Student ID: 301201477
+    ---Name: Bhupinder Dabb                 ---Student ID: 301187371
+    
+    --Support Team Members (Secondary Developers, UI/UX Designers)    
+    ---Name: Ankit Kodan                    ---Student ID: 
+    ---Name: Rishabh Dev Dogra              ---Student ID:
+    ---Name: Balkaran Singh                 ---Student ID:
+    ---Name: Mehwish Mehmood                ---Student ID:
+    ---Name: Ala’a Al-khdour                ---Student ID:    
+
+    --Web App name: Book a'Smile
+    --Description: The Dental Appointments Management System is a software application that will allow users to register, 
+    --edit and manage their personal accounts, book appointments according to the dentist availability, keep track on appointments 
+    --and have a history of procedures with dates and specific notes.   
+  -->
+
+<%- include('../partials/header.ejs'); %>
+
+    <!-- MAIN CONTENT -->
+    <div class="container" id="tables">
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+          <br>
+          <h3>Book Appointment</h3>   
+          <!-- <br>       
+          <a href="/dentist/add" class="btn btn-primary"><i class="fa fa-plus"></i> Book Appointment</a>
+          <br> -->
+          <br>
+          <!-- <h1><%= title %></h1> -->
+          <div class="row justify-content-center">
+            <form class="form" method="post">              
+              <div class="form-group">
+                <label for="NameTextField">Patient Name</label>
+                <input type="text" class="form-control" id="NameTextField"
+                placeholder="User Name" name="name" value="<%= displayName %>" required>
+              </div>                                                                  
+              <div class="form-group">
+                <label for="SubjectTextField">Subject</label>
+                <input type="text" class="form-control" id="SubjectTextField"
+                placeholder="2 Cavities" name="subject" value=""  required>                               
+              </div>  
+              <div class="form-group">
+                <label for="AppointmentDateTextField">Appointment Date</label>
+                <input type="datetime-local" class="form-control" id="AppointmentDateTextField"
+                placeholder="25-11-2022" name="appointmentDate" value="" required>
+              </div>              
+              <div class="form-group">
+                <label for="DescriptionTextField">Description</label>
+                <input type="text" class="form-control" id="DescriptionTextField"
+                placeholder="I just saw a few Cavities where I have pain" name="description" value=""  required>                               
+              </div>  
+              <br>
+
+              <button type="submit" class="btn btn-primary submit"><i class="fa fa-check-square-o"></i> Submit</button>              
+              <a href="/dentist" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
+            </form>              
+          </div>          
+        </div>
+      </div>
+    </div>
+
+<%- include('../partials/footer.ejs'); %>
+
+

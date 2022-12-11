@@ -25,7 +25,7 @@
     <div class="row">
       <div class="col-md-offset-1 col-md-10">
         <br>
-        <h3>Book Appointment</h3>   
+        <h3>Appointment Details</h3>   
         <!-- <br>       
         <a href="/dentist/add" class="btn btn-primary"><i class="fa fa-plus"></i> Book Appointment</a>
         <br> -->
@@ -34,29 +34,32 @@
         <div class="row justify-content-center">
           <form class="form" method="post">              
             <div class="form-group">
+                
               <label for="NameTextField">Patient Name</label>
               <input type="text" class="form-control" id="NameTextField"
-              placeholder="User Name" name="name" value="<%= displayName %>" required>
+              placeholder="User Name" name="name" value="<%= appointment.Patient_Name%>" required>
             </div>                                                                  
             <div class="form-group">
               <label for="SubjectTextField">Subject</label>
               <input type="text" class="form-control" id="SubjectTextField"
-              placeholder="2 Cavities" name="subject" value=""  required>                               
+              placeholder="2 Cavities" name="subject" value="<%= appointment.Subject%>"  required>                               
             </div>  
             <div class="form-group">
               <label for="AppointmentDateTextField">Appointment Date</label>
-              <input type="datetime-local" class="form-control" id="AppointmentDateTextField"
-              placeholder="25-11-2022" name="appointmentDate" value="" required>
+              <input type="date" class="form-control" id="AppointmentDateTextField"
+              <%let date= getFormatDate(appointment.Appointment_Date)%>
+              placeholder="25-11-2022" name="appointmentDate" value="<%= date %>" required>
             </div>              
             <div class="form-group">
               <label for="DescriptionTextField">Description</label>
               <input type="text" class="form-control" id="DescriptionTextField"
-              placeholder="I just saw a few Cavities where I have pain" name="description" value=""  required>                               
+              placeholder="I just saw a few Cavities where I have pain" name="description" value="<%= appointment.Description%>"  required>                               
             </div>  
             <br>
 
-            <button type="submit" class="btn btn-primary submit"><i class="fa fa-check-square-o"></i> Submit</button>              
-            <a href="/dentist" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
+            <button type="submit" class="btn btn-primary submit"><i class="fa fa-check-square-o"></i> Edit</button>   
+            <a href="../delete/<%= appointment._id %>" id="deleteButton" type="button" class="btn btn-danger delete-btn"><i class="fas fa-undo fa-lg"></i> Delete</a>           
+            <a href="/appointment" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
           </form>              
         </div>          
       </div>
