@@ -83,25 +83,31 @@ function ProcessRegisterPage(req, res, next) {
 }
 exports.ProcessRegisterPage = ProcessRegisterPage;
 function ProcessEditUserPage(req, res, next) {
-    let user = (0, Util_1.UserName)(req);
-    let editUser = new user_1.default({
-        username: user,
-        EmailAddress: req.body.emailAddress,
-        DisplayName: req.body.editName
-    });
-    console.log(user);
-    user_1.default.findOneAndRemove({ username: user }, function (err, docs) {
+    let userName = (0, Util_1.UserName)(req);
+    let editUser;
+    user_1.default.findOneAndRemove({ username: userName }, function (err, docs) {
         if (err) {
             console.log(err);
         }
         else {
+            editUser = new user_1.default({
+                _id: docs._id,
+                username: userName ?? docs.username,
+                EmailAddress: req.body.emailAddress ?? docs.EmailAddress,
+                DisplayName: req.body.editName.join(" ").trim() ?? docs.DisplayName,
+                typeOfUser: docs.typeOfUser ?? ''
+            });
             console.log("Removed User : ", docs);
             user_1.default.register(editUser, req.body.password, function (err) {
                 if (err) {
                     console.error(err.name);
                     req.flash('registerMessage', 'Server Error');
+                    throw err;
                 }
-                console.log("User Recreation Successfully.");
+                else {
+                    console.log("New User : ", editUser);
+                    console.log("User Recreation Successfully.");
+                }
                 return res.redirect('/dentist');
             });
         }
