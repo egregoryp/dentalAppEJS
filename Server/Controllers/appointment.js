@@ -19,36 +19,48 @@ function DisplayDentistAppointments(req, res, next) {
         }
         if (docs.typeOfUser == 'D') {
             dentist_1.default.findOne({ user_id: docs.id }, function (err, dent) {
-                appointment_1.default.find({ Dentist_ID: dent.id }, function (err, appointments) {
-                    if (err) {
-                        return console.error(err);
+                dentist_1.default.countDocuments({ user_id: docs.id }, function (err, count) {
+                    if (count <= 0) {
+                        res.redirect("/edituser");
                     }
-                    else {
-                        res.render("appointment/dentistAppointment", {
-                            title: "Appointments",
-                            page: "appointment",
-                            displayName: (0, Util_1.UserDisplayName)(req),
-                            userType: (0, Util_1.TypeOfUser)(req),
-                            appointmentList: appointments
-                        });
-                    }
+                    appointment_1.default.find({ Dentist_ID: dent.id }, function (err, appointments) {
+                        if (err) {
+                            return console.error(err);
+                        }
+                        else {
+                            res.render("appointment/dentistAppointment", {
+                                title: "Appointments",
+                                page: "appointment",
+                                displayName: (0, Util_1.UserDisplayName)(req),
+                                userType: (0, Util_1.TypeOfUser)(req),
+                                appointmentList: appointments
+                            });
+                        }
+                    });
                 });
             });
         }
         else {
             patient_1.default.findOne({ user_id: docs.id }, function (err, pat) {
-                appointment_1.default.find({ Patient_ID: pat.id }, function (err, appointments) {
-                    console.log(appointments);
-                    if (err) {
-                        return console.error(err);
+                patient_1.default.countDocuments({ user_id: docs.id }, function (err, count) {
+                    if (count <= 0) {
+                        res.redirect("/edituser");
                     }
                     else {
-                        res.render("appointment/userAppointment", {
-                            title: "Appointments",
-                            page: "userAppointment",
-                            displayName: (0, Util_1.UserDisplayName)(req),
-                            userType: (0, Util_1.TypeOfUser)(req),
-                            appointmentList: appointments
+                        appointment_1.default.find({ Patient_ID: pat.id }, function (err, appointments) {
+                            console.log(appointments);
+                            if (err) {
+                                return console.error(err);
+                            }
+                            else {
+                                res.render("appointment/userAppointment", {
+                                    title: "Appointments",
+                                    page: "userAppointment",
+                                    displayName: (0, Util_1.UserDisplayName)(req),
+                                    userType: (0, Util_1.TypeOfUser)(req),
+                                    appointmentList: appointments
+                                });
+                            }
                         });
                     }
                 });
@@ -63,14 +75,22 @@ function DisplayBookAppointment(req, res, next) {
             return console.error(err);
         }
         else {
-            res.render("appointment/bookAppointments", {
-                title: "appointments",
-                page: "appointments",
-                displayName: (0, Util_1.UserDisplayName)(req),
-                typeUser: (0, Util_1.TypeOfUser)(req),
-                user: (0, Util_1.UserName)(req),
-                userID: (0, Util_1.UserID)(req),
-                dentist: dentists,
+            let id = (0, Util_1.UserID)(req);
+            patient_1.default.countDocuments({ user_id: id }, function (err, count) {
+                if (count <= 0) {
+                    res.redirect("/edituser");
+                }
+                else {
+                    res.render("appointment/bookAppointments", {
+                        title: "appointments",
+                        page: "appointments",
+                        displayName: (0, Util_1.UserDisplayName)(req),
+                        typeUser: (0, Util_1.TypeOfUser)(req),
+                        user: (0, Util_1.UserName)(req),
+                        userID: (0, Util_1.UserID)(req),
+                        dentist: dentists,
+                    });
+                }
             });
         }
     });
@@ -82,6 +102,9 @@ function ProcessBookAppointment(req, res, next) {
     patient_1.default.findOne({ user_id: u_id }, function (err, pat) {
         if (err) {
             console.log(err);
+        }
+        if (pat.id === null) {
+            res.redirect("/profile");
         }
         dentist_1.default.findOne({ _id: dentist_id }, function (err, dent) {
             if (err) {

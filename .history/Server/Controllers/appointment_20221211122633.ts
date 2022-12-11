@@ -99,8 +99,11 @@ export function DisplayDentistAppointments(
                 });
               }
             })
-
+           
+           
           })
+
+        
         }
     });
   }
@@ -116,15 +119,15 @@ export function DisplayDentistAppointments(
         return console.error(err);
       } else {
         
-        let id =   UserID(req);
-
-        patient.countDocuments( {user_id: id }, function (err:CallbackError, count:any) 
-        {
-          if (count<=0)
-          {
-            res.redirect("/edituser");
-          }
-          else{
+        // converting dates to EDT timezone
+        // for (let i=0; i < dentist.length; i++){                       
+        //   console.log(dentist[i].Start_Date);
+        //   console.log(dentist[i].Start_Date.toISOString());            
+  
+        //   console.log(dentist[i].End_Date);            
+        //   console.log(dentist[i].End_Date.toISOString());            
+        // }           
+  
         res.render("appointment/bookAppointments", {
           title: "appointments",
           page: "appointments",
@@ -133,9 +136,8 @@ export function DisplayDentistAppointments(
           user: UserName(req),
           userID: UserID(req),
           dentist: dentists,
-        });   
-      }            
-      });
+        });               
+        
       }
     });
   }
