@@ -40,7 +40,7 @@ function DisplayDentistAppointments(req, res, next) {
                 });
             });
         }
-        else {
+        else if (docs.typeOfUser == 'P') {
             patient_1.default.findOne({ user_id: docs.id }, function (err, pat) {
                 patient_1.default.countDocuments({ user_id: docs.id }, function (err, count) {
                     if (count <= 0) {
@@ -61,7 +61,7 @@ function DisplayDentistAppointments(req, res, next) {
                                     appointmentList: appointments
                                 });
                             }
-                        });
+                        }).sort({ Appointment_Date: -1 });
                     }
                 });
             });

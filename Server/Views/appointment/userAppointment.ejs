@@ -36,33 +36,47 @@
               
                 <table class="table table-striped">
               <!-- <table class="table table-bordered table-striped table-hover"> -->
-                <thead>
-                  <tr>                     
-                    
-                    
-                      <th class="text-center"></th>     
-                      <th class="text-center"></th>
-                      
-                    
-                  </tr>
+                  <thead>
+                    <tr>                                         
+                      <th class="text-center">DATE</th>
+                      <th class="text-center">REASON</th>
+                      <th class="text-center">DOCTOR</th>     
+                      <th class="text-center"></th>                    
+                    </tr>
                   </thead>
                   <tbody>
                   <!-- Template Row -->
                
                   <tr>
-                    <td class="text-center">Test</td>               
+                    <%
+                      let index = 0;  
+                      const now = new Date();
+                      // console.log(now);                      
 
-                    <td class="text-center">
-                      <a
-                      href="/"
-                      id="answerButton"
-                      role="button"
-                      class="btn btn-success btn-sm edit"
-                    >
-                    <i class="fa-solid fa-pen-to-square"></i><span class="btn-text"> Edit / Cancel</span>
-                    </a>
-                    </td>
+                      for (let count = 0; count < appointmentList.length; count++) { 
+                        if( appointmentList[count].Appointment_Date > now){
+                          // console.log(appointmentList[count].Appointment_Date);
+                          index++;
+                        };
+                      }
 
+                      for (let count = 0; count < index; count++) { %> 
+                          <tr>
+                            <td class="text-center" data-toggle="popover" title="<%= getFormatDate(appointmentList[count].Appointment_Date, 1) %>"><%= getFormatDate(appointmentList[count].Appointment_Date, 1) %></td>                                 
+                            <td class="text-center"><%=appointmentList[count].Subject %></td> 
+                            <td class="text-center"><%=appointmentList[count].Dentist_name %></td> 
+                            <td class="text-center">
+                            <a
+                            href="appointment/details/<%=appointmentList[count]._id%>"
+                            id="answerButton"
+                            role="button"
+                            class="btn btn-success btn-sm edit"
+                          >
+                          <i class="fa-solid fa-pen-to-square"></i><span class="btn-text"> Edit / Cancel</span>
+                          </a>
+                          </td>
+                          </tr>
+                    <% } %> 
                   </tr>
                   
                 </tbody>
@@ -79,38 +93,23 @@
                 <table class="table table-striped">
               <!-- <table class="table table-bordered table-striped table-hover"> -->
                 <thead>
-                  <tr>                     
-                    
+                  <tr>                                         
                     <th class="text-center">DATE</th>
                     <th class="text-center">REASON</th>
                     <th class="text-center">DOCTOR</th>     
-                    <th class="text-center"></th>
-                    
+                    <th class="text-center"></th>                    
                   </tr>
-                  </thead>
-                  <tbody>
-                  <!-- Template Row -->
-               
-                  <% for (let count = 0; count < appointmentList.length; count++) { %>
-                    <tr>
-                      <td class="text-center" data-toggle="popover" title="<%= getFormatDate(appointmentList[count].Appointment_Date, 1) %>"><%= getFormatDate(appointmentList[count].Appointment_Date, 1) %></td>                                 
-                      <td class="text-center"><%=appointmentList[count].Subject %></td> 
-                      <td class="text-center"><%=appointmentList[count].Dentist_name %></td> 
-                                 
-
-                    <td class="text-center">
-                      <a
-                      href="appointment/details/<%=appointmentList[count]._id%>"
-                      id="answerButton"
-                      role="button"
-                      class="btn btn-success btn-sm edit"
-                    >
-                    <i class="fa-solid fa-pen-to-square"></i><span class="btn-text"> Edit / Cancel</span>
-                    </a>
-                    </td>
-                    </tr>
-                    <% } %>
-                  
+                </thead>
+                <tbody>                  
+                  <%  for (let count = index; count < appointmentList.length; count++) { %> 
+                      <tr>
+                        <td class="text-center" data-toggle="popover" title="<%= getFormatDate(appointmentList[count].Appointment_Date, 1) %>"><%= getFormatDate(appointmentList[count].Appointment_Date, 1) %></td>                                 
+                        <td class="text-center"><%=appointmentList[count].Subject %></td> 
+                        <td class="text-center"><%=appointmentList[count].Dentist_name %></td> 
+                        <td class="text-center">                        
+                        </td>
+                      </tr>
+                  <% } %>                   
                 </tbody>
               </table>
             </div>

@@ -71,7 +71,7 @@ export function DisplayDentistAppointments(
           })
               
           });
-        } else {
+        } else if (docs.typeOfUser =='P') {
 
           patient.findOne( {user_id: docs.id }, function (err:CallbackError, pat:any)
           {
@@ -96,7 +96,7 @@ export function DisplayDentistAppointments(
                     })
                   
                   }            
-                });
+                }).sort( { Appointment_Date: -1 } );
               }
             })
 
