@@ -117,7 +117,7 @@ function ProcessBookAppointment(req, res, next) {
                 let newAppointment = new appointment_1.default({
                     Subject: req.body.subject,
                     Dentist_ID: dentist_id,
-                    Dentist_name: dentuser.username,
+                    Dentist_name: dentuser.DisplayName,
                     Patient_ID: pat.id,
                     Patient_Name: (0, Util_1.UserDisplayName)(req),
                     type: '',

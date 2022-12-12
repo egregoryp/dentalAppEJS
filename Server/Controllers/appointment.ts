@@ -180,7 +180,7 @@ export function DisplayDentistAppointments(
         let newAppointment = new appointment({
           Subject: req.body.subject,
           Dentist_ID: dentist_id, 
-          Dentist_name: dentuser.username,
+          Dentist_name: dentuser.DisplayName,
           Patient_ID: pat.id,
           Patient_Name: UserDisplayName(req),
           type: '',       
