@@ -22,6 +22,11 @@ import express from "express";
 
 import { UserDisplayName, TypeOfUser, UserID } from "../Util";
 
+import appointment from "../Models/appointment";
+import User from "../Models/user";
+import patient from "../Models/patient";
+import dentist from "../Models/dentist";
+
 import sgMail from "@sendgrid/mail";
 
 export function DisplayHomePage(
@@ -61,15 +66,113 @@ export function DisplayCalendarPage(
   res: express.Response,
   next: express.NextFunction
 ) {
-  res.render("content/calendar", {
-    title: "Calendar",
-    page: "calendar",
-    displayName: UserDisplayName(req),
-    userType: TypeOfUser(req),
-    userID: UserID(req),
-    surveys: "",
+
+  let id = UserID(req);
+  
+  User.findOne({_id: id }, function (err:any, docs:any) {
+    if (err){
+    console.log(err)
+    }
+      if (docs.typeOfUser =='D') {
+
+        dentist.findOne({user_id: docs.id }, function (err:any, dent:any)
+         {
+
+          dentist.countDocuments( {user_id: docs.id }, function (err:any, count:any) 
+          {
+            if (count<=0)
+            {
+              res.redirect("/edituser");
+            }
+            //appointment.find({Dentist_ID: dent.id }, { Subject: 1, Appointment_Date: 1, _id: 0}, function(err: any, appointments: any){
+            appointment.aggregate([  
+              {
+                "$project":   {     
+                  _id : 0 ,             
+                  "title": {
+                    "$toString": "$Subject"
+                  },
+                  "start": {
+                    "$dateToString": { format: "%Y-%m-%d", date: "$Appointment_Date" }                     
+                  }                  
+                }
+              }
+              ]).exec((err, appointments) => {
+              if (err) {
+                return console.error(err);
+              } else {
+                let apCalendarArr = [];                
+                  
+                console.log(appointments);
+
+                // appointments.forEach(function(value: any){
+                //   console.log(value);     
+                //   apCalendarArr.push(value);
+                // })
+
+                res.render("content/calendar", {
+                  title: "Calendar",
+                  page: "calendar",
+                  displayName: UserDisplayName(req),
+                  userType: TypeOfUser(req),
+                  userID: UserID(req),
+                  appointmentList: appointments
+                });
+              
+            }
+          })
+        })
+            
+        });
+      } else if (docs.typeOfUser =='P') {
+
+        patient.findOne( {user_id: docs.id }, function (err:any, pat:any)
+        {
+          patient.countDocuments( {user_id: docs.id }, function (err:any, count:any) 
+          {
+            if (count<=0)
+            {
+              res.redirect("/edituser");
+            }
+            else{
+              appointment.find({Patient_ID: pat.id}, { Subject: 1, Appointment_Date: 1, _id: 0}, function(err: any, appointments: any){
+                console.log(appointments);
+                if (err) {
+                  return console.error(err);
+                } else {
+                  res.render("content/calendar", {
+                    title: "Calendar",
+                    page: "calendar",
+                    displayName: UserDisplayName(req),
+                    userType: TypeOfUser(req),
+                    userID: UserID(req),
+                    appointmentList: appointments
+                  });
+                
+                }            
+              }).sort( { Appointment_Date: -1 } );
+            }
+          })
+
+        })
+      }
   });
 }
+
+// export function DisplayCalendarPage(
+//   req: express.Request,
+//   res: express.Response,
+//   next: express.NextFunction
+// ) {
+//   res.render("content/calendar", {
+//     title: "Calendar",
+//     page: "calendar",
+//     displayName: UserDisplayName(req),
+//     userType: TypeOfUser(req),
+//     userID: UserID(req),
+//     surveys: "",
+//   });
+// }
 
 export function DisplayServicesPage(
   req: express.Request,

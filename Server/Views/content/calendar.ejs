@@ -19,79 +19,46 @@
   <head>
     <meta charset='utf-8' />
     <link href='fullcalendar/main.css' rel='stylesheet' />
-    <script src='fullcalendar/main.js'></script>
-    <script>
+    <script src='fullcalendar/main.js'></script>    
+    <script>                      
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    initialDate: '2022-11-07',
-    headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
-    },
-    events: [
-      {
-        title: 'Dental Appointment',
-        start: '2022-11-01'
-      },
-      {
-        title: 'Smile reconstruction surgery procedure',
-        start: '2022-11-07',
-        end: '2022-11-10'
-      },
-      {
-        groupId: '999',
-        title: 'Braces check up',
-        start: '2022-11-09T16:00:00'
-      },
-      {
-        groupId: '999',
-        title: 'Braces check up',
-        start: '2022-11-16T16:00:00'
-      },
-      {
-        title: 'Internal Management Meeting',
-        start: '2022-11-11',
-        end: '2022-11-13'
-      },
-      {
-        title: 'Meeting with head office',
-        start: '2022-11-12T10:30:00',
-        end: '2022-11-12T12:30:00'
-      },
-      {
-        title: 'Lunch event with all dentists',
-        start: '2022-11-12T12:00:00'
-      },
-      {
-        title: 'Dental Cleaning',
-        start: '2022-11-12T14:30:00'
-      },
-      {
-        title: 'Tooth Extraction',
-        start: '2022-11-13T07:00:00'
-      },
-      {
-        title: 'Dental cleaning test',
-        start: '2022-12-14T11:06:00'
-      },
-      {
-        title: 'Click for Youtube',
-        url: 'http://youtube.com/',
-        start: '2022-11-28'
-      }
-    ]
-  });
-  calendar.render();
+                                                              initialView: 'dayGridMonth',
+                                                              initialDate: '2022-11-07',
+                                                              headerToolbar: {
+                                                                left: 'prev,next today',
+                                                                center: 'title',
+                                                                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                                                              },
+                                                              events: 
+                                                              [
+                                                                {
+                                                                  title: 'Teeth cleaning',
+                                                                  start: '2022-12-23'
+                                                                },
+                                                                {
+                                                                  title: '2 Cavities',
+                                                                  start: '2022-12-07'
+                                                                },
+                                                                {
+                                                                  title: 'wisdom tooth extraction',
+                                                                  start: '2022-12-04'
+                                                                },
+                                                                {
+                                                                  title: 'My tooth is aching',
+                                                                  start: '2023-01-12'
+                                                                }
+                                                              ]
+                                                            });
+        calendar.render();
       });
     </script>
   </head>
   <body>
     <%- include('../partials/header.ejs'); %>
     <div class="container">
-      <div id='calendar'></div>
+      <div id='calendar'> </div>
     </div>
     
     <%- include('../partials/footer.ejs'); %>
