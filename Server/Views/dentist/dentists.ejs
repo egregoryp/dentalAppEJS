@@ -87,7 +87,7 @@
 
                     <td class="text-center">
                       <a
-                      href="/statistics/<%=surveys[count]._id %>"
+                      href="/statistics/<%=dentists[count]._id %>"
                       id="statButton"
                       role="button"
                       class="btn btn-secondary btn-sm statistics"
@@ -97,7 +97,7 @@
                     <% if(displayName && typeUser == "P") { %>
                       <td class="text-center">
                         <a
-                        href="/appointment/appointments/<%=surveys[count]._id %>"
+                        href="/appointment/appointments/<%=dentists[count]._id %>"
                         id="answerButton"
                         role="button"
                         class="btn btn-success btn-sm edit"
@@ -105,21 +105,11 @@
                       <i class="fa-solid fa-pen-to-square"></i><span class="btn-text"> Book Appointment</span>
                       </a>
                       </td>
-                    <% } else if(displayName && typeUser != "P" && typeUser != '') { %>                                                        
-                      <td class="text-center">
-                        <a
-                        href="/dentist/<%=surveys[count]._id %>"
-                        id="editButton"
-                        role="button"
-                        class="btn btn-primary btn-sm edit"                      
-                      >
-                        <i class="fa-solid fa-pen-to-square"></i><span class="btn-text"> Edit</span>
-                      </a>
-                      </td>
+                    <% } else if(displayName && typeUser == 'A' && 1==2) { %>                                                                             
     
                       <td class="text-center">
                         <a
-                        href="/dentist/delete/<%=surveys[count]._id %>"
+                        href="/appointment/deleteDentist/<%=dentists[count]._id %>"
                         id="delButton"
                         role="button"
                         class="btn btn-danger btn-sm delete"

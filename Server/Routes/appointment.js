@@ -15,4 +15,5 @@ router.post('/appointments/:id', Util_1.AuthGuard, appointment_1.ProcessBookAppo
 router.get('/delete/:id', Util_1.AuthGuard, appointment_1.ProcessDeletePage);
 router.get('/details/:id', Util_1.AuthGuard, appointment_1.DisplayDetailsAppointment);
 router.post('/details/:id', Util_1.AuthGuard, appointment_1.ProcessDetailsAppointment);
+router.post('/deleteDentist/:id', Util_1.AuthGuard, appointment_1.ProcessDeleteDentistPage);
 //# sourceMappingURL=appointment.js.map

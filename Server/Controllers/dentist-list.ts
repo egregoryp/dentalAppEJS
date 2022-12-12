@@ -27,13 +27,9 @@ import { CallbackError, Collection } from "mongoose";
 
 import User from "../Models/user";
 
-import appointment from "../Models/appointment";
+import patient from "../Models/patient";
 
 import dentist from "../Models/dentist";
-
-import question from "../Models/question";
-
-import response from "../Models/response";
 
 import { UserDisplayName, UserName, TypeOfUser, UserID, getFormattedDate, getEDTDate, convertUTCEDTDate } from "../Util";
 
@@ -162,7 +158,7 @@ export function DisplayDentistList(
               let dentistPatientUser;
               let dentistUserArr = [];
 
-              // console.log(dentistAdd);
+              console.log(dentistAdd);
 
               for (let i = 0; i < dentistAdd.length; i++) {
                 dUser = {
@@ -354,143 +350,43 @@ export function DisplayDentistList(
 //   });
 // }
 
-export function DisplayEditDentistPage(
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) {
-  let id = req.params.id;
+// export function DisplayEditDentistPage(
+//   req: express.Request,
+//   res: express.Response,
+//   next: express.NextFunction
+// ) {
+//   let id = req.params.id;
 
-  dentist.findById(id, function (err: CallbackError, dentists: any) {
-    if (err) {
-      console.log(err);
-      res.end(err);
-    }
+//   dentist.findById(id, function (err: CallbackError, dentists: any) {
+//     if (err) {
+//       console.log(err);
+//       res.end(err);
+//     }
 
-    User.find(
-      { _id: dentists.user_id },
-      function (err: CallbackError, questions: any) {
-        if (err) {
-          console.log(err);
-          res.end(err);
-        }
+//     User.find(
+//       { _id: dentists.user_id },
+//       function (err: CallbackError, questions: any) {
+//         if (err) {
+//           console.log(err);
+//           res.end(err);
+//         }
 
-        //console.log(dentists);
-        //console.log(questions);
+//         //console.log(dentists);
+//         //console.log(questions);
 
-        res.render("dentist/details", {
-          title: "Edit dentist",
-          page: "details",          
-          displayName: UserDisplayName(req),
-          typeUser: TypeOfUser(req),
-          user: UserName(req),   
-          userID: UserID(req),          
-          dentists: dentists
-        });
-      }
-    );
-  });
-}
+//         res.render("dentist/details", {
+//           title: "Edit dentist",
+//           page: "details",          
+//           displayName: UserDisplayName(req),
+//           typeUser: TypeOfUser(req),
+//           user: UserName(req),   
+//           userID: UserID(req),          
+//           dentists: dentists
+//         });
+//       }
+//     );
+//   });
+// }
 
-export function ProcessEditDentistPage(
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) {
-  let id = req.params.id;
-
-  let start_date = new Date(req.body.startDate);   
-  let edtStartDate  = convertUTCEDTDate(start_date);
-
-  let end_date = new Date(req.body.endDate);   
-  let edtEndDate  = convertUTCEDTDate(end_date);
-  
-  let edtDateTime = getEDTDate(false);
-  
-  // console.log(end_date);
-  // console.log(edtEndDate);
-  // console.log(edtDateTime);
-
-  let itsActive;
-
-  if (edtEndDate < edtDateTime) {
-    itsActive = false;
-  } else {
-    itsActive = Boolean(req.body.activeSurvey);
-  }
-
-  let dentistFound = new appointment({
-    _id: id,
-    Name: req.body.name,
-    Owner: UserDisplayName(req),
-    OwnerUserName: UserName(req),
-    isActive: itsActive,
-    type: req.body.type,
-    Start_Date: edtStartDate, //Start_Date: req.body.startDate,
-    End_Date: edtEndDate      //End_Date: req.body.endDate,
-  });
-
-  appointment.updateOne({ _id: id }, dentistFound, (err: CallbackError) => {
-    if (err) {
-      console.error(err);
-      res.end(err);
-    }
-  });
-
-  let questionFound = [];
-  questionFound.push(req.body.q1);
-  questionFound.push(req.body.q2);
-  questionFound.push(req.body.q3);
-  questionFound.push(req.body.q4);
-  questionFound.push(req.body.q5);
-
-  //converting dentistID to object
-  let qid = new mongoose.Types.ObjectId(id);
-
-  question.findOneAndUpdate(
-    { Survey_ID: qid },
-    { question: questionFound },
-    function (err: CallbackError, docs: any) {
-      if (err) {
-        console.error(err);
-        res.end(err);
-      }
-
-      // if no error will continue and go back to the dentists
-      res.redirect("/dentist");
-    }
-  );
-}
-
-export function ProcessDeleteDentistPage(
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) {
-  let id = req.params.id;
-  dentist.remove({ _id: id }, function (err: CallbackError) {
-    if (err) {
-      console.error(err);
-      res.end(err);
-    }
-  });
-
-  //converting dentistID to object
-  //let qid = new mongoose.Types.ObjectId(id);
-
-  User.findOneAndUpdate(
-    { user_id: id },
-    { typeOfUser: "" },
-    function (err: CallbackError, docs: any) {
-      if (err) {
-        console.error(err);
-        res.end(err);
-      }
-
-      res.redirect("/dentist");
-    }
-  );
-  
-}
 
 export default router;

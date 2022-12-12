@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessDetailsAppointment = exports.DisplayDetailsAppointment = exports.ProcessDeletePage = exports.ProcessBookAppointment = exports.DisplayBookAppointment = exports.DisplayDentistAppointments = void 0;
+exports.ProcessDeleteDentistPage = exports.ProcessDetailsAppointment = exports.DisplayDetailsAppointment = exports.ProcessDeletePage = exports.ProcessBookAppointment = exports.DisplayBookAppointment = exports.DisplayDentistAppointments = void 0;
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const appointment_1 = __importDefault(require("../Models/appointment"));
@@ -189,4 +189,33 @@ function ProcessDetailsAppointment(req, res, next) {
     });
 }
 exports.ProcessDetailsAppointment = ProcessDetailsAppointment;
+function ProcessDeleteDentistPage(req, res, next) {
+    let id = req.params.id;
+    let typeOfUser = (0, Util_1.TypeOfUser)(req);
+    let userID = (0, Util_1.UserID)(req);
+    if (typeOfUser == 'D') {
+        dentist_1.default.remove({ user_id: id }, function (err) {
+            if (err) {
+                console.error(err);
+                res.end(err);
+            }
+        });
+    }
+    else if (typeOfUser == 'P') {
+        patient_1.default.remove({ user_id: id }, function (err) {
+            if (err) {
+                console.error(err);
+                res.end(err);
+            }
+        });
+    }
+    user_1.default.findOneAndUpdate({ user_id: id }, { typeOfUser: "" }, function (err, docs) {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+        res.redirect("/appointment");
+    });
+}
+exports.ProcessDeleteDentistPage = ProcessDeleteDentistPage;
 //# sourceMappingURL=appointment.js.map

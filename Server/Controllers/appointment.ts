@@ -294,3 +294,43 @@ export function ProcessDetailsAppointment(
 
  
 }
+
+export function ProcessDeleteDentistPage(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  let id = req.params.id;
+  let typeOfUser = TypeOfUser(req);  
+  let userID = UserID(req);  
+
+  if (typeOfUser=='D'){
+    dentist.remove({ user_id: id }, function (err: CallbackError) {
+      if (err) {
+        console.error(err);
+        res.end(err);
+      }
+    });
+  } else if (typeOfUser=='P'){
+    patient.remove({ user_id: id }, function (err: CallbackError) {
+      if (err) {
+        console.error(err);
+        res.end(err);
+      }
+    });
+  }
+  
+  User.findOneAndUpdate(
+    { user_id: id },
+    { typeOfUser: "" },
+    function (err: CallbackError, docs: any) {
+      if (err) {
+        console.error(err);
+        res.end(err);
+      }
+
+      res.redirect("/appointment");
+    }
+  );
+  
+}

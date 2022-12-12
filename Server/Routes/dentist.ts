@@ -26,7 +26,9 @@ import { AuthGuard, AuthGuardEditDelete } from '../Util';
 const router = express.Router();
 export default router;
 
-import { DisplayDentistList, DisplayEditDentistPage, ProcessEditDentistPage, ProcessDeleteDentistPage } from "../Controllers/dentist-list";
+import { DisplayDentistList } from "../Controllers/dentist-list";
+
+// import { ProcessDeleteDentistPage } from "../Controllers/appointment";
 
 /* GET books List page. READ */
 router.get('/', DisplayDentistList);
@@ -39,12 +41,9 @@ router.get('/home', DisplayDentistList);
 // router.post('/add', AuthGuard, ProcessAddDentistPage);
 
 // GET the Book Details page in order to edit an existing Book
-router.get('/:id', AuthGuardEditDelete, DisplayEditDentistPage);
-
-// POST - process the information passed from the details form and update the document
-router.post('/:id', AuthGuardEditDelete, ProcessEditDentistPage);
+// router.get('/:id', AuthGuardEditDelete, DisplayEditDentistPage);
 
 // GET - process the delete by user id
-router.get('/delete/:id', AuthGuardEditDelete, ProcessDeleteDentistPage);
+// router.get('/delete/:id', AuthGuardEditDelete, ProcessDeleteDentistPage);
 
 //module.exports = router;

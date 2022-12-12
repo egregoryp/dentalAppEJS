@@ -26,7 +26,7 @@ import { AuthGuard, AuthGuardEditDelete } from '../Util';
 const router = express.Router();
 export default router;
 
-import {DisplayDentistAppointments, DisplayBookAppointment, ProcessBookAppointment, ProcessDeletePage, DisplayDetailsAppointment, ProcessDetailsAppointment} from "../Controllers/appointment";
+import {DisplayDentistAppointments, DisplayBookAppointment, ProcessBookAppointment, ProcessDeletePage, DisplayDetailsAppointment, ProcessDetailsAppointment, ProcessDeleteDentistPage} from "../Controllers/appointment";
 
 
 router.get('/', AuthGuard, DisplayDentistAppointments);
@@ -36,3 +36,4 @@ router.post('/appointments/:id', AuthGuard, ProcessBookAppointment);
 router.get('/delete/:id', AuthGuard, ProcessDeletePage);
 router.get('/details/:id', AuthGuard, DisplayDetailsAppointment);
 router.post('/details/:id', AuthGuard, ProcessDetailsAppointment);
+router.post('/deleteDentist/:id', AuthGuard, ProcessDeleteDentistPage);
