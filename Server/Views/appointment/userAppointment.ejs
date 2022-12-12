@@ -93,7 +93,7 @@
                
                   <% for (let count = 0; count < appointmentList.length; count++) { %>
                     <tr>
-                      <td class="text-center"><%=appointmentList[count].Appointment_Date %></td>               
+                      <td class="text-center" data-toggle="popover" title="<%= getFormatDate(appointmentList[count].Appointment_Date, 1) %>"><%= getFormatDate(appointmentList[count].Appointment_Date, 1) %></td>                                 
                       <td class="text-center"><%=appointmentList[count].Subject %></td> 
                       <td class="text-center"><%=appointmentList[count].Dentist_name %></td> 
                                  

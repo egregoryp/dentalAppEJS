@@ -32,7 +32,7 @@
           <% } %> 
           <br>       
           <%  if(displayName && typeUser != 'P') { %>  
-            <a href="/dentist/add" class="btn btn-primary"><i class="fa fa-plus"></i> Register a Dentist</a>
+            <!-- <a href="/dentist/add" class="btn btn-primary"><i class="fa fa-plus"></i> Register a Dentist</a> -->
           <%  } %>  
           <br>
           <br>
@@ -42,8 +42,14 @@
               <!-- <table class="table table-bordered table-striped table-hover"> -->
                 <thead>
                   <tr>                     
-                    
-                    <th class="text-center">Dentist Name</th>                    
+                    <% if (typeOfUser =='A') { %> 
+                      <th class="text-center">User Name</th>                    
+                      <th class="text-center">User Type</th>                  
+                    <% } else if (typeOfUser =='P') { %> 
+                      <th class="text-center">Patient Name</th>                    
+                    <% } else { %> 
+                      <th class="text-center">Dentist Name</th>                    
+                    <% } %>                     
                     <th class="text-center">Province</th>                  
                     <th class="text-center">Country</th>     
                     <th class="text-center">Specialty</th>                                 
@@ -55,12 +61,26 @@
                     <% } %>      
                   </tr>
                   </thead>
-                  <tbody>
-                  <!-- Template Row -->
-                  <% for (let count = 0; count < dentists.length; count++) { %>
+                  <tbody>                  
+                  <% for (let count = 0; count < dentists.length; count++) { 
+                    
+                    let typeOfUserDesc;
+
+                      //  console.log(dentists[count]);
+                      if (dentists[count].typeOfUser == 'A'){
+                        typeOfUserDesc = 'Administrator';
+                      } else if (dentists[count].typeOfUser == 'P'){
+                        typeOfUserDesc = 'Patient';                      
+                      } else if (dentists[count].typeOfUser == 'D'){
+                        typeOfUserDesc = 'Dentist';
+                      }
+                    
+                    %>
                   <tr>
-                    <td><%= dentists[count].DisplayName %></td>               
-                    <!-- <td class="text-center" data-toggle="popover" title="<%= getFormatDate(surveys[count].Start_Date, true) %>"><%= getFormatDate(surveys[count].Start_Date) %></td> -->                                        
+                    <td><%= dentists[count].DisplayName %></td>       
+                    <% if (typeOfUser =='A') { %> 
+                      <td><%=typeOfUserDesc  %></td>       
+                    <% } %>                             
                     <td class="text-center"><%= dentists[count].province_state %></td>
                     <td class="text-center"><%= dentists[count].country %></td>
                     <td class="text-center"><%= dentists[count].specialty %></td>
@@ -85,7 +105,7 @@
                       <i class="fa-solid fa-pen-to-square"></i><span class="btn-text"> Book Appointment</span>
                       </a>
                       </td>
-                    <% } else if(displayName && typeUser != "P") { %>                                                        
+                    <% } else if(displayName && typeUser != "P" && typeUser != '') { %>                                                        
                       <td class="text-center">
                         <a
                         href="/dentist/<%=surveys[count]._id %>"

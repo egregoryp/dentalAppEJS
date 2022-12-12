@@ -49,7 +49,7 @@ const url_1 = __importDefault(require("url"));
 const dotenv = __importStar(require("dotenv"));
 dotenv.config({ path: path_1.default.resolve(__dirname, '../../variables.env') });
 const app = (0, express_1.default)();
-app.locals.getFormatDate = (inputDate, fullDate = false) => {
+app.locals.getFormatDate = (inputDate, fullDate = 0) => {
     return (0, Util_1.getFormattedDate)(inputDate, fullDate);
 };
 app.locals.TypeOfUserID = (inputID) => {

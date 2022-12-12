@@ -60,7 +60,7 @@ dotenv.config({ path: path.resolve(__dirname, '../../variables.env') });
 const app = express();
 
 //create a helper function to use in ejs files
-app.locals.getFormatDate = (inputDate:Date, fullDate: Boolean=false) =>{
+app.locals.getFormatDate = (inputDate:Date, fullDate: number=0) =>{
   return getFormattedDate(inputDate, fullDate);
 }
 

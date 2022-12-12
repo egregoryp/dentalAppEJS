@@ -55,7 +55,8 @@ function DisplayDentistList(req, res, next) {
                 dUser = {
                     DisplayName: dentistAdd[i].DisplayName,
                     username: dentistAdd[i].username,
-                    EmailAddress: dentistAdd[i].EmailAddress
+                    EmailAddress: dentistAdd[i].EmailAddress,
+                    typeOfUser: dentistAdd[i].typeOfUser
                 };
                 dentistUser = {
                     ...dUser,
@@ -121,7 +122,8 @@ function DisplayDentistList(req, res, next) {
                 dUser = {
                     DisplayName: dentistAdd[i].DisplayName,
                     username: dentistAdd[i].username,
-                    EmailAddress: dentistAdd[i].EmailAddress
+                    EmailAddress: dentistAdd[i].EmailAddress,
+                    typeOfUser: dentistAdd[i].typeOfUser
                 };
                 if (dentistAdd[i].dentist[0]) {
                     dentistPatientUser = {
@@ -188,7 +190,8 @@ function DisplayDentistList(req, res, next) {
                 dUser = {
                     DisplayName: dentistAdd[i].DisplayName,
                     username: dentistAdd[i].username,
-                    EmailAddress: dentistAdd[i].EmailAddress
+                    EmailAddress: dentistAdd[i].EmailAddress,
+                    typeOfUser: dentistAdd[i].typeOfUser
                 };
                 dentistUser = {
                     ...dUser,

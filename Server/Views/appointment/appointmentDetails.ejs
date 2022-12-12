@@ -46,8 +46,8 @@
             </div>  
             <div class="form-group">
               <label for="AppointmentDateTextField">Appointment Date</label>
-              <input type="date" class="form-control" id="AppointmentDateTextField"
-              <%let date= getFormatDate(appointment.Appointment_Date)%>
+              <input type="datetime-local" class="form-control" id="AppointmentDateTextField"
+              <%let date= getFormatDate(appointment.Appointment_Date, 3)%>
               placeholder="25-11-2022" name="appointmentDate" value="<%= date %>" required>
             </div>              
             <div class="form-group">

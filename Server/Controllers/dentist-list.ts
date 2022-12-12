@@ -91,7 +91,8 @@ export function DisplayDentistList(
               dUser = {
               DisplayName: dentistAdd[i].DisplayName,
               username: dentistAdd[i].username,           
-              EmailAddress: dentistAdd[i].EmailAddress              
+              EmailAddress: dentistAdd[i].EmailAddress,
+              typeOfUser: dentistAdd[i].typeOfUser                   
               }
 
               //Creating one object from user - dentist profile
@@ -167,7 +168,8 @@ export function DisplayDentistList(
                 dUser = {
                 DisplayName: dentistAdd[i].DisplayName,
                 username: dentistAdd[i].username,           
-                EmailAddress: dentistAdd[i].EmailAddress              
+                EmailAddress: dentistAdd[i].EmailAddress,
+                typeOfUser: dentistAdd[i].typeOfUser     
                 }
 
                 //Creating one object from user - dentist profile
@@ -241,7 +243,8 @@ export function DisplayDentistList(
           dUser = {
               DisplayName: dentistAdd[i].DisplayName,
               username: dentistAdd[i].username,           
-              EmailAddress: dentistAdd[i].EmailAddress              
+              EmailAddress: dentistAdd[i].EmailAddress,
+              typeOfUser: dentistAdd[i].typeOfUser                   
           }
 
           //Creating one object from user - dentist profile

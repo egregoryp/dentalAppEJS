@@ -50,8 +50,9 @@
                   <% for (let count = 0; count < appointmentList.length; count++) { %>
                     <tr>
                       <td class="text-center"><%=appointmentList[count].Patient_Name %></td>              
-                      <td class="text-center"><%=appointmentList[count].Appointment_Date %></td> 
-                      <td class="text-center"> </td> 
+                      <!-- <td class="text-center"><%=appointmentList[count].Appointment_Date %></td>  -->
+                      <td class="text-center" data-toggle="popover" title="<%= getFormatDate(appointmentList[count].Appointment_Date, 1) %>"><%= getFormatDate(appointmentList[count].Appointment_Date, 2) %></td>
+                      <td class="text-center" data-toggle="popover" title="<%= getFormatDate(appointmentList[count].Appointment_Date, 1) %>"><%= getFormatDate(appointmentList[count].Appointment_Date, 0) %></td>                      
                       <td class="text-center"><%=appointmentList[count].Description %></td> 
                       <td class="text-center">Active</td> 
                          

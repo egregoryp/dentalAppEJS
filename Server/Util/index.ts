@@ -138,7 +138,7 @@ export function AuthGuardEditDelete(req: express.Request, res: express.Response,
     });    
 }
 
-export function getFormattedDate(inputDate: Date, fullDate: Boolean=false): string {    
+export function getFormattedDate(inputDate: Date, fullDate: number=0): string {    
 
   // console.log(fullDate);
 
@@ -150,18 +150,22 @@ export function getFormattedDate(inputDate: Date, fullDate: Boolean=false): stri
   const inputDateF = new Date(dateFromServer.getTime() + localOffsetMillis);
 
   let hoursAMPM;
+  let hoursAMPMilitar;
   let vAMPM;
-  let date_return;
+  let date_return:string="";
     
+  hoursAMPMilitar = inputDateF.getHours();
+
   if (inputDateF.getHours() > 12){
-    hoursAMPM = inputDateF.getHours() - 12;
+    hoursAMPM = inputDateF.getHours() - 12;    
     vAMPM = "PM";
   } else {
     hoursAMPM = inputDateF.getHours();
     vAMPM = "AM";
   }  
 
-  if (fullDate){
+  //date and time
+  if (fullDate==1){
     date_return =
     inputDateF.getFullYear() +
     "-" +    
@@ -174,7 +178,35 @@ export function getFormattedDate(inputDate: Date, fullDate: Boolean=false): stri
     ("0" + inputDateF.getMinutes()).slice(-2) +
     ":" +
     ("0" + inputDateF.getSeconds()).slice(-2)+" "+vAMPM;
-  } else {
+    
+  //Just time
+  } else if (fullDate==2){
+    date_return =
+    ("0" + hoursAMPM).slice(-2) +
+    ":" +
+    ("0" + inputDateF.getMinutes()).slice(-2) +
+    ":" +
+    ("0" + inputDateF.getSeconds()).slice(-2)+" "+vAMPM;
+
+  //Full timezone
+  } else if (fullDate==3){
+
+    console.log(hoursAMPMilitar);
+    date_return =
+    inputDateF.getFullYear() +
+    "-" +    
+    ("0" + (inputDateF.getMonth() + 1)).slice(-2) +
+    "-" +
+    ("0" + inputDateF.getDate()).slice(-2) +    
+    "T" +
+    hoursAMPMilitar +
+    ":" +
+    ("0" + inputDateF.getMinutes()).slice(-2);
+
+    //2018-06-12T19:30
+
+  //Just Date
+  } else if (fullDate==0){
     date_return =
     inputDateF.getFullYear()+ "-" +
     ("0" + (inputDateF.getMonth() + 1)).slice(-2) + "-" +
